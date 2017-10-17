@@ -12,14 +12,13 @@
 
 # :fa-commenting: Notes
 
-
 * Que sí, que ya sé que el amor es ciego. Pero yo no, joder
 * Social Engineering: Because there is no patch for human stupidity.
 * Nobody wants to say how this works.  Maybe nobody knows ...   >> "VIDEOADAPTOR SECTION" on xorg.conf manual ファミコン
 * "This is Unix-Land. In quiet nights, you can hear the Windows machines reboot"
 * "Es prácticamente imposible enseñar programación correctamente a estudiantes que han estado expuestos al lenguaje BASIC con anterioridad.
   Como potenciales programadores, tienen la mente mutilada sin esperanza alguna de regeneración"
-  *Edsger Dijkstra*.
+*Edsger Dijkstra*.
 
 * No extraña que los explotadores de profesión, hayan decidido incluir en sus actividades a la media
 humanidad que les faltaba, pero sorprende que algunas mujeres consideren deseable esta situación:
@@ -31,14 +30,14 @@ a los demás.
 
 * SOFTWARE: Es el espíritu insuflado en la dura mollera de la máquina. A veces, un clásico espíritu
 burlón o poltergeist.
-														 *Arturo Rosby*
+*Arturo Rosby*
 
 * "«Manos a la obra, señor Freeman, manos a la obra. No quiero decir que se haya
 dormido en los laureles en el trabajo. Nadie se merece más un alto en el camino y todos los
 esfuerzos realizados habrí­an sido en vano hasta que... Hmmm... Bueno... Digamos que
 otra vez ha llegado su hora. El hombre adecuado en el sitio equivocado puede cambiar
 el rumbo del mundo. Despierte, señor Freeman. Despierte y huela las cenizas»"
-														*G-Man al comienzo de Half Life 2.*
+*G-Man al comienzo de Half Life 2.*
 
 * Los Grigori (del griego egrḗgoroi, que significa Observadores o vigilantes), también conocidos como
  hijos de Elohim (en hebreo בני האלהים, bnei ha'elohim);

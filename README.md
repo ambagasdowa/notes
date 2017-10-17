@@ -1,2 +1,2 @@
 # notes
-my personal notes
+> my personal *nix notes
