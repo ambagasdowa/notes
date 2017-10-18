@@ -1159,6 +1159,127 @@ If you followed along, you should now have a single server handling two separate
 
 There is no software limit on the number of domain names Apache can handle, so feel free to make as many as your server is capable of handling.
 
+### :fa-code: Improvements FMP
+
+source  https://pehapkari.cz/blog/2017/03/27/multiple-php-versions-the-easy-way/
+In Debian systems , can install both php version 5.6 and 7
+
+### Installing PHP 7.0
+
+Install PHP 7.0 from Debian archive. This will be (sadly) the default version in Stretch, 7.1 came out too late to squeeze into Stretch's timeline. Do this using the following command:
+```bash
+$ apt-get install php7.0-cli php7.0-fpm
+```
+Notice the different pattern of the package name. Older Debian installations used simply php5 whereas newer infrastructure uses phpX.Y. This is the obvious part that efficiently allows us to use multiple PHPs in parallel. With this structure, you can install each of the minor versions next to each other.
+### Installing PHP 5.6
+
+Here's the catch. Debian only offers a single PHP version in the official repository. Fortunately there are packages directly from a maintainer of Debian's PHP packages, Ondřej Surý. Visit his page about packaging to learn more. (There is also a PPA repository in case you'd rather use Ubuntu instead of Debian.)
+
+We'll now add his repository (as well as enable HTTPS for APT and register the APT key):
+```bash
+$ apt-get install apt-transport-https
+$ curl https://packages.sury.org/php/apt.gpg | apt-key add -
+$ echo 'deb https://packages.sury.org/php/ stretch main' > /etc/apt/sources.list.d/deb.sury.org.list
+$ apt-get update
+```
+Now that we have the repository added, we can install the packages from there:
+```bash
+$ apt-get install php5.6-cli php5.6-fpm
+```
+This will install PHP 5.6 in parallel to PHP 7.0 installed earlier. We can check this is true by simply running:
+```bash
+$ php7.0 -v
+PHP 7.0.15-1 (cli)
+$ php5.6 -v
+PHP 5.6.30-5+0~20170223133422.27+stretch~1.gbp1ee0cb (cli)
+```
+Note that for conviniency there is also a php command provided by alternatives (which defaults to the newest version):
+```bash
+$ php -v
+PHP 7.0.15-1 (cli)
+```
+You can switch the default version using update-alternatives, just run the following command and pick the version you prefer:
+
+```bash
+$ update-alternatives --config php
+
+There are 2 choices for the alternative php (providing /usr/bin/php).
+
+  Selection    Path             Priority   Status
+------------------------------------------------------------
+  0            /usr/bin/php7.2   72        auto mode
+* 1            /usr/bin/php5.6   56        manual mode
+  2            /usr/bin/php7.2   72        manual mode
+
+Press <enter> to keep the current choice[*], or type selection number:
+```
+
+install the needed module
+> libapache2-mod-php5.6
+
+or
+> libapache2-mod-php7.2
+
+as default
+
+### Setting up multiple apache2 instances on Ubuntu 16.04
+
+src:https://gist.github.com/aaronbloomfield/92c707631a0191152bc7faf0124fd651
+
+PHP handling on apache is done via modules of one sort or another, and running multiple version is problematic on a single instance.  The solution is to run two instances of apache on the same machine.  This allows one instance to run PHP 7 (the default on 16.04), and another can run PHP 5.  Since normal http/https is on ports 80 and 443, the second instance will run on ports 81 and 444.  Since it is running on the same machine, all file system and database access is the exact same.
+
+All the commands herein have to be run as root, or with `sudo` prefixed to the command.
+
+1. Read /usr/share/doc/apache2/README.multiple-instances
+
+2. Run `sh ./setup-instance php5` from `/usr/share/doc/apache2/examples`, where `php5` is the suffix for the second site; all commands for the second site will have that suffix.  This will keep all of the same configuration for all sites on the new instance, including SSL certificates, other virtual hosts, etc.  After running this command, you will see output like this:
+
+```bash
+Setting up /etc/apache2-php5 ...
+systemd is in use, no init script installed
+use the 'apache2@php5.service' service to control your new instance
+sample commands:
+systemctl start apache2@php5.service
+systemctl enable apache2@php5.service
+Setting up symlinks: a2enmod-php5 a2dismod-php5 a2ensite-php5 a2dissite-php5 a2enconf-php5 a2disconf-php5 apache2ctl-php5
+Setting up /etc/logrotate.d/apache2-php5 and /var/log/apache2-php5 ...
+Setting up /etc/default/apache-htcacheclean-php5
+```
+
+3. Install PHP 5: see http://askubuntu.com/questions/756181/installing-php-5-6-on-xenial-16-04 for the source of the directions for this step
+   - `add-apt-repository ppa:ondrej/php`
+   - `apt-get update`
+   - `apt-get install php5.6 php5.6-mbstring php5.6-mcrypt php5.6-mysql php5.6-xml`
+
+4. Change line 1 of `/etc/apache2-php5/mods-available/php5.load` to use the correct path (likely `/usr/lib/apache2/modules/libphp5.6.so`).  Alternatively, one can use the `php5.6.load` and `php5.6.conf` files installed in `/etc/apache2/mods-available` (these will have to be moved to `/etc/apache2-php5/mods-available`).
+
+5. You may have to configure `/etc/apache2-php5/mods-available/php5.conf` (or `php5.6.conf`), for example, setting `php_admin_flag engine On` for the users' home directories.
+
+6. On the second instance, disable anything that will conflict with the default PHP 5 module; for me this was disabling FastCGI and FPM, but yours may have php7.0; both are listed below.  Also enable PHP 5.  Note that PHP 5 was likely enabled on the default web server via the installation of the php5.6 package, so that needs to be disabled.  Note that depending on what you did in step 4, you may have to replace "php5.6" below with "php5".  Also note that some of these modules and configurations that are being disabled may not exist on your system -- that's fine.
+
+```bash
+a2dismod-php5 php7.0
+a2dismod-php5 fastcgi
+a2enmod-php5 php5.6
+a2disconf-php5 php7.0-fpm
+a2dismod-php5 proxy_fcgi
+a2dismod php5.6
+```
+
+7. ~~Remove /etc/apache2-php5/userperms.conf, if it exists, and replace with empty file (that is a FastCGI/FPM file, which is not needed in PHP5, which is not being configured here to use FastCGI/FPM).~~ (this was only for my local configuration)
+
+8. Make sure the porst you want to use (81/444 in this example) are available: run `nmap localhost` (you may have to install the `nmap` package first) to see which ports are currently in use.  To find the processes running on a given port, run `lsof -i :81` (replace 81 with the port you are investigating).
+
+9. In /etc/apache-php5/, edit ports.conf, and change ports 80 and 443 to the ports that you want to use (81 and 444, in this example).
+
+10. In /etc/apache-php5/sites-available/, edit 000-default.conf, default-ssl.conf, and any other web site configuration files that you want running on the second instance.  The port numbers have to be changed there as well (from 80/443 to 81/444).
+
+11. Although the new service (`apahce2-php5`) was installed (in `/etc/init.d/`), the system isn't aware of it yet.  To fix this, see the commands listed in `/usr/share/doc/apache2/README.multiple-instances` (which one you use will vary depending on your system).
+
+12. Restart apache2: `service apache2-php5 restart`
+
+At this point, it should work: using the regular ports for http/https (i.e., no port number) will use PHP 7.  Using ports 81/444 for http/https, respectively, will use PHP 5.  For example: http://example.com:81/phpinfo.php and https://example.com:444/phpinfo.php.
+
 
 ### Configure connection from LAMP to MSSQL
 
@@ -1376,7 +1497,7 @@ git pull
 ```
 
 
-# :fa-file-pdf: == Pdf section ==
+# :fa-file-pdf: Pdf section
 
 * Merge PDF files with PHP
 
@@ -1456,6 +1577,19 @@ after that run in RichFilemanager dir
 ```bash
   composer update
 ```
+
+#### Add Google repo
+
+* add the key
+```bash
+wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
+```
+
+* then add the repo
+```bash
+echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list
+```
+
 
 #### Composer installation
 
@@ -1593,8 +1727,16 @@ Allowing “Row By Agonizing Row” processing (cursos etc ...)
 Indulging in Nested Views
 It’s not enough that your code is readable: it must perform well too.
 
+## locale
 
+perl: warning: Setting locale failed.
 
+rewrite with
+> sudo locale-gen en_US en_US.UTF-8
+
+or reconfigure the package
+
+> sudo dpkg-reconfigure locales
 
 
 ## Links
