@@ -1869,17 +1869,49 @@ En mi caso y a modo de ejemplo, para deshabilitar el interruptor usado en el
 cierre de la pantalla de un portátil que provoca la suspensión del sistema y o
 la hibernación del servidor, incluso provocaba el cierre de la sesión ssh de
 acceso remoto.
+
 ```ini
     HandleSuspendKey=ignore
     HandleHibernateKey=ignore
     HandleLidSwitch=ignore
 ```    
+
 Guardamos los cambios, reiniciamos el sistema operativo y comprobamos el
 resultado.
 
 
 ## search code with find
 ...
+
+## ls hdd devices by uuid and mount it
+
+make a dir source ex: */media/externalx*
+
+```bash
+ambagasdowa@uruk:~/Github$ sudo lsblk --output NAME,FSTYPE,LABEL,UUID,MODE
+NAME   FSTYPE LABEL       UUID                                 MODE
+sda                                                            brw-rw----
+|-sda1 swap               2d2f3618-a26b-4719-8e70-8d4ef3a88d0f brw-rw----
+|-sda2 ext4               127a8f38-e25e-4dae-ba89-b195af71df70 brw-rw----
+|-sda3                                                         brw-rw----
+`-sda5 ext4               d5abb0c9-3205-4bf4-bf6e-629e95c3af1f brw-rw----
+sdb                                                            brw-rw----
+|-sdb1 swap               fc532612-ead2-4b82-8ac3-72bc1b9ca39f brw-rw----
+|-sdb2                                                         brw-rw----
+|-sdb5 ext4               837dd734-eeba-48a9-a001-e6711c2032a1 brw-rw----
+`-sdb6 ext4               e3ca1ebb-56e5-486c-970d-38be0ef5034d brw-rw----
+sdc                                                            brw-rw----
+`-sdc1 vfat   MYLINUXLIVE D85A-828F                            brw-rw----
+sr0                                                            brw-rw----
+
+```
+in fstab add
+
+```config
+#mount external hdd
+UUID=837dd734-eeba-48a9-a001-e6711c2032a1 /media/externalx auto defaults,noauto 0 1
+UUID=e3ca1ebb-56e5-486c-970d-38be0ef5034d /media/externaly auto defaults,noauto 0 1
+```
 
 ## locale
 
@@ -1938,7 +1970,7 @@ MariaDB [MSSQL]> SELECT City FROM PersonAddress WHERE AddressID = 32521;
 +-----------+
 ```
 
-Because there's no direct equivalent for the SQL Server data type uniqueidentifier.
+Because there is no direct equivalent for the SQL Server data type uniqueidentifier.
 We have to map this type in the rowguid column to a MariaDB VARCHAR type.
 Even though this is the only problematic column, we need to include the others in the CREATE TABLE statement.
 Otherwise, the table would only contain the rowguid column.
