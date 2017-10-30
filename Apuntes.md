@@ -1760,21 +1760,126 @@ pear install HTTP_WebDAV_Client-1.0.2
 ```
 ---
 
+# :fa-android: Android
+
+### udev
+
+Set up a device for development
+
+Before you can start debugging on your device, there are a few things you must do:
+
+    On the device, open the Settings app, select Developer options, and then enable USB debugging.
+    Note: If you do not see Developer options, follow the instructions to enable developer options.
+    Set up your system to detect your device.
+        Windows: Install a USB driver for Android Debug Bridge (adb). For an installation guide and links to OEM drivers, see the Install OEM USB Drivers document.
+        Mac OS X: It just works. Skip this step.
+        Ubuntu Linux: Use apt-get install to install the android-tools-adb package. This gives you a community-maintained default set of udev rules for all Android devices.
+
+        Make sure that you are in the plugdev group. If you see the following error message, adb did not find you in the plugdev group:
+
+        error: insufficient permissions for device: udev requires plugdev group membership
+
+        Use id to see what groups you are in. Use sudo usermod -aG plugdev $LOGNAME to add yourself to the plugdev group.
+
+        The following example shows how to install the Android adb tools package.
+
+        apt-get install android-tools-adb
+
+Try this:
+
+    Create udev rules
+
+    sudo gedit /etc/udev/rules.d/51-android.rules
+
+    Insert this lines, save and exit
+
+    SUBSYSTEM=="usb", ATTR{idVendor}=="1bbb", MODE="0666", GROUP="plugdev"
+
+    Restart udev
+
+    sudo service udev restart
+
+    Enable USB Debug in your phone (In Android 4.2.x and up Developer Options is hidden, to make it visible, do the following)
+        Tap seven times in Build Number: Settings > About Phone > Build Number
+        You will get a message saying you have enabled Developer Options or something like that, go back to Settings and you will see Developer Options in there.
+
+    Connect phone with USB cable
+
+    Open Terminal and type
+
+    adb devices
+
+I have Alcatel OneTouch Pop C7 (7041D)
+
+List of devices attached  
+6H9PY5ZPJV9HO7R4    device
+
+
+# :fa-linux: :fa-apple: :fa-windows: OS-Admin section
+
+### :fa-firefox:
+disable web autoplay in firefox
+set to true this options in about:config
+```html
+  media.autoplay.enabled
+  media.block-autoplay-until-in-foreground
+```
 
 # :fa-terminal: Notes Section
 
-## The Seven Sins against TSQL Performance
+#### monitor off
+El objetivo en cuestión para configurar ese tema es logind.conf y está en
+```bash  
+     /etc/systemd
+```
+No se si es igual en todas las distros o cambia entre unas y otras.
+```bash  
+    sudo nano /etc/systemd/logind.conf
+```
+En este archivo aparecen unas opciones mas que interesantes, no estoy seguro
+al 100% pero creo que se puede aplicar la configuración adecuada para
+cualquier caso editando este archivo, a mi me aparece lo siguiente:
+```ini
+    [Login]
+    #NAutoVTs=6
+    #ReserveVT=6
+    #KillUserProcesses=no
+    #KillOnlyUsers=
+    #KillExcludeUsers=root
+    #InhibitDelayMaxSec=5
+    #HandlePowerKey=poweroff
+    #HandleSuspendKey=suspend
+    #HandleHibernateKey=hibernate
+    #HandleLidSwitch=suspend
+    #HandleLidSwitchDocked=ignore
+    #PowerKeyIgnoreInhibited=no
+    #SuspendKeyIgnoreInhibited=no
+    #HibernateKeyIgnoreInhibited=no
+    #LidSwitchIgnoreInhibited=yes
+    #HoldoffTimeoutSec=30s
+    #IdleAction=ignore
+    #IdleActionSec=30min
+    #RuntimeDirectorySize=10%
+    #RemoveIPC=yes
+```
+Descomentando las linea que queramos usar y cambiándole el atributo adecuado
+que nos interese se consigue la configuración deseada.  
 
-There are seven common antipatterns in TSQL coding that make code perform badly, and three good habits which will generally ensure that your code runs fast. If you learn nothing else from this list of great advice from Grant, just keep in mind that you should 'write for the optimizer'.
+En mi caso y a modo de ejemplo, para deshabilitar el interruptor usado en el
+cierre de la pantalla de un portátil que provoca la suspensión del sistema y o
+la hibernación del servidor, incluso provocaba el cierre de la sesión ssh de
+acceso remoto.
+```ini
+    HandleSuspendKey=ignore
+    HandleHibernateKey=ignore
+    HandleLidSwitch=ignore
+```    
+Guardamos los cambios, reiniciamos el sistema operativo y comprobamos el
+resultado.
 
-Using the wrong data types
-Using Functions in Comparisons within the ON or WHERE Clause
-Employing Multi-Statement User Defined Functions (UDFs)
-The “Run Faster” Switch: Allowing “Dirty Reads’
-Applying Query Hints indiscriminately
-Allowing “Row By Agonizing Row” processing (cursos etc ...)
-Indulging in Nested Views
-It’s not enough that your code is readable: it must perform well too.
+
+## search code with find
+...
 
 ## locale
 
@@ -1786,6 +1891,71 @@ rewrite with
 or reconfigure the package
 
 > sudo dpkg-reconfigure locales
+
+
+# SQL
+
+* Sql notes
+
+#### MariaDB Connect Engine
+
+## Some Connect Engine Notes
+Example: Connect MariaDB on Linux to Microsoft SQL Server
+
+This example uses the tabname option to work around a difference between MariaDB and SQL Server.
+ We want to retrieve some AdventureWorks data stored in the Person.Address table. However,
+ MariaDB does not have the idea of a table schema, and so we will change the name of the table to "PersonAddress" in MariaDB.
+ We specify the actual table name with the tabname, so the SQL Server ODBC driver can pass on the table name that SQL Server recognises.
+```bash
+$ /opt/mariadb/bin/mysql --socket=/opt/mariadb-data/mariadb.sock
+MariaDB [(none)]> CREATE DATABASE MSSQL;
+MariaDB [(none)]> USE MSSQL;
+MariaDB [MSSQL]> INSTALL SONAME 'ha_connect';
+MariaDB [MSSQL]> CREATE TABLE PersonAddress engine=connect
+                                            table_type=ODBC
+                                            tabname='Person.Address'
+                                            Connection='DSN=SQLSERVER_ADVENTUREWORKS;';
+ERROR 1105 (HY000): Unsupported SQL type -11
+MariaDB [MSSQL]> \! grep -- -11 /usr/local/easysoft/unixODBC/include/sqlext.h
+#define SQL_GUID				(-11)
+MariaDB [MSSQL]> CREATE TABLE PersonAddress (  AddressID int,  
+                                                AddressLine1 varchar(60),  
+                                                AddressLine2 varchar(60),
+                                                City varchar(30),
+                                                StateProvinceID int,
+                                                PostalCode varchar(15),
+                                                rowguid varchar(64),
+                                                ModifiedDate datetime )
+                                 engine=connect
+                                 table_type=ODBC
+                                 tabname='Person.Address'
+                                 Connection='DSN=SQLSERVER_SAMPLE;';
+MariaDB [MSSQL]> SELECT City FROM PersonAddress WHERE AddressID = 32521;
++-----------+
+| City      |
++-----------+
+| Sammamish |
++-----------+
+```
+
+Because there's no direct equivalent for the SQL Server data type uniqueidentifier.
+We have to map this type in the rowguid column to a MariaDB VARCHAR type.
+Even though this is the only problematic column, we need to include the others in the CREATE TABLE statement.
+Otherwise, the table would only contain the rowguid column.
+
+
+#### The Seven Sins against TSQL Performance
+
+There are seven common antipatterns in TSQL coding that make code perform badly, and three good habits which will generally ensure that your code runs fast. If you learn nothing else from this list of great advice from Grant, just keep in mind that you should 'write for the optimizer'.
+
+Using the wrong data types
+Using Functions in Comparisons within the ON or WHERE Clause
+Employing Multi-Statement User Defined Functions (UDFs)
+The “Run Faster” Switch: Allowing “Dirty Reads’
+Applying Query Hints indiscriminately
+Allowing “Row By Agonizing Row” processing (cursos etc ...)
+Indulging in Nested Views
+It’s not enough that your code is readable: it must perform well too.
 
 
 ## Links
