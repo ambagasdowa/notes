@@ -1222,6 +1222,16 @@ or
 
 as default
 
+### Enabling error display in php via htaccess only
+
+```init
+php_flag display_startup_errors on
+php_flag display_errors on
+php_flag html_errors on
+php_flag  log_errors on
+php_value error_log  /home/path/public_html/domain/PHP_errors.log
+```
+
 ### Setting up multiple apache2 instances on Ubuntu 16.04
 
 src:https://gist.github.com/aaronbloomfield/92c707631a0191152bc7faf0124fd651
@@ -1880,8 +1890,73 @@ Guardamos los cambios, reiniciamos el sistema operativo y comprobamos el
 resultado.
 
 
+##### set output modes
+xrandr -> view avaliable modes
+```bash
+Screen 0: minimum 320 x 200, current 1366 x 1024, maximum 8192 x 8192
+eDP-1 connected 1366x768+0+0 (normal left inverted right x axis y axis) 309mm x 173mm
+   1366x768      60.06*+
+   1360x768      59.80    59.96  
+   1024x768      60.04    60.00  
+VGA-1 connected primary 1280x1024+0+0 (normal left inverted right x axis y axis) 419mm x 262mm
+  1440x900      59.89 +  74.98  
+  1280x1024     75.02*   70.00    60.02  
+  1280x800      59.81  
+  1152x864      75.00  
+  1024x768      75.03    70.07    60.00  
+```
+then:
+xrandr --output VGA-1 --left-of eDP-1
+xrandr --output VGA-1 --mode 1440x900
+
+## extract Extension and basename
+extract the Extension
+```bash
+${basename##*.}
+```
+and for extract the basename
+
+```bash
+${basename%.*}
+```
+
+## How to decode AAC (.m4a) audio files into WAV?
+
+codecs conversion formats
+
+```bash
+for f in *.m4a; do avconv -i "$f" "${f/%m4a/wav}"; done
+```
+
 ## search code with find
-...
+
+##### Find a pattern inside of several files and extract that file to another dir with his dir structure
+
+```bash
+find ./ -type f -print0 | xargs -0 grep --color RegistroPatronal=\"E6480571109\" | grep -v src | awk -F: '{print $1}' | uniq | grep --color 2016 | xargs cp -v -r --parents --target-directory=/disk/mercenary/token/
+```
+
+ firts find files with pattern
+ second clean output and print firts column that have the path of the file
+ third select only needed files in this case filter by year
+ last copy the file to another path
+ done
+
+##### Find inside in a pdf
+```bash
+find /path -name '*.pdf' -exec sh -c 'pdftotext "{}" - | grep --with-filename --label="{}" --color "your pattern"' \;
+```
+and copy to path
+
+```bash
+find ./ -name '*.pdf' -exec sh -c 'pdftotext "{}" - | grep --with-filename --label="{}" --color "yout pattern"' \; | awk -F: '{print $1}' | xargs cp -vr --parents --target-directory=/your/path/
+```
+
+The "-" is necessary to have pdftotext output to stdout, not to files. The --with-filename and --label= options will put the file name in the output
+of grep. The optional --color flag is nice and tells grep to output using colors on the terminal.
+(In Ubuntu, pdftotext is provided by the package xpdf-utils or poppler-utils.)
+This method, using pdftotext and grep, has an advantage over pdfgrep if you want to use features of GNU grep that pdfgrep doesn't support.
+Note: pdfgrep-1.3.x supports -C option for printing line of context.
 
 ## ls hdd devices by uuid and mount it
 
