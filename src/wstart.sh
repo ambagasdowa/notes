@@ -20,6 +20,9 @@ passwd='pekas'
 echo "$passwd" | sudo -S service nginx stop
 echo "$passwd" | sudo -S service apache2 stop
 echo "$passwd" | sudo -S service apache2 start
+echo "$passwd" | sudo -S service network-manager stop
+# printf "nameserver 8.8.8.8 \nnameserver 8.8.4.4 \n" | sudo tee -a /etc/resolv.conf
+
 
 # echo "$passwd" | sudo -S service virtuoso-opensource-6.1 stop
 # echo "$passwd" | sudo -S service libvirtd stop

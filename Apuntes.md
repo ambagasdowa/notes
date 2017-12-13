@@ -604,6 +604,17 @@ maybe you need install python support in vim
 sudo apt-get install vim-python-jedi
 ```
 
+YouCompleteMe code appended randomly when moving around with arrow keys in insert mode
+
+```viml
+pumvisible() ? "\pumvisible" : "\
+```
+
+This occurs often but randomly and it will persist for the entirety of the session. Loading or creating a different file will not fix the issue. It only goes away if neovim is relaunched.
+Just as a reference to anyone who comes across this with the same issue,  I found that the plugin "Townk/vim-autoclose" was causing the conflict. This plugin is old and hasn't been updated in a while and causes quite a few other conflicts.
+I removed it and used "Raimondi/delimitMate" instead.
+
+
 ```bash
 # check if vim has python
 vim --version | grep --color python
@@ -1537,6 +1548,19 @@ default config as in:
 
 # :fa-github: Git docs
 
+##### update a repo to github
+cd to path
+```bash
+git status
+git add .
+git commit -m "some description"
+git push
+```
+##### Update a repo to local
+
+```bash
+git pull
+```
 
 How to ignore error on git pull about my local changes would be overwritten by merge?
 
@@ -1554,6 +1578,33 @@ This works for me to override all local changes and does not require an identity
 git reset --hard
 git pull
 ```
+
+
+##### You can't merge with local modifications. Git protects you from losing potentially important changes.
+
+You have three options.
+1. Commit the change using
+
+    git commit -m "My message"
+
+2. Stash it.
+
+Stashing acts as a stack, where you can push changes, and you pop them in reverse order.
+
+To stash type:
+
+git stash
+
+Do the merge, and then pull the stash:
+
+git stash pop
+
+3. Discard the local changes
+
+using git reset --hard. or git checkout -t -f remote/branch
+3. a) Discard local changes for a specific file
+
+using git checkout filename
 
 
 # :fa-file-pdf: Pdf section
@@ -1888,6 +1939,67 @@ acceso remoto.
 
 Guardamos los cambios, reiniciamos el sistema operativo y comprobamos el
 resultado.
+
+##### Using Expect and Bash
+Example 1
+```bash
+/usr/bin/expect<<EOF
+spawn sudo xcodebuild -license              
+expect {
+    "*License.rtf" {
+        send "\r";
+    }
+    timeout {
+        send_user "\nExpect failed first expect\n";
+        exit 1;
+    }
+}
+expect {
+    "*By typing 'agree' you are agreeing" {
+        send "agree\r";
+        send_error "\nUser agreed to EULA\n";
+     }
+     "*Press 'space' for more, or 'q' to quit*" {
+         send "q";
+         exp_continue;
+     }
+     timeout {
+         send_error "\nExpect failed second expect\n";
+         exit 1;
+     }
+}
+EOF
+```
+Example 2
+If you want to automate only a part of your script you can call expect inside test.sh like so :
+```bash
+   #!/bin/sh
+
+   echo -n Enter User Id:
+   read userid
+   echo -n "Enter Password for remote user:"
+   read -s password
+   hostname=`hostname`
+
+   expect -c '
+   enter code here
+   spawn ssh ${userid}@'"$hostname"'
+   expect "Password: "
+   send '"$password\r"'
+   expect "$ "
+   send "pbrun su - tibco\r"
+   expect "$ "
+   send "exit\r"
+   expect "$ "
+   send "pbrun bash\r"
+   expect "$ "
+   send "ps -ef |grep apache\r"
+   expect "$ "
+   send "exit\r"
+    '
+```
+
+To access variables set from outside the expect -c you have to use single and double quotes like so: '"$var"'
 
 
 ##### set output modes
