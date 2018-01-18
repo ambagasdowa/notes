@@ -623,6 +623,15 @@ vim --version | grep --color python
 
 * then are you done
 
+#### vim code
+
+##### Deleting form feed ^L characters
+
+```vimrl
+  :%s/^L//g
+```
+
+  will do it. Enter the ^L using ctrl-V ctrl-L
 
 # :fa-music: Audio Section
 
@@ -1169,6 +1178,14 @@ Conclusion
 If you followed along, you should now have a single server handling two separate domain names. You can expand this process by following the steps we outlined above to make additional virtual hosts.
 
 There is no software limit on the number of domain names Apache can handle, so feel free to make as many as your server is capable of handling.
+
+#### User www-data
+ if we need run some command as www-data user then
+
+```bash
+  sudo -u www-data bash-command
+```
+
 
 ### :fa-code: Improvements FMP
 
@@ -1875,6 +1892,35 @@ I have Alcatel OneTouch Pop C7 (7041D)
 List of devices attached  
 6H9PY5ZPJV9HO7R4    device
 
+### :fa-signal: NODE JS Engine
+
+for Install Node.js 9 in Debian:
+```bash
+curl -sL https://deb.nodesource.com/setup_9.x | sudo -E bash -
+sudo apt-get install -y nodejs
+```
+Optional: install build tools
+
+To compile and install native addons from npm you may also need to install build tools:
+```bash
+sudo apt-get install -y build-essential
+```
+
+### :fa-meteor: Install Meteor
+
+```bash
+curl https://install.meteor.com/ | sh
+```
+
+
+#### Update Your npm Version
+
+One final step for good measure is to update the version of npm. There's always a specific version of npm that ships with Node.js. That said, the release cycle of npm is not in sync with the release cycle of Node.js - as such, there's frequently a newer version of npm than the one that comes with Node.
+
+To update your version of npm, simply run the following command:
+```bash
+$ sudo npm install npm --global
+```
 
 # :fa-linux: :fa-apple: :fa-windows: OS-Admin section
 
@@ -2043,6 +2089,10 @@ for f in *.m4a; do avconv -i "$f" "${f/%m4a/wav}"; done
 ## search code with find
 
 ##### Find a pattern inside of several files and extract that file to another dir with his dir structure
+find in code example
+```bash
+find OperacionesPruebastbk/ -type f -iname *.aspx.vb -print0 | xargs -0 grep --color Operador
+```
 
 ```bash
 find ./ -type f -print0 | xargs -0 grep --color RegistroPatronal=\"E6480571109\" | grep -v src | awk -F: '{print $1}' | uniq | grep --color 2016 | xargs cp -v -r --parents --target-directory=/disk/mercenary/token/
@@ -2069,6 +2119,13 @@ of grep. The optional --color flag is nice and tells grep to output using colors
 (In Ubuntu, pdftotext is provided by the package xpdf-utils or poppler-utils.)
 This method, using pdftotext and grep, has an advantage over pdfgrep if you want to use features of GNU grep that pdfgrep doesn't support.
 Note: pdfgrep-1.3.x supports -C option for printing line of context.
+
+#### Get the major size files on top
+
+```bash
+du -h --summarize --total * | sort -rh
+```
+
 
 ## ls hdd devices by uuid and mount it
 
@@ -2100,7 +2157,7 @@ UUID=837dd734-eeba-48a9-a001-e6711c2032a1 /media/externalx auto defaults,noauto 
 UUID=e3ca1ebb-56e5-486c-970d-38be0ef5034d /media/externaly auto defaults,noauto 0 1
 ```
 
-## locale
+  ## locale
 
 perl: warning: Setting locale failed.
 
@@ -2111,6 +2168,127 @@ or reconfigure the package
 
 > sudo dpkg-reconfigure locales
 
+some kind of fix in enviorement
+
+``` bash
+sudo -i
+locale
+export LANGUAGE=en_US.UTF-8; export LANG=en_US.UTF-8; export LC_ALL=en_US.UTF-8; locale-gen en_US.UTF-8
+dpkg-reconfigure locales
+reboot
+
+```
+
+### OpenLuis
+
+``` vbs
+
+Imports System.Data.OleDb         ' Required'
+Imports System.Data.SqlClient
+
+'Partial Class pridesp01_pre_i_despasignarpedidos
+'    Inherits System.Web.UI.Page
+
+'#Region "Propiedades"
+'......'
+'Comes from login for sqlConnection'
+' Public sqlConnection As Data.OleDb.OleDbConnection
+'Comes from login for sqlConnection'
+
+' NOTE Add Check if the "Licencia  de Conducir " is valid
+Public Sub driverLicense(ByVal intOperador As Integer)
+' -- =========================================================================================== --
+' --  Procedimiento de conexion a la base de datos usando la definicion en web.config'
+' -- =========================================================================================== --
+    Dim connectionString As String
+    Dim connection As OleDbConnection
+    connectionString = ConfigurationManager.AppSettings("strConn").ToString
+    connection = New OleDbConnection(connectionString)
+    Dim folio,vence,cdays,id_operador,namae As String
+    id_operador = intOperador
+    Try
+      Dim sqlcmd As OleDbCommand = connection.CreateCommand
+      Dim rdr2 As OleDbDataReader
+
+      sqlcmd.CommandText = "select nombre,folio_licencia,fecha_venclicencia,rfc from personal_personal where id_personal = " & id_operador
+        connection.Open()
+      ' Me.txtgetConnection.Text = "Connected to OLEDB Database  !!"
+      rdr2 = sqlcmd.ExecuteReader
+          While rdr2.Read()
+              ' Response.Write(rdr2.Item("folio_licencia"))
+              ' Response.Write(rdr2.Item("fecha_venclicencia"))
+              namae = rdr2.Item("nombre")
+              folio = rdr2.Item("folio_licencia")
+              vence = rdr2.Item("fecha_venclicencia")
+          End While
+      connection.Close()
+
+      Me.lblError.Text = "ADVERTENCIA : Quedan x dias Al Op. " & namae & " con numero " & id_operador & " para el vencimiento => Lic " & folio & " Vence => " & vence
+      Me.lblError.Visible = True
+
+    Catch ex As Exception
+      ' Me.txtgetConnection.Text = "Could not connect to database " & ex.ToString
+    End Try
+
+' -- =========================================================================================== --
+
+End Sub
+
+Another Approach
+
+' NOTE Add Check if the "Licencia  de Conducir " is valid
+Public Shared Function driverLicense(ByVal intOperador As Integer) as String
+' -- =========================================================================================== --
+' --  Procedimiento de conexion a la base de datos usando la definicion en web.config'
+' -- =========================================================================================== --
+    Dim connectionString As String
+    Dim connection As OleDbConnection
+    connectionString = ConfigurationManager.AppSettings("strConn").ToString
+    connection = New OleDbConnection(connectionString)
+    Dim folio,vence,cdays,id_operador,namae,validations As String
+    id_operador = intOperador
+    Try
+      Dim sqlcmd As OleDbCommand = connection.CreateCommand
+      Dim rdr2 As OleDbDataReader
+
+      sqlcmd.CommandText = "select nombre,folio_licencia,fecha_venclicencia,rfc from personal_personal where id_personal = " & id_operador
+        connection.Open()
+      ' Me.txtgetConnection.Text = "Connected to OLEDB Database  !!"
+      rdr2 = sqlcmd.ExecuteReader
+          While rdr2.Read()
+              ' Response.Write(rdr2.Item("folio_licencia"))
+              ' Response.Write(rdr2.Item("fecha_venclicencia"))
+              namae = rdr2.Item("nombre")
+              folio = rdr2.Item("folio_licencia")
+              vence = rdr2.Item("fecha_venclicencia")
+          End While
+      connection.Close()
+
+      validations = "ADVERTENCIA : Quedan x dias Al Op. " & namae & " con numero " & id_operador & " para el vencimiento => Lic " & folio & " Vence => " & vence
+
+      Return validations
+      ' Me.lblError.Text = validations
+      ' Me.lblError.Visible = True
+    Catch ex As Exception
+      ' Me.txtgetConnection.Text = "Could not connect to database " & ex.ToString
+    End Try
+' -- =========================================================================================== --
+End Function
+
+```
+
+``` asp
+<tr>
+  <td>
+      Validation
+  </td>
+  <td colspan="2">
+      <asp:TextBox ID="txtValidaLic" TabIndex="-1" runat="server" CssClass="desc" ReadOnly="True"
+        BackColor="Transparent" Height="20px">
+      </asp:TextBox>
+  </td>
+</tr>
+```
 
 # SQL
 

@@ -1,0 +1,2304 @@
+<!DOCTYPE html>
+  <html>
+    <head>
+      <title>Apuntes</title>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      
+      <link rel="stylesheet" href="file:////home/ambagasdowa/.atom/packages/markdown-preview-enhanced/node_modules/@shd101wyy/mume/dependencies/katex/katex.min.css">
+      
+      
+      <link rel="stylesheet" href="file:////home/ambagasdowa/.atom/packages/markdown-preview-enhanced/node_modules/@shd101wyy/mume/dependencies/font-awesome/css/font-awesome.min.css">
+      
+      
+      
+      
+      
+      
+
+      <style> 
+      /**
+ * prism.js Github theme based on GitHub's theme.
+ * @author Sam Clarke
+ */
+code[class*="language-"],
+pre[class*="language-"] {
+  color: #333;
+  background: none;
+  font-family: Consolas, "Liberation Mono", Menlo, Courier, monospace;
+  text-align: left;
+  white-space: pre;
+  word-spacing: normal;
+  word-break: normal;
+  word-wrap: normal;
+  line-height: 1.4;
+
+  -moz-tab-size: 8;
+  -o-tab-size: 8;
+  tab-size: 8;
+
+  -webkit-hyphens: none;
+  -moz-hyphens: none;
+  -ms-hyphens: none;
+  hyphens: none;
+}
+
+/* Code blocks */
+pre[class*="language-"] {
+  padding: .8em;
+  overflow: auto;
+  /* border: 1px solid #ddd; */
+  border-radius: 3px;
+  /* background: #fff; */
+  background: #f5f5f5;
+}
+
+/* Inline code */
+:not(pre) > code[class*="language-"] {
+  padding: .1em;
+  border-radius: .3em;
+  white-space: normal;
+  background: #f5f5f5;
+}
+
+.token.comment,
+.token.blockquote {
+  color: #969896;
+}
+
+.token.cdata {
+  color: #183691;
+}
+
+.token.doctype,
+.token.punctuation,
+.token.variable,
+.token.macro.property {
+  color: #333;
+}
+
+.token.operator,
+.token.important,
+.token.keyword,
+.token.rule,
+.token.builtin {
+  color: #a71d5d;
+}
+
+.token.string,
+.token.url,
+.token.regex,
+.token.attr-value {
+  color: #183691;
+}
+
+.token.property,
+.token.number,
+.token.boolean,
+.token.entity,
+.token.atrule,
+.token.constant,
+.token.symbol,
+.token.command,
+.token.code {
+  color: #0086b3;
+}
+
+.token.tag,
+.token.selector,
+.token.prolog {
+  color: #63a35c;
+}
+
+.token.function,
+.token.namespace,
+.token.pseudo-element,
+.token.class,
+.token.class-name,
+.token.pseudo-class,
+.token.id,
+.token.url-reference .token.variable,
+.token.attr-name {
+  color: #795da3;
+}
+
+.token.entity {
+  cursor: help;
+}
+
+.token.title,
+.token.title .token.punctuation {
+  font-weight: bold;
+  color: #1d3e81;
+}
+
+.token.list {
+  color: #ed6a43;
+}
+
+.token.inserted {
+  background-color: #eaffea;
+  color: #55a532;
+}
+
+.token.deleted {
+  background-color: #ffecec;
+  color: #bd2c00;
+}
+
+.token.bold {
+  font-weight: bold;
+}
+
+.token.italic {
+  font-style: italic;
+}
+
+
+/* JSON */
+.language-json .token.property {
+  color: #183691;
+}
+
+.language-markup .token.tag .token.punctuation {
+  color: #333;
+}
+
+/* CSS */
+code.language-css,
+.language-css .token.function {
+  color: #0086b3;
+}
+
+/* YAML */
+.language-yaml .token.atrule {
+  color: #63a35c;
+}
+
+code.language-yaml {
+  color: #183691;
+}
+
+/* Ruby */
+.language-ruby .token.function {
+  color: #333;
+}
+
+/* Markdown */
+.language-markdown .token.url {
+  color: #795da3;
+}
+
+/* Makefile */
+.language-makefile .token.symbol {
+  color: #795da3;
+}
+
+.language-makefile .token.variable {
+  color: #183691;
+}
+
+.language-makefile .token.builtin {
+  color: #0086b3;
+}
+
+/* Bash */
+.language-bash .token.keyword {
+  color: #0086b3;
+}html body{font-family:"Helvetica Neue",Helvetica,"Segoe UI",Arial,freesans,sans-serif;font-size:16px;line-height:1.6;color:#333;background-color:#fff;overflow:initial;box-sizing:border-box;word-wrap:break-word}html body>:first-child{margin-top:0}html body h1,html body h2,html body h3,html body h4,html body h5,html body h6{line-height:1.2;margin-top:1em;margin-bottom:16px;color:#000}html body h1{font-size:2.25em;font-weight:300;padding-bottom:.3em}html body h2{font-size:1.75em;font-weight:400;padding-bottom:.3em}html body h3{font-size:1.5em;font-weight:500}html body h4{font-size:1.25em;font-weight:600}html body h5{font-size:1.1em;font-weight:600}html body h6{font-size:1em;font-weight:600}html body h1,html body h2,html body h3,html body h4,html body h5{font-weight:600}html body h5{font-size:1em}html body h6{color:#5c5c5c}html body strong{color:#000}html body del{color:#5c5c5c}html body a:not([href]){color:inherit;text-decoration:none}html body a{color:#08c;text-decoration:none}html body a:hover{color:#00a3f5;text-decoration:none}html body img{max-width:100%}html body>p{margin-top:0;margin-bottom:16px;word-wrap:break-word}html body>ul,html body>ol{margin-bottom:16px}html body ul,html body ol{padding-left:2em}html body ul.no-list,html body ol.no-list{padding:0;list-style-type:none}html body ul ul,html body ul ol,html body ol ol,html body ol ul{margin-top:0;margin-bottom:0}html body li{margin-bottom:0}html body li.task-list-item{list-style:none}html body li>p{margin-top:0;margin-bottom:0}html body .task-list-item-checkbox{margin:0 .2em .25em -1.8em;vertical-align:middle}html body .task-list-item-checkbox:hover{cursor:pointer}html body blockquote{margin:16px 0;font-size:inherit;padding:0 15px;color:#5c5c5c;border-left:4px solid #d6d6d6}html body blockquote>:first-child{margin-top:0}html body blockquote>:last-child{margin-bottom:0}html body hr{height:4px;margin:32px 0;background-color:#d6d6d6;border:0 none}html body table{margin:10px 0 15px 0;border-collapse:collapse;border-spacing:0;display:block;width:100%;overflow:auto;word-break:normal;word-break:keep-all}html body table th{font-weight:bold;color:#000}html body table td,html body table th{border:1px solid #d6d6d6;padding:6px 13px}html body dl{padding:0}html body dl dt{padding:0;margin-top:16px;font-size:1em;font-style:italic;font-weight:bold}html body dl dd{padding:0 16px;margin-bottom:16px}html body code{font-family:Menlo,Monaco,Consolas,'Courier New',monospace;font-size:.85em !important;color:#000;background-color:#f0f0f0;border-radius:3px;padding:.2em 0}html body code::before,html body code::after{letter-spacing:-0.2em;content:"\00a0"}html body pre>code{padding:0;margin:0;font-size:.85em !important;word-break:normal;white-space:pre;background:transparent;border:0}html body .highlight{margin-bottom:16px}html body .highlight pre,html body pre{padding:1em;overflow:auto;font-size:.85em !important;line-height:1.45;border:#d6d6d6;border-radius:3px}html body .highlight pre{margin-bottom:0;word-break:normal}html body pre code,html body pre tt{display:inline;max-width:initial;padding:0;margin:0;overflow:initial;line-height:inherit;word-wrap:normal;background-color:transparent;border:0}html body pre code:before,html body pre tt:before,html body pre code:after,html body pre tt:after{content:normal}html body p,html body blockquote,html body ul,html body ol,html body dl,html body pre{margin-top:0;margin-bottom:16px}html body kbd{color:#000;border:1px solid #d6d6d6;border-bottom:2px solid #c7c7c7;padding:2px 4px;background-color:#f0f0f0;border-radius:3px}@media print{html body{background-color:#fff}html body h1,html body h2,html body h3,html body h4,html body h5,html body h6{color:#000;page-break-after:avoid}html body blockquote{color:#5c5c5c}html body pre{page-break-inside:avoid}html body table{display:table}html body img{display:block;max-width:100%;max-height:100%}html body pre,html body code{word-wrap:break-word;white-space:pre}}.markdown-preview{width:100%;height:100%;box-sizing:border-box}.markdown-preview .pagebreak,.markdown-preview .newpage{page-break-before:always}.markdown-preview pre.line-numbers{position:relative;padding-left:3.8em;counter-reset:linenumber}.markdown-preview pre.line-numbers>code{position:relative}.markdown-preview pre.line-numbers .line-numbers-rows{position:absolute;pointer-events:none;top:1em;font-size:100%;left:0;width:3em;letter-spacing:-1px;border-right:1px solid #999;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}.markdown-preview pre.line-numbers .line-numbers-rows>span{pointer-events:none;display:block;counter-increment:linenumber}.markdown-preview pre.line-numbers .line-numbers-rows>span:before{content:counter(linenumber);color:#999;display:block;padding-right:.8em;text-align:right}.markdown-preview .mathjax-exps .MathJax_Display{text-align:center !important}.markdown-preview:not([for="preview"]) .code-chunk .btn-group{display:none}.markdown-preview:not([for="preview"]) .code-chunk .status{display:none}.markdown-preview:not([for="preview"]) .code-chunk .output-div{margin-bottom:16px}.scrollbar-style::-webkit-scrollbar{width:8px}.scrollbar-style::-webkit-scrollbar-track{border-radius:10px;background-color:transparent}.scrollbar-style::-webkit-scrollbar-thumb{border-radius:5px;background-color:rgba(150,150,150,0.66);border:4px solid rgba(150,150,150,0.66);background-clip:content-box}html body[for="html-export"]:not([data-presentation-mode]){position:relative;width:100%;height:100%;top:0;left:0;margin:0;padding:0;overflow:auto}html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{position:relative;top:0}@media screen and (min-width:914px){html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{padding:2em calc(50% - 457px)}}@media screen and (max-width:914px){html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{padding:2em}}@media screen and (max-width:450px){html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{font-size:14px !important;padding:1em}}@media print{html body[for="html-export"]:not([data-presentation-mode]) #sidebar-toc-btn{display:none}}html body[for="html-export"]:not([data-presentation-mode]) #sidebar-toc-btn{position:fixed;bottom:8px;left:8px;font-size:28px;cursor:pointer;color:inherit;z-index:99;width:32px;text-align:center;opacity:.4}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] #sidebar-toc-btn{opacity:1}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc{position:fixed;top:0;left:0;width:300px;height:100%;padding:32px 0 48px 0;font-size:14px;box-shadow:0 0 4px rgba(150,150,150,0.33);box-sizing:border-box;overflow:auto;background-color:inherit}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar{width:8px}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar-track{border-radius:10px;background-color:transparent}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar-thumb{border-radius:5px;background-color:rgba(150,150,150,0.66);border:4px solid rgba(150,150,150,0.66);background-clip:content-box}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc a{text-decoration:none}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc ul{padding:0 1.6em;margin-top:.8em}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc li{margin-bottom:.8em}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc ul{list-style-type:none}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{left:300px;width:calc(100% -  300px);padding:2em calc(50% - 457px -  150px);margin:0;box-sizing:border-box}@media screen and (max-width:1274px){html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{padding:2em}}@media screen and (max-width:450px){html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{width:100%}}html body[for="html-export"]:not([data-presentation-mode]):not([html-show-sidebar-toc]) .markdown-preview{left:50%;transform:translateX(-50%)}html body[for="html-export"]:not([data-presentation-mode]):not([html-show-sidebar-toc]) .md-sidebar-toc{display:none}
+ 
+      </style>
+    </head>
+    <body for="html-export">
+      <div class="mume markdown-preview   ">
+      <h1 class="mume-header" id="unix-annotations">Unix Annotations</h1>
+
+<p>Annotations</p>
+<h1 class="mume-header" id="table-of-contents">Table of Contents</h1>
+
+<ul>
+<li><a href="chapter1/README.md">Chapter 1</a>
+<ul>
+<li><a href="chapter1/intro.md">Introduction of Markdown Preview Enhanced</a></li>
+<li><a href="chapter1/feature.md">Features</a></li>
+</ul>
+</li>
+<li><a href="chapter2/README.md">Chapter 2</a>
+<ul>
+<li><a href="chapter2/issues.md">Known issues</a></li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 class="mume-header" id="fa-commenting-notes"><i class="fa fa-commenting" aria-hidden="true"></i> Notes</h1>
+
+<ul>
+<li>
+<p>Que sí, que ya sé que el amor es ciego. Pero yo no, joder</p>
+</li>
+<li>
+<p>Social Engineering: Because there is no patch for human stupidity.</p>
+</li>
+<li>
+<p>Nobody wants to say how this works.  Maybe nobody knows ...   &gt;&gt; &quot;VIDEOADAPTOR SECTION&quot; on xorg.conf manual ファミコン</p>
+</li>
+<li>
+<p>&quot;This is Unix-Land. In quiet nights, you can hear the Windows machines reboot&quot;</p>
+</li>
+<li>
+<p>&quot;Es prácticamente imposible enseñar programación correctamente a estudiantes que han estado expuestos al lenguaje BASIC con anterioridad.<br>
+Como potenciales programadores, tienen la mente mutilada sin esperanza alguna de regeneración&quot;<br>
+<em>Edsger Dijkstra</em>.</p>
+</li>
+<li>
+<p>No extraña que los explotadores de profesión, hayan decidido incluir en sus actividades a la media<br>
+humanidad que les faltaba, pero sorprende que algunas mujeres consideren deseable esta situación:<br>
+además del castigo bíblico propio, quieren pasar por el que les cayó a los hombres. Y, encima, en<br>
+modo alguno comprenden que sea un castigo, una situación nada deseable.<br>
+Como si fueran calvinistas se portan, convencidas de que el trabajo enriquece.<br>
+Los hombres, más entrenados, sabemos de antiguo que sólo es posible enriquecerse haciendo trabajar<br>
+a los demás.</p>
+</li>
+<li>
+<p>SOFTWARE: Es el espíritu insuflado en la dura mollera de la máquina. A veces, un clásico espíritu<br>
+burlón o poltergeist.<br>
+<em>Arturo Rosby</em></p>
+</li>
+<li>
+<p>&quot;«Manos a la obra, señor Freeman, manos a la obra. No quiero decir que se haya<br>
+dormido en los laureles en el trabajo. Nadie se merece más un alto en el camino y todos los<br>
+esfuerzos realizados habrí­an sido en vano hasta que... Hmmm... Bueno... Digamos que<br>
+otra vez ha llegado su hora. El hombre adecuado en el sitio equivocado puede cambiar<br>
+el rumbo del mundo. Despierte, señor Freeman. Despierte y huela las cenizas»&quot;<br>
+<em>G-Man al comienzo de Half Life 2.</em></p>
+</li>
+<li>
+<p>Los Grigori (del griego egrḗgoroi, que significa Observadores o vigilantes), también conocidos como<br>
+hijos de Elohim (en hebreo בני האלהים, bnei ha'elohim);<br>
+son un grupo de ángeles caídos de la mitología judeocristiana mencionados en algunos textos<br>
+apócrifos Bíblicos y en el Libro del Génesis.</p>
+</li>
+</ul>
+<p>En estos textos se menciona que los Grigori fueron seres que se aparearon<br>
+con las &quot;hijas del hombre&quot; (en hebreo banot ha'adam);<br>
+naciendo de esta unión una raza de gigantes conocida como los Nephilim.</p>
+<ul>
+<li>&quot;Si los tontos volaran, el cielo se oscurecería&quot;</li>
+</ul>
+<blockquote>
+<p>&quot;Recuperar alkalinidad en el cuerpo&quot;<br>
+2 partes de agua<br>
+1 parte de jugo de limon<br>
+1 pizca de carbonato</p>
+</blockquote>
+<ul>
+<li>&quot;Vade retro satana&quot;</li>
+</ul>
+<blockquote>
+<p>The Latin text says:</p>
+</blockquote>
+<blockquote>
+<p>Crux Sancti Patris Benedicti / Cruz del Santo Padre Benito<br>
+Crux Sacra Sit Mihi Lux / Mi luz sea la cruz santa<br>
+Non Draco Sit Mihi Dux / No sea el demonio mi guía<br>
+Vade Retro Satana / ¡Apártate, Satanás!<br>
+Numquam Suade Mibi Vana / No sugieras cosas vanas<br>
+Sunt Mala Quae libas / Pues maldad es lo que brindas<br>
+Ipse Venena Bibas / Bebe tú mismo el veneno</p>
+</blockquote>
+<blockquote>
+<p>Crux sancta sit mihi lux / Non draco sit mihi dux<br>
+Vade retro satana / Numquam suade mihi(mibi) vana<br>
+Sunt mala quae libas / Ipse venena bibas<br>
+In approximate translation:</p>
+</blockquote>
+<blockquote>
+<p>Let the Holy Cross be my light / Let not the dragon be my guide<br>
+Step back Satan / Never tempt me with vain things<br>
+What you offer me is evil / You drink the poison yourself.</p>
+</blockquote>
+<blockquote>
+<p>La Santa Cruz sea mi luz, /no sea el dragón mi señor.<br>
+¡Apártate, Satanás! /nunca me atraigas con engaños,<br>
+maldad es tu carnada, /bebe tu propio veneno.</p>
+</blockquote>
+<blockquote>
+<p>INRI &gt;&gt; Iesus Nazarenus Rex Iudaeorum</p>
+</blockquote>
+<hr>
+<p>どうもありがとうミスターロボット (dōmo arigatō misutā robotto)</p>
+<hr>
+<p>My firts name<br>
+Hiragana      katakana<br>
+へすす         ヘスス<br>
+My second name<br>
+Hiragana      katakana<br>
+あるべると    アルベルト</p>
+<p>Her name  firts A then Y<br>
+Hiragana      katakana<br>
+あれはんどら  アレハンドラ</p>
+<p>やみれと      ヤミレト</p>
+<hr>
+<p>Remenber this tools on your journey</p>
+<pre class="language-">chntpw                NT SAM password recovery utility
+ms-sys                Create DOS/MS-compatible boot records
+foremost              Recover files by &quot;carving&quot; them from a raw
+hdparm                Utility to get/set (E)IDE/SATA/SAS device parameters
+ide-smart             IDE S.M.A.R.T. test and query tool
+john                  Password cracker
+memtester             Userspace utility to test for faulty memory subsystem
+testdisk              Tool to check and undelete partition
+targa                 MS Windows95/98/NT testing kit
+scrounge-ntfs         Data recovery program for NTFS file systems
+dmidecode             dumping bios information
+galleta               An Internet Explorer cookie forensic analysis tool
+pasco                 An Internet Explorer cache forensic analysis tool
+lm-sensors		        check temp of your box
+smartmontools		      smart-monitor
+cpuburn 		          stress your cpu
+			run desired program in background [ _repeat_ for SMP]:
+      `burnP6 || echo $? &amp;`
+surfraw     		      example surfraw -browser=w3m google &quot;query&quot;
+gotmail			          download e-mail from hotmail
+wapua			            web browser for wap
+fcrackzip		          pass-cracker
+fondu			            convert between mac fonts format
+encfs			            encrypt fs ?
+electricsheep		      just awesone !
+fatresize		
+archmage 		          extract and convert chm files to html , txt or pdf
+flasm			            assembler and disassembler for flash-(swf) bytecode
+badblocks             for cheking bad blocks
+xsw			              presentations sowftware very easy to use
+
+</pre>
+<hr>
+<h1 class="mume-header" id="fa-edit-editors-section"><i class="fa fa-edit" aria-hidden="true"></i> Editors Section</h1>
+
+<h2 class="mume-header" id="improvements-of-vim">Improvements of Vim</h2>
+
+<ul>
+<li>add Vundle plugin manager</li>
+</ul>
+<pre class="language-bash"> <span class="token function">git</span> clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+</pre>
+<ul>
+<li>Add the vimrc</li>
+</ul>
+<pre class="language-viml">&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;
+&quot; Allan MacGregor Vimrc configuration
+&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;
+set encoding=utf8
+&quot;&quot;&quot;&quot; START Vundle Configuration
+&quot; Disable file type for vundle
+filetype off                  &quot; required
+
+&quot; set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+
+&quot; let Vundle manage Vundle, required
+Plugin &apos;gmarik/Vundle.vim&apos;
+
+</pre>
+<div style="page-break-after: always;"></div>
+<pre class="language-viml">
+&quot; Utility
+Plugin &apos;scrooloose/nerdtree&apos;
+Plugin &apos;majutsushi/tagbar&apos;
+Plugin &apos;ervandew/supertab&apos;
+Plugin &apos;BufOnly.vim&apos;
+Plugin &apos;wesQ3/vim-windowswap&apos;
+Plugin &apos;SirVer/ultisnips&apos;
+Plugin &apos;junegunn/fzf.vim&apos;
+Plugin &apos;junegunn/fzf&apos;
+Plugin &apos;godlygeek/tabular&apos;
+Plugin &apos;ctrlpvim/ctrlp.vim&apos;
+Plugin &apos;benmills/vimux&apos;
+Plugin &apos;jeetsukumaran/vim-buffergator&apos;
+Plugin &apos;gilsondev/searchtasks.vim&apos;
+Plugin &apos;Shougo/neocomplete.vim&apos;
+Plugin &apos;tpope/vim-dispatch&apos;
+
+&quot; Generic Programming Support
+Plugin &apos;jakedouglas/exuberant-ctags&apos;
+Plugin &apos;honza/vim-snippets&apos;
+Plugin &apos;Townk/vim-autoclose&apos;
+Plugin &apos;tomtom/tcomment_vim&apos;
+Plugin &apos;tobyS/vmustache&apos;
+Plugin &apos;janko-m/vim-test&apos;
+Plugin &apos;maksimr/vim-jsbeautify&apos;
+Plugin &apos;vim-syntastic/syntastic&apos;
+Plugin &apos;neomake/neomake&apos;
+
+&quot; Markdown / Writting
+Plugin &apos;reedes/vim-pencil&apos;
+Plugin &apos;tpope/vim-markdown&apos;
+Plugin &apos;jtratner/vim-flavored-markdown&apos;
+Plugin &apos;LanguageTool&apos;
+
+&quot; Git Support
+Plugin &apos;kablamo/vim-git-log&apos;
+Plugin &apos;gregsexton/gitv&apos;
+Plugin &apos;tpope/vim-fugitive&apos;
+&quot;Plugin &apos;jaxbot/github-issues.vim&apos;
+
+&quot; PHP Support
+Plugin &apos;phpvim/phpcd.vim&apos;
+Plugin &apos;tobyS/pdv&apos;
+
+&quot; Erlang Support
+Plugin &apos;vim-erlang/vim-erlang-tags&apos;
+Plugin &apos;vim-erlang/vim-erlang-runtime&apos;
+Plugin &apos;vim-erlang/vim-erlang-omnicomplete&apos;
+Plugin &apos;vim-erlang/vim-erlang-compiler&apos;
+
+&quot; Elixir Support
+Plugin &apos;elixir-lang/vim-elixir&apos;
+Plugin &apos;avdgaag/vim-phoenix&apos;
+Plugin &apos;mmorearty/elixir-ctags&apos;
+Plugin &apos;mattreduce/vim-mix&apos;
+Plugin &apos;BjRo/vim-extest&apos;
+Plugin &apos;frost/vim-eh-docs&apos;
+Plugin &apos;slashmili/alchemist.vim&apos;
+Plugin &apos;tpope/vim-endwise&apos;
+Plugin &apos;jadercorrea/elixir_generator.vim&apos;
+
+</pre>
+<div style="page-break-after: always;"></div>
+<pre class="language-viml">
+&quot; Elm Support
+Plugin &apos;lambdatoast/elm.vim&apos;
+
+&quot; Theme / Interface
+Plugin &apos;AnsiEsc.vim&apos;
+Plugin &apos;ryanoasis/vim-devicons&apos;
+Plugin &apos;vim-airline/vim-airline&apos;
+Plugin &apos;vim-airline/vim-airline-themes&apos;
+Plugin &apos;sjl/badwolf&apos;
+Plugin &apos;tomasr/molokai&apos;
+Plugin &apos;morhetz/gruvbox&apos;
+Plugin &apos;zenorocha/dracula-theme&apos;, {&apos;rtp&apos;: &apos;vim/&apos;}
+Plugin &apos;junegunn/limelight.vim&apos;
+Plugin &apos;mkarmona/colorsbox&apos;
+Plugin &apos;romainl/Apprentice&apos;
+Plugin &apos;Lokaltog/vim-distinguished&apos;
+Plugin &apos;chriskempson/base16-vim&apos;
+Plugin &apos;w0ng/vim-hybrid&apos;
+Plugin &apos;AlessandroYorba/Sierra&apos;
+Plugin &apos;daylerees/colour-schemes&apos;
+Plugin &apos;effkay/argonaut.vim&apos;
+Plugin &apos;ajh17/Spacegray.vim&apos;
+Plugin &apos;atelierbram/Base2Tone-vim&apos;
+Plugin &apos;colepeters/spacemacs-theme.vim&apos;
+
+call vundle#end()            &quot; required
+filetype plugin indent on    &quot; required
+&quot;&quot;&quot;&quot; END Vundle Configuration
+
+&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;
+&quot; Configuration Section
+&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;
+set nowrap
+
+&quot; OSX stupid backspace fix
+set backspace=indent,eol,start
+
+&quot; Show linenumbers
+set number
+
+&quot; Set Proper Tabs
+set tabstop=4
+set shiftwidth=4
+set smarttab
+set expandtab
+
+&quot; Always display the status line
+set laststatus=2
+
+&quot; Enable Elite mode, No ARRRROWWS!!!!
+let g:elite_mode=1
+
+&quot; Enable highlighting of the current line
+set cursorline
+
+&quot; Theme and Styling
+syntax on
+set t_Co=256
+
+</pre>
+<div style="page-break-after: always;"></div>
+<pre class="language-viml">
+&quot; if (has(&quot;termguicolors&quot;))
+&quot;   set termguicolors
+&quot; endif
+
+let base16colorspace=256  &quot; Access colors present in 256 colorspace
+colorscheme spacegray
+
+let g:spacegray_underline_search = 1
+let g:spacegray_italicize_comments = 1
+
+&quot; Vim-Airline Configuration
+let g:airline#extensions#tabline#enabled = 1
+let g:airline_powerline_fonts = 1
+let g:airline_theme=&apos;hybrid&apos;
+let g:hybrid_custom_term_colors = 1
+let g:hybrid_reduced_contrast = 1
+
+&quot; Syntastic Configuration
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+&quot; let g:syntastic_check_on_wq = 0
+&quot; let g:syntastic_enable_elixir_checker = 1
+&quot; let g:syntastic_elixir_checkers = [&quot;elixir&quot;]
+
+&quot; Neomake settings
+autocmd! BufWritePost * Neomake
+let g:neomake_elixir_enabled_makers = [&apos;mix&apos;, &apos;credo&apos;, &apos;dogma&apos;]
+
+&quot; Vim-PDV Configuration
+let g:pdv_template_dir = $HOME .&quot;/.vim/bundle/pdv/templates_snip&quot;
+
+&quot; Markdown Syntax Support
+augroup markdown
+    au!
+    au BufNewFile,BufRead *.md,*.markdown setlocal filetype=ghmarkdown
+augroup END
+
+&quot; Vim-Alchemist Configuration
+let g:alchemist#elixir_erlang_src = &quot;/Users/amacgregor/Projects/Github/alchemist-source&quot;
+let g:alchemist_tag_disable = 1
+
+&quot; Vim-Supertab Configuration
+let g:SuperTabDefaultCompletionType = &quot;&lt;C-X&gt;&lt;C-O&gt;&quot;
+
+&quot; Settings for Writting
+let g:pencil#wrapModeDefault = &apos;soft&apos;   &quot; default is &apos;hard&apos;
+let g:languagetool_jar  = &apos;/opt/languagetool/languagetool-commandline.jar&apos;
+
+&quot; Vim-pencil Configuration
+augroup pencil
+  autocmd!
+  autocmd FileType markdown,mkd call pencil#init()
+  autocmd FileType text         call pencil#init()
+augroup END
+
+</pre>
+<div style="page-break-after: always;"></div>
+<pre class="language-viml">
+&quot; Vim-UtilSnips Configuration
+&quot; Trigger configuration. Do not use &lt;tab&gt; if you use https://github.com/Valloric/YouCompleteMe.
+let g:UltiSnipsUsePythonVersion = 3
+let g:UltiSnipsExpandTrigger=&quot;&lt;tab&gt;&quot;
+let g:UltiSnipsJumpForwardTrigger=&quot;&lt;c-b&gt;&quot;
+let g:UltiSnipsJumpBackwardTrigger=&quot;&lt;c-z&gt;&quot;
+let g:UltiSnipsEditSplit=&quot;vertical&quot; &quot; If you want :UltiSnipsEdit to split your window.
+
+&quot; Vim-Test Configuration
+let test#strategy = &quot;vimux&quot;
+
+&quot; Neocomplete Settings
+let g:acp_enableAtStartup = 0
+let g:neocomplete#enable_at_startup = 1
+let g:neocomplete#enable_smart_case = 1
+let g:neocomplete#sources#syntax#min_keyword_length = 3
+
+&quot; Define dictionary.
+let g:neocomplete#sources#dictionary#dictionaries = {
+    \ &apos;default&apos; : &apos;&apos;,
+    \ &apos;vimshell&apos; : $HOME.&apos;/.vimshell_hist&apos;,
+    \ &apos;scheme&apos; : $HOME.&apos;/.gosh_completions&apos;
+        \ }
+
+&quot; Define keyword.
+if !exists(&apos;g:neocomplete#keyword_patterns&apos;)
+    let g:neocomplete#keyword_patterns = {}
+endif
+let g:neocomplete#keyword_patterns[&apos;default&apos;] = &apos;\h\w*&apos;
+
+function! s:my_cr_function()
+  return (pumvisible() ? &quot;\&lt;C-y&gt;&quot; : &quot;&quot; ) . &quot;\&lt;CR&gt;&quot;
+  &quot; For no inserting &lt;CR&gt; key.
+  &quot;return pumvisible() ? &quot;\&lt;C-y&gt;&quot; : &quot;\&lt;CR&gt;&quot;
+endfunction
+
+&quot; Close popup by &lt;Space&gt;.
+&quot;inoremap &lt;expr&gt;&lt;Space&gt; pumvisible() ? &quot;\&lt;C-y&gt;&quot; : &quot;\&lt;Space&gt;&quot;
+
+&quot; AutoComplPop like behavior.
+&quot;let g:neocomplete#enable_auto_select = 1
+
+
+&quot; Enable omni completion.
+autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+
+&quot; Enable heavy omni completion.
+if !exists(&apos;g:neocomplete#sources#omni#input_patterns&apos;)
+  let g:neocomplete#sources#omni#input_patterns = {}
+endif
+&quot;let g:neocomplete#sources#omni#input_patterns.php = &apos;[^. \t]-&gt;\h\w*\|\h\w*::&apos;
+&quot;let g:neocomplete#sources#omni#input_patterns.c = &apos;[^.[:digit:] *\t]\%(\.\|-&gt;\)&apos;
+&quot;let g:neocomplete#sources#omni#input_patterns.cpp = &apos;[^.[:digit:] *\t]\%(\.\|-&gt;\)\|\h\w*::&apos;
+
+&quot; For perlomni.vim setting.
+&quot; https://github.com/c9s/perlomni.vim
+let g:neocomplete#sources#omni#input_patterns.perl = &apos;\h\w*-&gt;\h\w*\|\h\w*::&apos;
+
+</pre>
+<div style="page-break-after: always;"></div>
+<pre class="language-viml">
+&quot; Elixir Tagbar Configuration
+let g:tagbar_type_elixir = {
+    \ &apos;ctagstype&apos; : &apos;elixir&apos;,
+    \ &apos;kinds&apos; : [
+        \ &apos;f:functions&apos;,
+        \ &apos;functions:functions&apos;,
+        \ &apos;c:callbacks&apos;,
+        \ &apos;d:delegates&apos;,
+        \ &apos;e:exceptions&apos;,
+        \ &apos;i:implementations&apos;,
+        \ &apos;a:macros&apos;,
+        \ &apos;o:operators&apos;,
+        \ &apos;m:modules&apos;,
+        \ &apos;p:protocols&apos;,
+        \ &apos;r:records&apos;,
+        \ &apos;t:tests&apos;
+    \ ]
+    \ }
+
+&quot; Fzf Configuration
+&quot; This is the default extra key bindings
+let g:fzf_action = {
+  \ &apos;ctrl-t&apos;: &apos;tab split&apos;,
+  \ &apos;ctrl-x&apos;: &apos;split&apos;,
+  \ &apos;ctrl-v&apos;: &apos;vsplit&apos; }
+
+&quot; Default fzf layout
+&quot; - down / up / left / right
+let g:fzf_layout = { &apos;down&apos;: &apos;~40%&apos; }
+
+&quot; In Neovim, you can set up fzf window using a Vim command
+let g:fzf_layout = { &apos;window&apos;: &apos;enew&apos; }
+let g:fzf_layout = { &apos;window&apos;: &apos;-tabnew&apos; }
+
+&quot; Customize fzf colors to match your color scheme
+let g:fzf_colors =
+\ { &apos;fg&apos;:      [&apos;fg&apos;, &apos;Normal&apos;],
+  \ &apos;bg&apos;:      [&apos;bg&apos;, &apos;Normal&apos;],
+  \ &apos;hl&apos;:      [&apos;fg&apos;, &apos;Comment&apos;],
+  \ &apos;fg+&apos;:     [&apos;fg&apos;, &apos;CursorLine&apos;, &apos;CursorColumn&apos;, &apos;Normal&apos;],
+  \ &apos;bg+&apos;:     [&apos;bg&apos;, &apos;CursorLine&apos;, &apos;CursorColumn&apos;],
+  \ &apos;hl+&apos;:     [&apos;fg&apos;, &apos;Statement&apos;],
+  \ &apos;info&apos;:    [&apos;fg&apos;, &apos;PreProc&apos;],
+  \ &apos;prompt&apos;:  [&apos;fg&apos;, &apos;Conditional&apos;],
+  \ &apos;pointer&apos;: [&apos;fg&apos;, &apos;Exception&apos;],
+  \ &apos;marker&apos;:  [&apos;fg&apos;, &apos;Keyword&apos;],
+  \ &apos;spinner&apos;: [&apos;fg&apos;, &apos;Label&apos;],
+  \ &apos;header&apos;:  [&apos;fg&apos;, &apos;Comment&apos;] }
+
+&quot; Enable per-command history.
+&quot; CTRL-N and CTRL-P will be automatically bound to next-history and
+&quot; previous-history instead of down and up. If you don&apos;t like the change,
+&quot; explicitly bind the keys to down and up in your $FZF_DEFAULT_OPTS.
+let g:fzf_history_dir = &apos;~/.local/share/fzf-history&apos;
+
+&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;
+&quot; Mappings configurationn
+&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;
+map &lt;C-n&gt; :NERDTreeToggle&lt;CR&gt;
+map &lt;C-m&gt; :TagbarToggle&lt;CR&gt;
+
+</pre>
+<div style="page-break-after: always;"></div>
+<pre class="language-viml">
+&quot; Omnicomplete Better Nav
+inoremap &lt;expr&gt; &lt;c-j&gt; (&quot;\&lt;C-n&gt;&quot;)
+inoremap &lt;expr&gt; &lt;c-k&gt; (&quot;\&lt;C-p&gt;&quot;)
+
+&quot; Neocomplete Plugin mappins
+inoremap &lt;expr&gt;&lt;C-g&gt;     neocomplete#undo_completion()
+inoremap &lt;expr&gt;&lt;C-l&gt;     neocomplete#complete_common_string()
+
+&quot; Recommended key-mappings.
+&quot; &lt;CR&gt;: close popup and save indent.
+inoremap &lt;silent&gt; &lt;CR&gt; &lt;C-r&gt;=&lt;SID&gt;my_cr_function()&lt;CR&gt;
+
+&quot; &lt;TAB&gt;: completion.
+inoremap &lt;expr&gt;&lt;TAB&gt;  pumvisible() ? &quot;\&lt;C-n&gt;&quot; : &quot;\&lt;TAB&gt;&quot;
+
+&quot; &lt;C-h&gt;, &lt;BS&gt;: close popup and delete backword char.
+inoremap &lt;expr&gt;&lt;C-h&gt; neocomplete#smart_close_popup().&quot;\&lt;C-h&gt;&quot;
+inoremap &lt;expr&gt;&lt;BS&gt; neocomplete#smart_close_popup().&quot;\&lt;C-h&gt;&quot;
+
+&quot; Mapping selecting Mappings
+nmap &lt;leader&gt;&lt;tab&gt; &lt;plug&gt;(fzf-maps-n)
+xmap &lt;leader&gt;&lt;tab&gt; &lt;plug&gt;(fzf-maps-x)
+omap &lt;leader&gt;&lt;tab&gt; &lt;plug&gt;(fzf-maps-o)
+
+&quot; Shortcuts
+nnoremap &lt;Leader&gt;o :Files&lt;CR&gt;
+nnoremap &lt;Leader&gt;O :CtrlP&lt;CR&gt;
+nnoremap &lt;Leader&gt;w :w&lt;CR&gt;
+
+&quot; Insert mode completion
+imap &lt;c-x&gt;&lt;c-k&gt; &lt;plug&gt;(fzf-complete-word)
+imap &lt;c-x&gt;&lt;c-f&gt; &lt;plug&gt;(fzf-complete-path)
+imap &lt;c-x&gt;&lt;c-j&gt; &lt;plug&gt;(fzf-complete-file-ag)
+imap &lt;c-x&gt;&lt;c-l&gt; &lt;plug&gt;(fzf-complete-line)
+
+&quot; Vim-Test Mappings
+nmap &lt;silent&gt; &lt;leader&gt;t :TestNearest&lt;CR&gt;
+nmap &lt;silent&gt; &lt;leader&gt;T :TestFile&lt;CR&gt;
+nmap &lt;silent&gt; &lt;leader&gt;a :TestSuite&lt;CR&gt;
+nmap &lt;silent&gt; &lt;leader&gt;l :TestLast&lt;CR&gt;
+nmap &lt;silent&gt; &lt;leader&gt;g :TestVisit&lt;CR&gt;
+
+&quot; Vim-PDV Mappings
+autocmd FileType php inoremap &lt;C-p&gt; &lt;ESC&gt;:call pdv#DocumentWithSnip()&lt;CR&gt;i
+autocmd FileType php nnoremap &lt;C-p&gt; :call pdv#DocumentWithSnip()&lt;CR&gt;
+autocmd FileType php setlocal omnifunc=phpcd#CompletePHP
+
+&quot; Disable arrow movement, resize splits instead.
+&quot;if get(g:, &apos;elite_mode&apos;)
+&quot;	nnoremap &lt;Up&gt;    :resize +2&lt;CR&gt;
+&quot;	nnoremap &lt;Down&gt;  :resize -2&lt;CR&gt;
+&quot;	nnoremap &lt;Left&gt;  :vertical resize +2&lt;CR&gt;
+&quot;	nnoremap &lt;Right&gt; :vertical resize -2&lt;CR&gt;
+&quot;endif
+
+map &lt;silent&gt; &lt;LocalLeader&gt;ws :highlight clear ExtraWhitespace&lt;CR&gt;
+
+</pre>
+<div style="page-break-after: always;"></div>
+<pre class="language-viml">
+&quot; Advanced customization using autoload functions
+inoremap &lt;expr&gt; &lt;c-x&gt;&lt;c-k&gt; fzf#vim#complete#word({&apos;left&apos;: &apos;15%&apos;})
+
+&quot; Vim-Alchemist Mappings
+autocmd FileType elixir nnoremap &lt;buffer&gt; &lt;leader&gt;h :call alchemist#exdoc()&lt;CR&gt;
+autocmd FileType elixir nnoremap &lt;buffer&gt; &lt;leader&gt;d :call alchemist#exdef()&lt;CR&gt;
+</pre>
+<ul>
+<li>then inside vim type:</li>
+</ul>
+<pre class="language-viml">run :PluginInstall &quot;OR &quot; :BundleInstall
+</pre>
+<blockquote>
+<p>OR To install from command line:</p>
+</blockquote>
+<pre class="language-bash">  vim +PluginInstall +qall
+</pre>
+<p>more details in <a href="https://github.com/VundleVim/Vundle.vim">https://github.com/VundleVim/Vundle.vim</a></p>
+<p>Some package issues <em>UltiSnips</em> adding this option to your .vimrc: for force the version</p>
+<pre class="language-viml">let g:UltiSnipsUsePythonVersion = 2
+</pre>
+<p>maybe you need install python support in vim</p>
+<pre class="language-bash"><span class="token function">sudo</span> <span class="token function">apt-get</span> <span class="token function">install</span> vim-python-jedi
+</pre>
+<p>YouCompleteMe code appended randomly when moving around with arrow keys in insert mode</p>
+<pre class="language-viml">pumvisible() ? &quot;\pumvisible&quot; : &quot;\
+</pre>
+<p>This occurs often but randomly and it will persist for the entirety of the session. Loading or creating a different file will not fix the issue. It only goes away if neovim is relaunched.<br>
+Just as a reference to anyone who comes across this with the same issue,  I found that the plugin &quot;Townk/vim-autoclose&quot; was causing the conflict. This plugin is old and hasn't been updated in a while and causes quite a few other conflicts.<br>
+I removed it and used &quot;Raimondi/delimitMate&quot; instead.</p>
+<pre class="language-bash"><span class="token comment" spellcheck="true"># check if vim has python</span>
+vim --version <span class="token operator">|</span> <span class="token function">grep</span> --color python
+</pre>
+<ul>
+<li>then are you done</li>
+</ul>
+<h1 class="mume-header" id="fa-music-audio-section"><i class="fa fa-music" aria-hidden="true"></i> Audio Section</h1>
+
+<h2 class="mume-header" id="audio-recording-and-encoding-in-linux">Audio Recording and Encoding in Linux</h2>
+
+<blockquote>
+<p>src : <a href="http://mocha.freeshell.org/audio.html">http://mocha.freeshell.org/audio.html</a></p>
+</blockquote>
+<p>Linux is a professional class operating system, so if you plan to do audio<br>
+recording and encoding then you chose the proper system.</p>
+<p>I use Pulseaudio on some boxes and just Alsa on other boxes.  As of this<br>
+writing (Summer 2011) Pulseaudio has all the major bugs worked out, so all the<br>
+old web discussions about it causing issues are no longer relevant as far as<br>
+I'm concerned.</p>
+<p>When using Pulseaudio you are strongly advised to install the GUI management<br>
+tools in order to control the audio streams and volumes and so forth.  You can<br>
+do it at the command line which is great, but it is a bit cumbersome unless<br>
+you are using a recording script (which I will demonstrate later).</p>
+<p>If only using Alsa, then there is usually an added step of specifying the<br>
+audio device in the recording command.  For example, arecord expects a &quot;-D<br>
+plughw:0,0&quot; or &quot;-D hw:0,0&quot;.  You also need to use the alsamixer utility to<br>
+control the selection of external sources and gain levels.  Actually, gurus<br>
+will also use alsamixer on Pulseaudio systems as well when recording from<br>
+sources such as line-in or microphones.</p>
+<p>arecord examples<br>
+ffmpeg examples<br>
+speex format<br>
+voice activated recording<br>
+useful scripts</p>
+<hr>
+<h3 class="mume-header" id="examples-of-recording-and-piping-the-output-to-a-compressed-format">Examples of recording and piping the output to a compressed format:</h3>
+
+<pre class="language-bash">arecord -v -f <span class="token function">cd</span> -t raw <span class="token operator">|</span> lame -r - output.mp3
+
+arecord -v -f <span class="token function">cd</span> -t raw <span class="token operator">|</span> lame -r -b 192 - output.mp3
+
+arecord -v -f <span class="token function">cd</span> -t raw <span class="token operator">|</span> lame -r -m s -a -b 64 - output.mp3
+
+arecord -v -f <span class="token function">cd</span> -t raw <span class="token operator">|</span> lame -r -h -V 0 -b 128 -B 224 - output.mp3
+
+arecord -v -f <span class="token function">cd</span> -t raw <span class="token operator">|</span> lame -r --preset extreme - output.mp3
+
+arecord -vv -f <span class="token function">cd</span> output.wav
+
+arecord -f dat output.wav
+
+arecord -f S16_LE -c1 -r22050 -t raw <span class="token operator">|</span> lame -r -s 22.05 -m m -b 64 -
+Output.mp3
+
+arecord -f S16_LE -c1 -r22050 -t raw <span class="token operator">|</span> oggenc - -r -C 1 -R 22050 -q 2 -o
+Output.ogg
+
+arecord -f S16_LE -c1 -r22050 -t raw -d xxxx <span class="token operator">|</span> oggenc-aotuvb5d - -r -C 1 -R
+22050 -o Output.ogg
+
+</pre>
+<p>(-d xxxx limits the recording time in seconds, useful for scripts)<br>
+(oggenc -q option is -1 to 10 where higher numbers mean higher<br>
+quality/bitrate, the default is 3)</p>
+<p>It's probably a good idea to read the man pages of arecord, lame, and oggenc<br>
+(the aotuv version is just an enhanced version).  Basically the &quot;-f&quot; in<br>
+arecord allows you to select a pre-packaged format like CD (44.1 kHz, 16 bits<br>
+little endian, 2 channels) or DAT (48 kHz, 16 bits little endian, 2 channels),<br>
+or you can get specific and choose S16_LE (16 bit little endian) -c1 (mono)<br>
+-r22050 (22.050 kHz sampling rate), and so forth.</p>
+<p>What you pipe arecord out to needs to logically match how you are recording<br>
+with arecord.  Notice that when I record in &quot;CD&quot; or &quot;DAT&quot; formats I choose<br>
+high quality options in lame.  When I use lower quality options in arecord, I<br>
+also use lower encoding demand parameters in lame and oggenc.</p>
+<p>Digital audio recording is all about specifying a quantizing method, sample<br>
+rate, number of channels, bits per channel, and compression schemes and<br>
+bitrates.  Read the man pages.</p>
+<hr>
+<h3 class="mume-header" id="using-ffmpeg-to-record-and-encode">Using ffmpeg to record and encode:</h3>
+
+<pre class="language-bash"><span class="token shebang important">#!/bin/bash</span>
+
+ffmpeg -f alsa -ac 2 -ar 44100 -ab 160k -i pulse -acodec libvorbis
+OUTPUT.ogg
+
+ffmpeg -f alsa -ac 2 -ar 44100 -ab 160k -i pulse -acodec libmp3lame
+OUTPUT.mp3
+
+ffmpeg -f alsa -ac 2 -ar 44100 -i pulse OUTPUT.flac
+
+</pre>
+<p>The placement of &quot;-i pulse&quot; and &quot;-acodec xxx&quot; is critical in order for ffmpeg<br>
+to encode in 2 channels, if -i pulse was at the beginning of the command line<br>
+it would only see mono audio.  Use the Pulseaudio tools to select the audio<br>
+source to record, or use the option to specify an audio device (-i hw:0,0) if<br>
+using Alsa only.</p>
+<hr>
+<h3 class="mume-header" id="some-recordencode-examples-with-the-speex-format">Some record/encode examples with the Speex format:</h3>
+
+<p>Example of transcoding an MP3 to 16 kHz speex:</p>
+<pre class="language-bash">sox INPUT.MP3 -t wav -r 16000 - <span class="token operator">|</span> speexenc - --denoise OUTPUT.SPX
+
+</pre>
+<p>Example encoding of wav file.  Speex prefers input file sampling rates of 8 or<br>
+16 kHz:</p>
+<pre class="language-bash">
+speexenc --vbr --denoise INPUT.WAV OUTPUT.SPX
+</pre>
+<p>Piping arecord to speexenc (realtime speex encoding method):</p>
+<pre class="language-bash">$ arecord -f S16_LE -c1 -r8000 -t raw <span class="token operator">|</span> speexenc - --vad OUTPUT.SPX
+</pre>
+<hr>
+<h3 class="mume-header" id="sound-activated-recording-vox-recording-sound-operated-recording">Sound Activated Recording, VOX recording, Sound Operated Recording:</h3>
+
+<p>This stuff goes by many names.  Basically, it describes a method to only<br>
+record incoming audio signals that meet or exceed a user-specified threshold<br>
+level.  It's useful when recording from police scanner radios or microphones<br>
+that are setup to record intermittent audio.</p>
+<p>On Winblows there are numerous programs to accomplish this.  On Linux there<br>
+are only two methods that I've discovered that work properly.</p>
+<p><a href="http://audacity.sourceforge.net/">Audacity</a>.  Audacity now has an option<br>
+under the Transport menu to do &quot;Sound Activated Recording&quot; and allows you to<br>
+set an input threshold dB level.  It appears to be stable, I've set it up to<br>
+record from my motherboard's line-in for up to 20 hour periods with no crashes<br>
+or memory leaks.</p>
+<p><a href="http://git.wizzup.org/vacr.git/">VACR</a>.  This is a python script that works<br>
+well from the command line.  It has limted options but the default threshold<br>
+detection method works very well.  There are a few places in the script to<br>
+specify the sample rate and output file name.  There is also a line to tweak<br>
+the threshold level gate.</p>
+<p>Update 11/23/11.  I found the script below on a German language forum.  This<br>
+method uses sox (major points for that) and works very well.  The big<br>
+advantages of this script is that sox lets you encode how you want (fine grain<br>
+control), and you can also do post-processing, in this case the creator had a<br>
+normalizing section and also generated a nice spectra energy graph.  I've been<br>
+using this script in some form or another for about a month now.</p>
+<pre class="language-bash">
+<span class="token comment" spellcheck="true">#!/bin/bash</span>
+<span class="token comment" spellcheck="true">#source http://www.sis-germany.de/index.php?page=Thread&amp;amp;threadID=1444</span>
+
+NAME<span class="token operator">=</span><span class="token variable"><span class="token variable">`</span><span class="token function">date</span> +%m-%d-%Y_%H-%M-%S<span class="token variable">`</span></span>
+
+<span class="token comment" spellcheck="true">#choose a method below, either the decibel or % of level method</span>
+<span class="token comment" spellcheck="true">#also choose number of channels, sample rate, encoding, etc..</span>
+<span class="token comment" spellcheck="true">#you need to find a level that works for your hardware</span>
+
+<span class="token comment" spellcheck="true">#rec -c 1 -r 22050 $NAME.wav silence 1 0 -22d -1 00:00:05 -22d</span>
+<span class="token comment" spellcheck="true">#rec -c 1 -r 22050 $NAME.wav silence 1 0 8% -1 00:00:05 8%</span>
+rec -c 1 -r 22050 <span class="token variable">$NAME</span>.mp3 silence 1 0 8% -1 00:00:05 8%
+<span class="token comment" spellcheck="true">#rec -c 1 -r 22050 $NAME.mp3 silence 1 0 25% -1 00:00:05 25%</span>
+
+<span class="token comment" spellcheck="true">#uncomment appropriate line below for normalizing when finished</span>
+
+<span class="token comment" spellcheck="true">#echo "Normalize..."</span>
+<span class="token comment" spellcheck="true">#sox $NAME.wav $NAME-norm.wav gain -n -1</span>
+<span class="token comment" spellcheck="true">#sox $NAME.mp3 $NAME-norm.mp3 gain -n -1</span>
+
+<span class="token comment" spellcheck="true">#uncomment appropriate line below for a spectral graph if desired</span>
+
+<span class="token comment" spellcheck="true">#echo "Calculating Spectrogram..."</span>
+<span class="token comment" spellcheck="true">#sox $NAME.wav -n spectrogram -x 1024 -y 768 -z 100 -t "$NAME.wav" -c '' -o</span>
+<span class="token variable">$NAME</span>.png
+<span class="token comment" spellcheck="true">#sox $NAME.mp3 -n spectrogram -x 1024 -y 768 -z 100 -t "$NAME.mp3" -c '' -o</span>
+<span class="token variable">$NAME</span>.png
+<span class="token comment" spellcheck="true">#echo "Done."</span>
+</pre>
+<hr>
+<h3 class="mume-header" id="script-methods">Script methods:</h3>
+
+<p>Here is a script to record from the Pulseaudio monitor source.  The monitor<br>
+source is basically the source that you hear the audio coming from out of your<br>
+speakers.</p>
+<pre class="language-bash"><span class="token shebang important">#!/bin/bash</span>
+<span class="token comment" spellcheck="true"># Records the PulseAudio monitor channel.</span>
+<span class="token comment" spellcheck="true"># Uncomment the wav or mp3 output extension for OUTFILE then specify if a</span>
+<span class="token comment" spellcheck="true"># particular bitrate is needed for mp3</span>
+
+<span class="token keyword">if</span> <span class="token punctuation">[</span> -n <span class="token string">"<span class="token variable">$1</span>"</span> <span class="token punctuation">]</span><span class="token punctuation">;</span> <span class="token keyword">then</span>
+`OUTFILE<span class="token operator">=</span><span class="token string">"<span class="token variable">$1</span>"</span>
+<span class="token keyword">else</span>
+  `IME<span class="token operator">=</span><span class="token variable"><span class="token variable">$(</span><span class="token function">date</span> +%d-%b-%y_%H%M-%Z<span class="token variable">)</span></span>
+  <span class="token comment" spellcheck="true">#Choose wav or mp3 output</span>
+  <span class="token comment" spellcheck="true">#OUTFILE="recording_$TIME.wav"</span>
+  OUTFILE<span class="token operator">=</span><span class="token string">"recording_<span class="token variable">$TIME</span>.mp3"</span>
+<span class="token keyword">fi</span>
+
+<span class="token comment" spellcheck="true"># Get sink monitor:</span>
+MONITOR<span class="token operator">=</span><span class="token punctuation">$(</span>pactl list <span class="token operator">|</span> <span class="token function">grep</span> -A2 <span class="token string">'^Source #'</span> <span class="token operator">|</span> <span class="token function">grep</span> <span class="token string">"Name: .*\\.monitor$"</span> <span class="token operator">|</span> <span class="token function">awk</span><span class="token string">'{print <span class="token variable">$NF</span>}'</span> <span class="token operator">|</span> <span class="token function">tail</span> -n1<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment" spellcheck="true"># Record it raw, and convert to a wav, uncomment the method you need below.</span>
+<span class="token keyword">echo</span> <span class="token string">"Recording. Ctrl-C or close window to stop"</span><span class="token punctuation">;</span>
+<span class="token comment" spellcheck="true">#44.1 kHz, 16 bit little endian, 2 channels, line below is the deprecated method</span>
+<span class="token comment" spellcheck="true">#parec -d "$MONITOR" | sox -t raw -r 44100 -sLb 16 -c 2 - "$OUTFILE"</span>
+<span class="token comment" spellcheck="true">#Defaults to 128 kbps when encoding directly to mp3</span>
+<span class="token comment" spellcheck="true">#parec -d "$MONITOR" | sox -t raw -r 44100 -b 16 -L -e signed -c 2 - "$OUTFILE"</span>
+<span class="token comment" spellcheck="true">#-C192 uses 192 kbps when encoding directly to mp3</span>
+parec -d <span class="token string">"<span class="token variable">$MONITOR</span>"</span> <span class="token operator">|</span> sox -t raw -r 44100 -b 16 -L -e signed -c 2 - -C192 <span class="token string">"<span class="token variable">$OUTFILE</span>"</span>
+
+</pre>
+<hr>
+<p>Here is an example script that grabs an Internet stream and converts it to<br>
+ogg.  This is a useful script for a cron job.</p>
+<pre class="language-bash"><span class="token shebang important">#!/bin/bash</span>
+<span class="token comment" spellcheck="true"># set up the variables below as needed, they're self explanitory</span>
+DATE1<span class="token operator">=</span><span class="token punctuation">$(</span>date +<span class="token string">"%d%m%Y"</span><span class="token punctuation">)</span>
+DATE2<span class="token operator">=</span><span class="token punctuation">$(</span>date +<span class="token string">"%d-%m-%Y"</span><span class="token punctuation">)</span>
+STREAM<span class="token operator">=</span>http://www.123.com/xxxxx.ram
+DURATION<span class="token operator">=</span>2.2h
+MUSIC_DIR<span class="token operator">=</span><span class="token variable">$HOME</span>/temp
+
+<span class="token function">cd</span> <span class="token variable">$MUSIC_DIR</span>
+<span class="token comment" spellcheck="true"># Download the stream and convert it to wave format:</span>
+mplayer -cache 2048 -playlist <span class="token variable">$STREAM</span> \
+        -vc null -vo null -ao pcm:fast:waveheader:file<span class="token operator">=</span>output.wav <span class="token operator">&amp;</span>amp<span class="token punctuation">;</span>
+
+<span class="token function">sleep</span> <span class="token variable">$DURATION</span> <span class="token comment" spellcheck="true"># Length of the program being recorded as background.</span>
+<span class="token function">kill</span> <span class="token variable">$!</span>         <span class="token comment" spellcheck="true"># End the most recently backgrounded job = mplayer</span>
+
+<span class="token comment" spellcheck="true"># Convert to ogg format and place the appropriate tags:</span>
+
+oggenc -q 6 output.wav \
+         -t <span class="token string">"title string: <span class="token variable">$DATE2</span>"</span> \
+         -l <span class="token string">"album string"</span> \
+         -a <span class="token string">"artist string"</span> \
+         -o output_<span class="token variable">$DATE1</span>.ogg
+<span class="token function">rm</span> output.wav
+</pre>
+<hr>
+<h1 class="mume-header" id="fa-server-server-section"><i class="fa fa-server" aria-hidden="true"></i> Server Section</h1>
+
+<h3 class="mume-header" id="virtual-servers-in-apache">Virtual Servers in Apache</h3>
+
+<h3 class="mume-header" id="introduction">Introduction</h3>
+
+<p>The Apache web server is the most popular way of serving web content on the internet. It accounts for more than half of all active websites on the internet and is extremely powerful and flexible.</p>
+<h4 class="mume-header" id="setting-the-rules">Setting the rules</h4>
+
+<p>First, useradd creates a new user. As you (iain) already exist, you want to call usermod instead. So that would be:</p>
+<pre class="language-bash"><span class="token function">sudo</span> <span class="token function">usermod</span> -aG www-data ambagasdowa
+addgroup www-data
+</pre>
+<p>(note the -a on Debian-based servers (Ubuntu included) that will add you to that group, and keep your membership to other groups.<br>
+Forget it and you will belong to the www-data group only - could be a bad experience if one of them was wheel.<br>
+On SUSE-type servers the option is -A instead of -aG so read man usermod carefully to get it right.)</p>
+<p>Second, you don't want apache to have full rw access to /var/www: this is potentially a major security breach.<br>
+As a general rule, allow only what you need, and nothing more (principle of least privilege).<br>
+In this case, you need apache (www-data) and you (www-data group) to write (and read) in /var/www/example.com/public_html,<br>
+so</p>
+<pre class="language-bash"><span class="token function">sudo</span> <span class="token function">chown</span> -R www-data:www-data /var/www/example.com/public_html
+<span class="token function">sudo</span> <span class="token function">chmod</span> -R 770 /var/www/example.com/public_html
+</pre>
+<p>Edit: to answer your original question, yes, any member of www-data can now read and execute /var/www<br>
+(because the last bit of your permissions is 5 = read + exec).<br>
+But because you haven't used the -R switch, that applies only to /var/www,<br>
+and not to the files and sub-directories it contains. Now, whether they can write is another matter,<br>
+and depends on the group of /var/www, which you haven't set. I guess it is typically root:root, so no,<br>
+they (probably) can't write.</p>
+<p>Edit on 2014-06-22: added a note that -aG option is valid on Debian-based servers.<br>
+It apparently varies with the distribution, so read man carefully before executing.</p>
+<h5 class="mume-header" id="step-one-create-the-directory-structure">Step One — Create the Directory Structure</h5>
+
+<p>The first step that we are going to take is to make a directory structure that will hold the site data that we will be serving to visitors.</p>
+<p>Our document root (the top-level directory that Apache looks at to find content to serve) will be set to individual directories under the /var/www directory. We will create a directory here for both of the virtual hosts we plan on making.</p>
+<p>Within each of these directories, we will create a public_html folder that will hold our actual files. This gives us some flexibility in our hosting.</p>
+<p>For instance, for our sites, we're going to make our directories like this:</p>
+<pre class="language-bash"><span class="token function">sudo</span> <span class="token function">mkdir</span> -p /var/www/example.com/public_html
+<span class="token function">sudo</span> <span class="token function">mkdir</span> -p /var/www/test.com/public_html
+</pre>
+<p>The portions in red represent the domain names that we are wanting to serve from our VPS.</p>
+<h5 class="mume-header" id="step-two-grant-permissions">Step Two — Grant Permissions</h5>
+
+<p>Now we have the directory structure for our files, but they are owned by our root user. If we want our regular user to be able to modify files in our web directories, we can change the ownership by doing this:</p>
+<pre class="language-bash"><span class="token function">sudo</span> <span class="token function">chown</span> -R <span class="token variable">$USER</span><span class="token keyword">:</span><span class="token variable">$USER</span> /var/www/example.com/public_html
+<span class="token function">sudo</span> <span class="token function">chown</span> -R <span class="token variable">$USER</span><span class="token keyword">:</span><span class="token variable">$USER</span> /var/www/test.com/public_html
+</pre>
+<p>The <code>$USER</code> variable will take the value of the user you are currently logged in as when you press &quot;ENTER&quot;. By doing this, our regular user now owns the public_html subdirectories where we will be storing our content.</p>
+<p>We should also modify our permissions a little bit to ensure that read access is permitted to the general web directory and all of the files and folders it contains so that pages can be served correctly:</p>
+<pre class="language-bash"><span class="token function">sudo</span> <span class="token function">chmod</span> -R 755 /var/www
+</pre>
+<p>Your web server should now have the permissions it needs to serve content, and your user should be able to create content within the necessary folders.</p>
+<h5 class="mume-header" id="step-three-create-demo-pages-for-each-virtual-host">Step Three — Create Demo Pages for Each Virtual Host</h5>
+
+<p>We have our directory structure in place. Let's create some content to serve.</p>
+<p>We're just going for a demonstration, so our pages will be very simple. We're just going to make an index.html page for each site.</p>
+<p>Let's start with <a href="http://example.com">example.com</a>. We can open up an index.html file in our editor by typing:</p>
+<pre class="language-bash"><span class="token function">nano</span> /var/www/example.com/public_html/index.html
+</pre>
+<p>In this file, create a simple HTML document that indicates the site it is connected to. My file looks like this:</p>
+<pre class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>html</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>head</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>title</span><span class="token punctuation">></span></span>Welcome to Example.com!<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>title</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>head</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>body</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>h1</span><span class="token punctuation">></span></span>Success!  The example.com virtual host is working!<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>h1</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>body</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>html</span><span class="token punctuation">></span></span>
+</pre>
+<p>Save and close the file when you are finished.</p>
+<p>We can copy this file to use as the basis for our second site by typing:</p>
+<pre class="language-bash"><span class="token function">cp</span> /var/www/example.com/public_html/index.html /var/www/test.com/public_html/index.html
+</pre>
+<p>We can then open the file and modify the relevant pieces of information:</p>
+<pre class="language-bash"><span class="token function">nano</span> /var/www/test.com/public_html/index.html
+</pre>
+<pre class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>html</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>head</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>title</span><span class="token punctuation">></span></span>Welcome to Test.com!<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>title</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>head</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>body</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>h1</span><span class="token punctuation">></span></span>Success!  The test.com virtual host is working!<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>h1</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>body</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>html</span><span class="token punctuation">></span></span>
+</pre>
+<p>Save and close this file as well. You now have the pages necessary to test the virtual host configuration.</p>
+<h5 class="mume-header" id="step-four-create-new-virtual-host-files">Step Four — Create New Virtual Host Files</h5>
+
+<p>Virtual host files are the files that specify the actual configuration of our virtual hosts and dictate how the Apache web server will respond to various domain requests.</p>
+<p>Apache comes with a default virtual host file called 000-default.conf that we can use as a jumping off point. We are going to copy it over to create a virtual host file for each of our domains.</p>
+<p>We will start with one domain, configure it, copy it for our second domain, and then make the few further adjustments needed. The default Ubuntu configuration requires that each virtual host file end in .conf.</p>
+<h5 class="mume-header" id="create-the-first-virtual-host-file">Create the First Virtual Host File</h5>
+
+<p>Start by copying the file for the first domain:</p>
+<pre class="language-bash"><span class="token function">sudo</span> <span class="token function">cp</span> /etc/apache2/sites-available/000-default.conf /etc/apache2/sites-available/example.com.conf
+</pre>
+<p>Open the new file in your editor with root privileges:</p>
+<pre class="language-bash"><span class="token function">sudo</span> <span class="token function">nano</span> /etc/apache2/sites-available/example.com.conf
+</pre>
+<p>The file will look something like this (I've removed the comments here to make the file more approachable):</p>
+<pre class="language-xml"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>VirtualHost</span> <span class="token attr-name"><span class="token namespace">*:</span>80</span><span class="token punctuation">></span></span>
+    ServerAdmin webmaster@localhost
+    DocumentRoot /var/www/html
+    ErrorLog ${APACHE_LOG_DIR}/error.log
+    CustomLog ${APACHE_LOG_DIR}/access.log combined
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>VirtualHost</span><span class="token punctuation">></span></span>
+</pre>
+<p>As you can see, there's not much here. We will customize the items here for our first domain and add some additional directives. This virtual host section matches any requests that are made on port 80, the default HTTP port.</p>
+<p>First, we need to change the ServerAdmin directive to an email that the site administrator can receive emails through.</p>
+<p>ServerAdmin <a href="mailto:admin@example.com">admin@example.com</a></p>
+<p>After this, we need to add two directives. The first, called ServerName, establishes the base domain that should match for this virtual host definition. This will most likely be your domain. The second, called ServerAlias, defines further names that should match as if they were the base name. This is useful for matching hosts you defined, like www:</p>
+<pre class="language-text">  ServerName example.com
+  ServerAlias www.example.com
+</pre>
+<p>The only other thing we need to change for a basic virtual host file is the location of the document root for this domain. We already created the directory we need, so we just need to alter the DocumentRoot directive to reflect the directory we created:</p>
+<pre class="language-text">  DocumentRoot /var/www/example.com/public_html
+</pre>
+<p>In total, our virtualhost file should look like this:</p>
+<pre class="language-xml"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>VirtualHost</span> <span class="token attr-name"><span class="token namespace">*:</span>80</span><span class="token punctuation">></span></span>
+    ServerAdmin admin@example.com
+    ServerName example.com
+    ServerAlias www.example.com
+    DocumentRoot /var/www/example.com/public_html
+    ErrorLog ${APACHE_LOG_DIR}/error.log
+    CustomLog ${APACHE_LOG_DIR}/access.log combined
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>VirtualHost</span><span class="token punctuation">></span></span>
+</pre>
+<p>Save and close the file.</p>
+<p>Copy First Virtual Host and Customize for Second Domain</p>
+<p>Now that we have our first virtual host file established, we can create our second one by copying that file and adjusting it as needed.</p>
+<p>Start by copying it:</p>
+<pre class="language-bash"><span class="token function">sudo</span> <span class="token function">cp</span> /etc/apache2/sites-available/example.com.conf /etc/apache2/sites-available/test.com.conf
+</pre>
+<p>Open the new file with root privileges in your editor:</p>
+<p>sudo nano /etc/apache2/sites-available/test.com.conf<br>
+You now need to modify all of the pieces of information to reference your second domain. When you are finished, it may look something like this:</p>
+<pre class="language-xml"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>VirtualHost</span> <span class="token attr-name"><span class="token namespace">*:</span>80</span><span class="token punctuation">></span></span>
+    ServerAdmin admin@test.com
+    ServerName test.com
+    ServerAlias www.test.com
+    DocumentRoot /var/www/test.com/public_html
+    ErrorLog ${APACHE_LOG_DIR}/error.log
+    CustomLog ${APACHE_LOG_DIR}/access.log combined
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>VirtualHost</span><span class="token punctuation">></span></span>
+</pre>
+<p>Save and close the file when you are finished.</p>
+<p>Step Five — Enable the New Virtual Host Files<br>
+Now that we have created our virtual host files, we must enable them. Apache includes some tools that allow us to do this.</p>
+<p>We can use the a2ensite tool to enable each of our sites like this:</p>
+<p>sudo a2ensite example.com.conf<br>
+sudo a2ensite test.com.conf<br>
+When you are finished, you need to restart Apache to make these changes take effect:</p>
+<p>sudo service apache2 restart<br>
+You will most likely receive a message saying something similar to:</p>
+<ul>
+<li>Restarting web server apache2<br>
+AH00558: apache2: Could not reliably determine the server's fully qualified domain name, using 127.0.0.1. Set the 'ServerName' directive globally to suppress this message<br>
+This is a harmless message that does not affect our site.</li>
+</ul>
+<p>Step Six — Set Up Local Hosts File (Optional)<br>
+If you haven't been using actual domain names that you own to test this procedure and have been using some example domains instead, you can at least test the functionality of this process by temporarily modifying the hosts file on your local computer.</p>
+<p>This will intercept any requests for the domains that you configured and point them to your VPS server, just as the DNS system would do if you were using registered domains. This will only work from your computer though, and is simply useful for testing purposes.</p>
+<p>Make sure you are operating on your local computer for these steps and not your VPS server. You will need to know the computer's administrative password or otherwise be a member of the administrative group.</p>
+<p>If you are on a Mac or Linux computer, edit your local file with administrative privileges by typing:</p>
+<p>sudo nano /etc/hosts<br>
+If you are on a Windows machine, you can find instructions on altering your hosts file here.</p>
+<p>The details that you need to add are the public IP address of your VPS server followed by the domain you want to use to reach that VPS.</p>
+<p>For the domains that I used in this guide, assuming that my VPS IP address is 111.111.111.111, I could add the following lines to the bottom of my hosts file:</p>
+<p>127.0.0.1   localhost<br>
+127.0.1.1   guest-desktop<br>
+111.111.111.111 <a href="http://example.com">example.com</a><br>
+111.111.111.111 <a href="http://test.com">test.com</a><br>
+This will direct any requests for <a href="http://example.com">example.com</a> and <a href="http://test.com">test.com</a> on our computer and send them to our server at 111.111.111.111. This is what we want if we are not actually the owners of these domains in order to test our virtual hosts.</p>
+<p>Save and close the file.</p>
+<p>Step Seven — Test your Results<br>
+Now that you have your virtual hosts configured, you can test your setup easily by going to the domains that you configured in your web browser:</p>
+<p><a href="http://example.com">http://example.com</a><br>
+You should see a page that looks like this:</p>
+<p>Apache virt host example</p>
+<p>Likewise, if you can visit your second page:</p>
+<p><a href="http://test.com">http://test.com</a><br>
+You will see the file you created for your second site:</p>
+<p>Apache virt host test</p>
+<p>If both of these sites work well, you've successfully configured two virtual hosts on the same server.</p>
+<p>If you adjusted your home computer's hosts file, you may want to delete the lines you added now that you verified that your configuration works. This will prevent your hosts file from being filled with entries that are not actually necessary.</p>
+<p>If you need to access this long term, consider purchasing a domain name for each site you need and setting it up to point to your VPS server.</p>
+<p>Conclusion<br>
+If you followed along, you should now have a single server handling two separate domain names. You can expand this process by following the steps we outlined above to make additional virtual hosts.</p>
+<p>There is no software limit on the number of domain names Apache can handle, so feel free to make as many as your server is capable of handling.</p>
+<h4 class="mume-header" id="user-www-data">User www-data</h4>
+
+<p>if we need run some command as www-data user then</p>
+<pre class="language-bash">  <span class="token function">sudo</span> -u www-data bash-command
+</pre>
+<h3 class="mume-header" id="fa-code-improvements-fmp"><i class="fa fa-code" aria-hidden="true"></i> Improvements FMP</h3>
+
+<p>source  <a href="https://pehapkari.cz/blog/2017/03/27/multiple-php-versions-the-easy-way/">https://pehapkari.cz/blog/2017/03/27/multiple-php-versions-the-easy-way/</a><br>
+In Debian systems , can install both php version 5.6 and 7</p>
+<h3 class="mume-header" id="installing-php-70">Installing PHP 7.0</h3>
+
+<p>Install PHP 7.0 from Debian archive. This will be (sadly) the default version in Stretch, 7.1 came out too late to squeeze into Stretch's timeline. Do this using the following command:</p>
+<pre class="language-bash">$ <span class="token function">apt-get</span> <span class="token function">install</span> php7.0-cli php7.0-fpm
+</pre>
+<p>Notice the different pattern of the package name. Older Debian installations used simply php5 whereas newer infrastructure uses phpX.Y. This is the obvious part that efficiently allows us to use multiple PHPs in parallel. With this structure, you can install each of the minor versions next to each other.</p>
+<h3 class="mume-header" id="installing-php-56">Installing PHP 5.6</h3>
+
+<p>Here's the catch. Debian only offers a single PHP version in the official repository. Fortunately there are packages directly from a maintainer of Debian's PHP packages, Ondřej Surý. Visit his page about packaging to learn more. (There is also a PPA repository in case you'd rather use Ubuntu instead of Debian.)</p>
+<p>We'll now add his repository (as well as enable HTTPS for APT and register the APT key):</p>
+<pre class="language-bash">$ <span class="token function">apt-get</span> <span class="token function">install</span> apt-transport-https
+$ curl https://packages.sury.org/php/apt.gpg <span class="token operator">|</span> apt-key add -
+$ <span class="token keyword">echo</span> <span class="token string">'deb https://packages.sury.org/php/ stretch main'</span> <span class="token operator">></span> /etc/apt/sources.list.d/deb.sury.org.list
+$ <span class="token function">apt-get</span> update
+</pre>
+<p>Now that we have the repository added, we can install the packages from there:</p>
+<pre class="language-bash">$ <span class="token function">apt-get</span> <span class="token function">install</span> php5.6-cli php5.6-fpm
+</pre>
+<p>This will install PHP 5.6 in parallel to PHP 7.0 installed earlier. We can check this is true by simply running:</p>
+<pre class="language-bash">$ php7.0 -v
+PHP 7.0.15-1 <span class="token punctuation">(</span>cli<span class="token punctuation">)</span>
+$ php5.6 -v
+PHP 5.6.30-5+0~20170223133422.27+stretch~1.gbp1ee0cb <span class="token punctuation">(</span>cli<span class="token punctuation">)</span>
+</pre>
+<p>Note that for conviniency there is also a php command provided by alternatives (which defaults to the newest version):</p>
+<pre class="language-bash">$ php -v
+PHP 7.0.15-1 <span class="token punctuation">(</span>cli<span class="token punctuation">)</span>
+</pre>
+<p>You can switch the default version using update-alternatives, just run the following command and pick the version you prefer:</p>
+<pre class="language-bash">$ update-alternatives --config php
+
+There are 2 choices <span class="token keyword">for</span> the alternative php <span class="token punctuation">(</span>providing /usr/bin/php<span class="token punctuation">)</span>.
+
+  Selection    Path             Priority   Status
+------------------------------------------------------------
+  0            /usr/bin/php7.2   72        auto mode
+* 1            /usr/bin/php5.6   56        manual mode
+  2            /usr/bin/php7.2   72        manual mode
+
+Press <span class="token operator">&lt;</span>enter<span class="token operator">></span> to keep the current choice<span class="token punctuation">[</span>*<span class="token punctuation">]</span>, or <span class="token function">type</span> selection number:
+</pre>
+<p>install the needed module</p>
+<blockquote>
+<p>libapache2-mod-php5.6</p>
+</blockquote>
+<p>or</p>
+<blockquote>
+<p>libapache2-mod-php7.2</p>
+</blockquote>
+<p>as default</p>
+<h3 class="mume-header" id="enabling-error-display-in-php-via-htaccess-only">Enabling error display in php via htaccess only</h3>
+
+<pre class="language-init">php_flag display_startup_errors on
+php_flag display_errors on
+php_flag html_errors on
+php_flag  log_errors on
+php_value error_log  /home/path/public_html/domain/PHP_errors.log
+</pre>
+<h3 class="mume-header" id="setting-up-multiple-apache2-instances-on-ubuntu-1604">Setting up multiple apache2 instances on Ubuntu 16.04</h3>
+
+<p>src:<a href="https://gist.github.com/aaronbloomfield/92c707631a0191152bc7faf0124fd651">https://gist.github.com/aaronbloomfield/92c707631a0191152bc7faf0124fd651</a></p>
+<p>PHP handling on apache is done via modules of one sort or another, and running multiple version is problematic on a single instance.  The solution is to run two instances of apache on the same machine.  This allows one instance to run PHP 7 (the default on 16.04), and another can run PHP 5.  Since normal http/https is on ports 80 and 443, the second instance will run on ports 81 and 444.  Since it is running on the same machine, all file system and database access is the exact same.</p>
+<p>All the commands herein have to be run as root, or with <code>sudo</code> prefixed to the command.</p>
+<ol>
+<li>
+<p>Read /usr/share/doc/apache2/README.multiple-instances</p>
+</li>
+<li>
+<p>Run <code>sh ./setup-instance php5</code> from <code>/usr/share/doc/apache2/examples</code>, where <code>php5</code> is the suffix for the second site; all commands for the second site will have that suffix.  This will keep all of the same configuration for all sites on the new instance, including SSL certificates, other virtual hosts, etc.  After running this command, you will see output like this:</p>
+</li>
+</ol>
+<pre class="language-bash">Setting up /etc/apache2-php5 <span class="token punctuation">..</span>.
+systemd is <span class="token keyword">in</span> use, no init script installed
+use the <span class="token string">'apache2@php5.service'</span> <span class="token function">service</span> to control your new instance
+sample commands:
+systemctl start apache2@php5.service
+systemctl <span class="token function">enable</span> apache2@php5.service
+Setting up symlinks: a2enmod-php5 a2dismod-php5 a2ensite-php5 a2dissite-php5 a2enconf-php5 a2disconf-php5 apache2ctl-php5
+Setting up /etc/logrotate.d/apache2-php5 and /var/log/apache2-php5 <span class="token punctuation">..</span>.
+Setting up /etc/default/apache-htcacheclean-php5
+</pre>
+<ol start="3">
+<li>
+<p>Install PHP 5: see <a href="http://askubuntu.com/questions/756181/installing-php-5-6-on-xenial-16-04">http://askubuntu.com/questions/756181/installing-php-5-6-on-xenial-16-04</a> for the source of the directions for this step</p>
+<ul>
+<li><code>add-apt-repository ppa:ondrej/php</code></li>
+<li><code>apt-get update</code></li>
+<li><code>apt-get install php5.6 php5.6-mbstring php5.6-mcrypt php5.6-mysql php5.6-xml</code></li>
+</ul>
+</li>
+<li>
+<p>Change line 1 of <code>/etc/apache2-php5/mods-available/php5.load</code> to use the correct path (likely <code>/usr/lib/apache2/modules/libphp5.6.so</code>).  Alternatively, one can use the <code>php5.6.load</code> and <code>php5.6.conf</code> files installed in <code>/etc/apache2/mods-available</code> (these will have to be moved to <code>/etc/apache2-php5/mods-available</code>).</p>
+</li>
+<li>
+<p>You may have to configure <code>/etc/apache2-php5/mods-available/php5.conf</code> (or <code>php5.6.conf</code>), for example, setting <code>php_admin_flag engine On</code> for the users' home directories.</p>
+</li>
+<li>
+<p>On the second instance, disable anything that will conflict with the default PHP 5 module; for me this was disabling FastCGI and FPM, but yours may have php7.0; both are listed below.  Also enable PHP 5.  Note that PHP 5 was likely enabled on the default web server via the installation of the php5.6 package, so that needs to be disabled.  Note that depending on what you did in step 4, you may have to replace &quot;php5.6&quot; below with &quot;php5&quot;.  Also note that some of these modules and configurations that are being disabled may not exist on your system -- that's fine.</p>
+</li>
+</ol>
+<pre class="language-bash">a2dismod-php5 php7.0
+a2dismod-php5 fastcgi
+a2enmod-php5 php5.6
+a2disconf-php5 php7.0-fpm
+a2dismod-php5 proxy_fcgi
+a2dismod php5.6
+</pre>
+<ol start="7">
+<li>
+<p><s>Remove /etc/apache2-php5/userperms.conf, if it exists, and replace with empty file (that is a FastCGI/FPM file, which is not needed in PHP5, which is not being configured here to use FastCGI/FPM).</s> (this was only for my local configuration)</p>
+</li>
+<li>
+<p>Make sure the porst you want to use (81/444 in this example) are available: run <code>nmap localhost</code> (you may have to install the <code>nmap</code> package first) to see which ports are currently in use.  To find the processes running on a given port, run <code>lsof -i :81</code> (replace 81 with the port you are investigating).</p>
+</li>
+<li>
+<p>In /etc/apache-php5/, edit ports.conf, and change ports 80 and 443 to the ports that you want to use (81 and 444, in this example).</p>
+</li>
+<li>
+<p>In /etc/apache-php5/sites-available/, edit 000-default.conf, default-ssl.conf, and any other web site configuration files that you want running on the second instance.  The port numbers have to be changed there as well (from 80/443 to 81/444).</p>
+</li>
+<li>
+<p>Although the new service (<code>apahce2-php5</code>) was installed (in <code>/etc/init.d/</code>), the system isn't aware of it yet.  To fix this, see the commands listed in <code>/usr/share/doc/apache2/README.multiple-instances</code> (which one you use will vary depending on your system).</p>
+</li>
+<li>
+<p>Restart apache2: <code>service apache2-php5 restart</code></p>
+</li>
+</ol>
+<p>At this point, it should work: using the regular ports for http/https (i.e., no port number) will use PHP 7.  Using ports 81/444 for http/https, respectively, will use PHP 5.  For example: <a href="http://example.com:81/phpinfo.php">http://example.com:81/phpinfo.php</a> and <a href="https://example.com:444/phpinfo.php">https://example.com:444/phpinfo.php</a>.</p>
+<h3 class="mume-header" id="setting-database-server-mariadb">Setting Database Server [mariadb]</h3>
+
+<p>After install mariadb server and client</p>
+<p>Secure database server</p>
+<p>run the mysql_secure_installation script to secure the database where you can:</p>
+<pre class="language-text">set root password (if not set in the configuration step above).
+disable remote root login
+remove test database
+remove anonymous users and
+reload privileges
+</pre>
+<pre class="language-bash">$ <span class="token function">sudo</span> mysql_secure_installation
+</pre>
+<h5 class="mume-header" id="how-to-create-a-new-user-in-maria">How to Create a New User in Maria</h5>
+
+<p>a new user within the MySQL shell:</p>
+<pre class="language-sql"><span class="token keyword">CREATE</span> <span class="token keyword">USER</span> <span class="token string">'newuser'</span>@'localhost<span class="token string">' IDENTIFIED BY '</span>password'<span class="token punctuation">;</span>
+</pre>
+<p>Sadly, at this point newuser has no permissions to do anything with the databases. In fact, if newuser even tries to login (with the password, password), they will not be able to reach the MySQL shell.</p>
+<p>Therefore, the first thing to do is to provide the user with access to the information they will need.</p>
+<pre class="language-sql"><span class="token keyword">GRANT</span> <span class="token keyword">ALL</span> <span class="token keyword">PRIVILEGES</span> <span class="token keyword">ON</span> <span class="token operator">*</span><span class="token punctuation">.</span><span class="token operator">*</span> <span class="token keyword">TO</span> <span class="token string">'newuser'</span>@'localhost<span class="token string">';
+-- or for grants
+grant all privileges on *.* to '</span>newuser<span class="token string">'@'</span>localhost' <span class="token keyword">with</span> <span class="token keyword">grant</span> <span class="token keyword">option</span><span class="token punctuation">;</span>
+</pre>
+<p>The asterisks in this command refer to the database and table (respectively) that they can access—this specific command allows to the user to read, edit, execute and perform all tasks across all the databases and tables.</p>
+<p>Once you have finalized the permissions that you want to set up for your new users, always be sure to reload all the privileges.</p>
+<pre class="language-sql">FLUSH <span class="token keyword">PRIVILEGES</span><span class="token punctuation">;</span>
+</pre>
+<p>Your changes will now be in effect.</p>
+<h3 class="mume-header" id="configure-connection-from-lamp-to-mssql">Configure connection from LAMP to MSSQL</h3>
+
+<blockquote>
+<p>firts install lamp</p>
+</blockquote>
+<pre class="language-bash"><span class="token function">apt-get</span> <span class="token function">install</span> apache2 mysql-server mysql-client php5-cli php5 php5-mysql
+</pre>
+<p>then add modrewrite module to apache</p>
+<pre class="language-bash">a2enmod rewrite
+</pre>
+<p>change in /etc/apache2/apache.conf</p>
+<pre class="language-xml"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>Directory</span><span class="token punctuation">></span></span>
+/var/www/
+AllowOverride none
+to
+AllowOverride All
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>Directory</span><span class="token punctuation">></span></span>
+</pre>
+<p>Restart apache Service</p>
+<p>Allowed memory size of 147281674 bytes exhausted in <some-file>.php on line 57<br>
+Then you start to search on the Internet with the above error message and you find advices like:<br>
+memory_limit = 32M to your server’s main php.ini file (recommended, if you have access)<br>
+memory_limit = 32M to a php.ini file in your application’s php file<br>
+ini_set(‘memory_limit’, ’32M’); ini_set(‘memory_limit’, ’-1’); in your sites/default/settings.php file<br>
+php_value memory_limit 32M in your .htaccess file<br>
+Add more memory</some-file></p>
+<p>The easiest way to find is to access the phpinfo() function on your system by launching a web-browser and typing the name (or IP address) of your Debian server like this:</p>
+<p>and look for the following entry:<br>
+Loaded Configuration File etc/php5/apache2/php.ini<br>
+that is basically where your global php.ini file resides on your system.<br>
+Any application that uses Apache will read the value of the parameter:<br>
+memory_limit = 128M<br>
+in cakephp overerite the .htaccess of the individual application<br>
+are in the root directory</p>
+<pre class="language-text">    myApp/
+      app/
+      config/
+      cake/
+      .../
+      .htaccess
+</pre>
+<h4 class="mume-header" id="backup-your-databases">Backup your databases</h4>
+
+<pre class="language-bash"><span class="token shebang important">#!/bin/bash</span>
+mysqldump -u root -p --all-databases <span class="token operator">></span> alldb_backup.sql
+<span class="token comment" spellcheck="true"># or</span>
+mysqldump -h server -u root -p --all-databases <span class="token operator">></span> all_dbs.sql
+<span class="token comment" spellcheck="true"># and</span>
+mysql -u root -p <span class="token operator">&lt;</span> all_dbs.sql
+<span class="token comment" spellcheck="true"># other options</span>
+mysqldump <span class="token punctuation">[</span>options<span class="token punctuation">]</span> --databases db_name1 <span class="token punctuation">[</span>db_name2 db_name3<span class="token punctuation">..</span>.<span class="token punctuation">]</span>
+
+mysqldump -u SomeUser -p --databases mydb1 mydb2 mydb3 <span class="token operator">></span> myDbs.sql
+</pre>
+<pre class="language-bash"><span class="token comment" spellcheck="true"># backup databases example</span>
+mysqldump -u root -p --databases policies portal_company portal_secure portal_user_info portal_users <span class="token operator">></span> integradev.sql
+
+mysql -u ambagasdowa -p <span class="token operator">&lt;</span> integradev.sql
+</pre>
+<blockquote>
+<p>TITLE =&gt; connect cakephp/LinuxBox To MSSQL</p>
+</blockquote>
+<p>Summary</p>
+<p>install the packages</p>
+<pre class="language-text">freetds-bin
+tdsodbc
+unixodbc
+php5-sybase
+</pre>
+<p>=== Add the server Definition Entry in</p>
+<blockquote>
+<p>/etc/freetds/freetds.conf</p>
+</blockquote>
+<p>hostidentifier =&gt; the name of the server this is a wrapper for the connection</p>
+<pre class="language-ini"><span class="token selector">[hostidentifier]</span>
+<span class="token constant">host</span> <span class="token attr-value"><span class="token punctuation">=</span> 192.168.0.30</span>
+<span class="token constant">port</span> <span class="token attr-value"><span class="token punctuation">=</span> 1433</span>
+tds version <span class="token attr-value"><span class="token punctuation">=</span> 8.0</span>
+</pre>
+<ul>
+<li>
+<p>Add the driver configuration /etc/odbcinst.ini</p>
+</li>
+<li>
+<p>the routes in debian are /usr/lib/i386-linux-gnu/odbc/libtdsodbc.so</p>
+</li>
+<li>
+<p>and /usr/lib/i386-linux-gnu/odbc/libtdsS.so</p>
+</li>
+<li>
+<p>for x64 systems the routes are :</p>
+</li>
+<li>
+<p>Driver = /usr/lib/x86_64-linux-gnu/odbc/libtdsodbc.so</p>
+</li>
+<li>
+<p>Setup = /usr/lib/x86_64-linux-gnu/odbc/libtdsS.so</p>
+</li>
+</ul>
+<pre class="language-ini"><span class="token selector">[ms-sql]</span>
+<span class="token constant">Description</span> <span class="token attr-value"><span class="token punctuation">=</span> TDS connection</span>
+<span class="token constant">Driver</span> <span class="token attr-value"><span class="token punctuation">=</span> /usr/lib/libtdsodbc.so.0</span>
+<span class="token constant">Setup</span> <span class="token attr-value"><span class="token punctuation">=</span> /usr/lib/libtdsS.so</span>
+<span class="token constant">UsageCount</span> <span class="token attr-value"><span class="token punctuation">=</span> 1</span>
+<span class="token constant">FileUsage</span> <span class="token attr-value"><span class="token punctuation">=</span> 1</span>
+</pre>
+<ul>
+<li>Add the connection configuration /etc/odbc.ini</li>
+</ul>
+<pre class="language-ini"><span class="token selector">[odbc-dbname]</span>
+<span class="token constant">Description</span> <span class="token attr-value"><span class="token punctuation">=</span> sqlserver1</span>
+<span class="token constant">Driver</span> <span class="token attr-value"><span class="token punctuation">=</span> ms-sql</span>
+<span class="token constant">ServerName</span> <span class="token attr-value"><span class="token punctuation">=</span> hostsql1</span>
+<span class="token constant">UID</span> <span class="token attr-value"><span class="token punctuation">=</span> TuUsuario</span>
+<span class="token constant">Port</span> <span class="token attr-value"><span class="token punctuation">=</span> 1433</span>
+<span class="token constant">Database</span> <span class="token attr-value"><span class="token punctuation">=</span> dbname</span>
+</pre>
+<p>Driver debe de ser el nombre del driver que hemos definido en odbcinst.ini<br>
+ServerName debe de ser el identificador de host que hemos definido en freetds.conf</p>
+<ul>
+<li>Test the connection</li>
+</ul>
+<pre class="language-bash"><span class="token comment" spellcheck="true"># tsql -S 192.168.0.30 -p 1433 -U TuUsuario -P TuPassword</span>
+locale is “en_US.UTF-8″
+locale charset is “UTF-8″
+1<span class="token operator">></span>
+</pre>
+<pre class="language-bash"><span class="token comment" spellcheck="true"># isql -v odbc-dbname TuUsuario TuPassword</span>
+
+<span class="token operator">|</span> Connected<span class="token operator">!</span>                            <span class="token operator">|</span>
+<span class="token operator">|</span>                                       <span class="token operator">|</span>
+<span class="token operator">|</span> sql-statement                         <span class="token operator">|</span>
+<span class="token operator">|</span> <span class="token function">help</span> <span class="token punctuation">[</span>tablename<span class="token punctuation">]</span>                      <span class="token operator">|</span>
+<span class="token operator">|</span> quit                                  <span class="token operator">|</span>
+<span class="token operator">|</span>                                       <span class="token operator">|</span>
++—————————————+
+
+SQL<span class="token operator">></span>
+</pre>
+<pre class="language-bash"><span class="token function">apt-get</span> <span class="token function">install</span> libsybdb5 freetds-common php5-sybase
+/etc/init.d/apache2 restart
+</pre>
+<p>At the end of the process, if all goes fine, you will find in the mssql section of phpinfo();</p>
+<p>Additionally in cakephp</p>
+<p>I corrected the problem by adding the 'port' =&gt; '' to my database.php<br>
+default config as in:</p>
+<pre class="language-php">
+  <span class="token keyword">var</span> <span class="token variable">$default</span> <span class="token operator">=</span> <span class="token keyword">array</span><span class="token punctuation">(</span>
+          <span class="token string">'driver'</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token string">'mssql'</span><span class="token punctuation">,</span>
+          <span class="token string">'persistent'</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token boolean">false</span><span class="token punctuation">,</span>
+          <span class="token string">'host'</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token string">'hostidentifier'</span><span class="token punctuation">,</span>
+          <span class="token string">'login'</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token string">'sa'</span><span class="token punctuation">,</span>
+          <span class="token string">'password'</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token string">'pass'</span><span class="token punctuation">,</span>
+          <span class="token string">'database'</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token string">'MyDb'</span><span class="token punctuation">,</span>
+          <span class="token string">'encoding'</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token string">'utf8'</span><span class="token punctuation">,</span>
+          <span class="token string">'port'</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token string">'1433'</span>
+  <span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+</pre>
+<p>Happy coding!</p>
+<h1 class="mume-header" id="fa-video-camera-screencast"><i class="fa fa-video-camera" aria-hidden="true"></i> Screencast</h1>
+
+<ul>
+<li>capture image example</li>
+</ul>
+<pre class="language-bash">      ffmpeg -f x11grab -r 25 -s 1440x900 -i :0.0 -vcodec huffyuv screencast.avi
+      <span class="token comment" spellcheck="true"># then Recommended</span>
+      ffmpeg -i screencast.avi -vf scale<span class="token operator">=</span>320:-1 -r 10 -f image2pipe -vcodec ppm - <span class="token operator">|</span> convert -fuzz 4% -layers Optimize -delay 5 -loop 0 - output.gif
+      <span class="token comment" spellcheck="true"># OR</span>
+<span class="token comment" spellcheck="true"># output as gif</span>
+      ffmpeg -i screencast.avi -loop_output 0 -r 5 -s 320x200 -pix_fmt rgb24 output.gif
+      <span class="token comment" spellcheck="true"># OR</span>
+      ffmpeg -i screencast.avi -pix_fmt rgb24 output.gif
+<span class="token comment" spellcheck="true"># finally</span>
+      convert output.gif -fuzz 8% -layers Optimize finalgif.gif
+
+</pre>
+<h1 class="mume-header" id="fa-github-git-docs"><i class="fa fa-github" aria-hidden="true"></i> Git docs</h1>
+
+<h5 class="mume-header" id="update-a-repo-to-github">update a repo to github</h5>
+
+<p>cd to path</p>
+<pre class="language-bash"><span class="token function">git</span> status
+<span class="token function">git</span> add <span class="token keyword">.</span>
+<span class="token function">git</span> commit -m <span class="token string">"some description"</span>
+<span class="token function">git</span> push
+</pre>
+<h5 class="mume-header" id="update-a-repo-to-local">Update a repo to local</h5>
+
+<pre class="language-bash"><span class="token function">git</span> pull
+</pre>
+<p>How to ignore error on git pull about my local changes would be overwritten by merge?</p>
+<p>try one :<br>
+Alright with the help of the other two answers I've come up with a direct solution:</p>
+<pre class="language-bash"><span class="token function">git</span> checkout HEAD^ file/to/overwrite
+<span class="token function">git</span> pull
+</pre>
+<p>try two (working for nextcloud):<br>
+This works for me to override all local changes and does not require an identity:</p>
+<pre class="language-bash"><span class="token function">git</span> reset --hard
+<span class="token function">git</span> pull
+</pre>
+<h5 class="mume-header" id="you-cant-merge-with-local-modifications-git-protects-you-from-losing-potentially-important-changes">You can't merge with local modifications. Git protects you from losing potentially important changes.</h5>
+
+<p>You have three options.</p>
+<ol>
+<li>
+<p>Commit the change using</p>
+<p>git commit -m &quot;My message&quot;</p>
+</li>
+<li>
+<p>Stash it.</p>
+</li>
+</ol>
+<p>Stashing acts as a stack, where you can push changes, and you pop them in reverse order.</p>
+<p>To stash type:</p>
+<p>git stash</p>
+<p>Do the merge, and then pull the stash:</p>
+<p>git stash pop</p>
+<ol start="3">
+<li>Discard the local changes</li>
+</ol>
+<p>using git reset --hard. or git checkout -t -f remote/branch<br>
+3. a) Discard local changes for a specific file</p>
+<p>using git checkout filename</p>
+<h1 class="mume-header" id="fa-file-pdf-pdf-section"><i class="fa fa-file-pdf" aria-hidden="true"></i> Pdf section</h1>
+
+<ul>
+<li>Merge PDF files with PHP</li>
+</ul>
+<p>I've done this before. I had a pdf that I generated with fpdf, and I needed to add on a variable amount of PDFs to it.</p>
+<p>So I already had an fpdf object and page set up (<a href="http://www.fpdf.org/">http://www.fpdf.org/</a>) And I used fpdi to import the files (<a href="http://www.setasign.de/products/pdf-php-solutions/fpdi/">http://www.setasign.de/products/pdf-php-solutions/fpdi/</a>) FDPI is added by extending the PDF class:</p>
+<pre class="language-php"><span class="token keyword">class</span> <span class="token class-name">PDF</span> <span class="token keyword">extends</span> <span class="token class-name">FPDI</span> <span class="token punctuation">{</span>
+   <span class="token variable">$pdffile</span> <span class="token operator">=</span> <span class="token string">"Filename.pdf"</span><span class="token punctuation">;</span>
+   <span class="token variable">$pagecount</span> <span class="token operator">=</span> <span class="token variable">$pdf</span><span class="token operator">-</span><span class="token operator">></span><span class="token function">setSourceFile</span><span class="token punctuation">(</span><span class="token variable">$pdffile</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  
+   <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token variable">$i</span><span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span> <span class="token variable">$i</span><span class="token operator">&lt;</span><span class="token variable">$pagecount</span><span class="token punctuation">;</span> <span class="token variable">$i</span><span class="token operator">++</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+       <span class="token variable">$pdf</span><span class="token operator">-</span><span class="token operator">></span><span class="token function">AddPage</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  
+       <span class="token variable">$tplidx</span> <span class="token operator">=</span> <span class="token variable">$pdf</span><span class="token operator">-</span><span class="token operator">></span><span class="token function">importPage</span><span class="token punctuation">(</span><span class="token variable">$i</span><span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token string">'/MediaBox'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+       <span class="token variable">$pdf</span><span class="token operator">-</span><span class="token operator">></span><span class="token function">useTemplate</span><span class="token punctuation">(</span><span class="token variable">$tplidx</span><span class="token punctuation">,</span> <span class="token number">10</span><span class="token punctuation">,</span> <span class="token number">10</span><span class="token punctuation">,</span> <span class="token number">200</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</pre>
+<p>This basically makes each pdf into an image to put into your other pdf. It worked amazingly well for what I needed it for.<br>
+Not quite sure why both the accepted answer and even the FDPI homepage seem to give botched or incomplete examples. Here's mine which works and is easy to implement. As expected it requires fpdf and fpdi libraries:</p>
+<p>FPDF: <a href="http://www.fpdf.org/en/download.php">http://www.fpdf.org/en/download.php</a><br>
+FPDI: <a href="https://www.setasign.com/products/fpdi/downloads">https://www.setasign.com/products/fpdi/downloads</a></p>
+<pre class="language-php"><span class="token keyword">require</span><span class="token punctuation">(</span><span class="token string">'fpdf.php'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">require</span><span class="token punctuation">(</span><span class="token string">'fpdi.php'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token variable">$files</span> <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token string">'doc1.pdf'</span><span class="token punctuation">,</span> <span class="token string">'doc2.pdf'</span><span class="token punctuation">,</span> <span class="token string">'doc3.pdf'</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+
+<span class="token variable">$pdf</span> <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">FPDI</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token comment" spellcheck="true">// iterate over array of files and merge</span>
+<span class="token keyword">foreach</span> <span class="token punctuation">(</span><span class="token variable">$files</span> <span class="token keyword">as</span> <span class="token variable">$file</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+   <span class="token variable">$pageCount</span> <span class="token operator">=</span> <span class="token variable">$pdf</span><span class="token operator">-</span><span class="token operator">></span><span class="token function">setSourceFile</span><span class="token punctuation">(</span><span class="token variable">$file</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+   <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token variable">$i</span> <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> <span class="token variable">$i</span> <span class="token operator">&lt;</span> <span class="token variable">$pageCount</span><span class="token punctuation">;</span> <span class="token variable">$i</span><span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+       <span class="token variable">$tpl</span> <span class="token operator">=</span> <span class="token variable">$pdf</span><span class="token operator">-</span><span class="token operator">></span><span class="token function">importPage</span><span class="token punctuation">(</span><span class="token variable">$i</span> <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token string">'/MediaBox'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+       <span class="token variable">$pdf</span><span class="token operator">-</span><span class="token operator">></span><span class="token function">addPage</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+       <span class="token variable">$pdf</span><span class="token operator">-</span><span class="token operator">></span><span class="token function">useTemplate</span><span class="token punctuation">(</span><span class="token variable">$tpl</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+   <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment" spellcheck="true">// output the pdf as a file (http://www.fpdf.org/en/doc/output.htm)</span>
+<span class="token variable">$pdf</span><span class="token operator">-</span><span class="token operator">></span><span class="token function">Output</span><span class="token punctuation">(</span><span class="token string">'F'</span><span class="token punctuation">,</span><span class="token string">'merged.pdf'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</pre>
+<h1 class="mume-header" id="fa-cloud-cloud-section"><i class="fa fa-cloud" aria-hidden="true"></i> Cloud Section</h1>
+
+<blockquote>
+<p>nextcloud issues<br>
+version 12</p>
+</blockquote>
+<p>issues about bin row something -&gt; edit my.cnf , add under</p>
+<pre class="language-ini"><span class="token selector">[mysql]</span>
+...
+<span class="token constant">binlog_format</span><span class="token attr-value"><span class="token punctuation">=</span>'MIXED'</span>
+...
+</pre>
+<h1 class="mume-header" id="fa-code-code-section"><i class="fa fa-code" aria-hidden="true"></i> Code Section</h1>
+
+<h4 class="mume-header" id="installing-richfilemanager-app">Installing RichFilemanager app</h4>
+
+<p>clone the repo</p>
+<pre class="language-bash"><span class="token function">git</span> clone http://github.com/servocoder/RichFilemanager.git
+</pre>
+<p>then cp the config files from manual<br>
+You can see 2 files in the config folder. Both should be copied and renamed as the following:</p>
+<pre class="language-text">&gt;filemanager.config.default.json -&gt; filemanager.config.json
+</pre>
+<p>Main configuration file. All scalar configuration options should be defined here. Reference.</p>
+<pre class="language-text">&gt;filemanager.init.js.example -&gt; filemanager.init.js
+</pre>
+<p>after that run in RichFilemanager dir</p>
+<pre class="language-bash">  composer update
+</pre>
+<h4 class="mume-header" id="add-google-repo">Add Google repo</h4>
+
+<ul>
+<li>add the key</li>
+</ul>
+<pre class="language-bash"><span class="token function">wget</span> -q -O - https://dl.google.com/linux/linux_signing_key.pub <span class="token operator">|</span> <span class="token function">sudo</span> apt-key add -
+</pre>
+<ul>
+<li>then add the repo</li>
+</ul>
+<pre class="language-bash"><span class="token keyword">echo</span> <span class="token string">"deb http://dl.google.com/linux/chrome/deb/ stable main"</span> <span class="token operator">>></span> /etc/apt/sources.list.d/google.list
+</pre>
+<h4 class="mume-header" id="composer-installation">Composer installation</h4>
+
+<h3 class="mume-header" id="introduction-1">Introduction</h3>
+
+<p><a href="https://getcomposer.org/">Composer</a> is a popular dependency management tool<br>
+for PHP, created mainly to facilitate installation and updates for project<br>
+dependencies. It will check which other packages a specific project depends on<br>
+and install them for you, using the appropriate versions according to the<br>
+project requirements.</p>
+<p>This tutorial will show how to install and get started with Composer on a<br>
+Debian 8 server.</p>
+<h2 class="mume-header" id="prerequisites">Prerequisites</h2>
+
+<p>For this tutorial, you will need:</p>
+<ul>
+<li>One Debian 8 server with a non-root sudo user, as shown in <a href="https://www.digitalocean.com/community/tutorials/initial-server-setup-with-debian-8" title="Initial Server Setup with Debian 8">Initial Server Setup with Debian 8</a></li>
+</ul>
+<h2 class="mume-header" id="step-1-installing-the-dependencies">Step 1 — Installing the Dependencies</h2>
+
+<p>Before we download and install Composer, we need to make sure our server has<br>
+all necessary dependencies installed.</p>
+<p>First, update the package manager cache.</p>
+<pre class="language-bash">  <span class="token function">sudo</span> <span class="token function">apt-get</span> update
+</pre>
+<p>Now, let's install the dependencies. We'll need <code>curl</code> in order to download<br>
+Composer and <code>php5-cli</code>, a PHP package, for installing and running it.<br>
+Composer uses <code>git</code>, a version control system, to download project<br>
+dependencies. You can install all three of these packages at once with this<br>
+command:</p>
+<pre class="language-bash"><span class="token function">sudo</span> <span class="token function">apt-get</span> <span class="token function">install</span> curl php5-cli <span class="token function">git</span>
+</pre>
+<p>Now that the essential dependencies are installed, let's proceed and install<br>
+Composer itself.</p>
+<h2 class="mume-header" id="step-2-downloading-and-installing-composer">Step 2 — Downloading and Installing Composer</h2>
+
+<p>We will follow the instructions as written in <a href="https://getcomposer.org/download/">Composer's official<br>
+documentation</a> with a small modification to<br>
+install Composer globally under <code>/usr/local/bin</code>. This will allow every user<br>
+on the server to use Composer.</p>
+<p>Download the installer to the <code>/tmp</code> directory.</p>
+<pre class="language-php">php <span class="token operator">-</span>r <span class="token string">"copy('https://getcomposer.org/installer', '/tmp/composer-setup.php');"</span>
+</pre>
+<p>Visit <a href="https://composer.github.io/pubkeys.html">Composer's pubkeys and signatures<br>
+page</a> and copy the SHA-384 string at<br>
+the top . Then, run the following command by replacing <code>sha_384_string</code> with<br>
+the string you copied.</p>
+<pre class="language-php">  php <span class="token operator">-</span>r <span class="token string">"if (hash_file('SHA384', '/tmp/composer-setup.php') === 'sha_384_string') { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('/tmp/composer-setup.php'); } echo PHP_EOL;"</span>
+</pre>
+<p>This command checks the hash of the file you downloaded with the correct hash<br>
+from Composer's website. If it matches, it'll print <strong>Installer verified</strong>. If<br>
+it doesn't match, it'll print <strong>Installer corrupt</strong>, in which case you should<br>
+double check that you copied the SHA-384 string correctly.</p>
+<p>Next, we will install Composer. To install it globally under <code>/usr/local/bin</code>,<br>
+we'll use the <code>--install-dir</code> flag; <code>--filename</code> tells the installer the name<br>
+of Composer's executable file. Here's how to do this in one command:</p>
+<pre class="language-php">  sudo php <span class="token operator">/</span>tmp<span class="token operator">/</span>composer<span class="token operator">-</span>setup<span class="token punctuation">.</span>php <span class="token operator">--</span>install<span class="token operator">-</span>dir<span class="token operator">=</span><span class="token operator">/</span>usr<span class="token operator">/</span>local<span class="token operator">/</span>bin <span class="token operator">--</span>filename<span class="token operator">=</span>composer
+</pre>
+<p>You'll see a message like the following:<br>
+Output:</p>
+<pre class="language-php">All settings correct <span class="token keyword">for</span> using Composer
+Downloading<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+
+<span class="token function">Composer</span> <span class="token punctuation">(</span>version <span class="token number">1.3</span><span class="token punctuation">.</span><span class="token number">2</span><span class="token punctuation">)</span> successfully installed to<span class="token punctuation">:</span> <span class="token operator">/</span>usr<span class="token operator">/</span>local<span class="token operator">/</span>bin<span class="token operator">/</span>composer
+<span class="token keyword">Use</span> it<span class="token punctuation">:</span> php <span class="token operator">/</span>usr<span class="token operator">/</span>local<span class="token operator">/</span>bin<span class="token operator">/</span>composer
+</pre>
+<p>You can verify that Composer is correctly installed by checking its version.</p>
+<pre class="language-bash">  composer --version
+</pre>
+<p>You should see the version that was installed. At that time of this writing,<br>
+the version is:</p>
+<p>Composer version<br>
+Composer version 1.3.2 2017-01-27 18:23:41<br>
+Finally, you can safely remove the installer script as you no longer need it.</p>
+<pre class="language-php">  rm <span class="token operator">/</span>tmp<span class="token operator">/</span>composer<span class="token operator">-</span>setup<span class="token punctuation">.</span>php
+</pre>
+<p>Composer is now set up and running, waiting to be used by your project. In the<br>
+next section, you'll generate the <code>composer.json</code> file, which includes the PHP<br>
+libraries that your project depends on.</p>
+<h4 class="mume-header" id="pear-installation">Pear installation</h4>
+
+<ul>
+<li>make a dir under named pear in home or {/usr/share/}pear</li>
+<li>download the file go-pear.php</li>
+</ul>
+<pre class="language-bash">$ <span class="token function">wget</span> http://pear.php.net/go-pear.phar
+<span class="token comment" spellcheck="true"># and run</span>
+$ php go-pear.phar
+</pre>
+<p>as root for a global installation</p>
+<h3 class="mume-header" id="add-webdav-client-support">add webdav client support</h3>
+
+<p>install as root this downloads the needed libs in /usr/share/php</p>
+<pre class="language-bash">pear <span class="token function">install</span> HTTP_WebDAV_Client-1.0.2
+</pre>
+<hr>
+<h1 class="mume-header" id="fa-android-android"><i class="fa fa-android" aria-hidden="true"></i> Android</h1>
+
+<h3 class="mume-header" id="udev">udev</h3>
+
+<p>Set up a device for development</p>
+<p>Before you can start debugging on your device, there are a few things you must do:</p>
+<pre class="language-text">On the device, open the Settings app, select Developer options, and then enable USB debugging.
+Note: If you do not see Developer options, follow the instructions to enable developer options.
+Set up your system to detect your device.
+    Windows: Install a USB driver for Android Debug Bridge (adb). For an installation guide and links to OEM drivers, see the Install OEM USB Drivers document.
+    Mac OS X: It just works. Skip this step.
+    Ubuntu Linux: Use apt-get install to install the android-tools-adb package. This gives you a community-maintained default set of udev rules for all Android devices.
+
+    Make sure that you are in the plugdev group. If you see the following error message, adb did not find you in the plugdev group:
+
+    error: insufficient permissions for device: udev requires plugdev group membership
+
+    Use id to see what groups you are in. Use sudo usermod -aG plugdev $LOGNAME to add yourself to the plugdev group.
+
+    The following example shows how to install the Android adb tools package.
+
+    apt-get install android-tools-adb
+</pre>
+<p>Try this:</p>
+<pre class="language-text">Create udev rules
+
+sudo gedit /etc/udev/rules.d/51-android.rules
+
+Insert this lines, save and exit
+
+SUBSYSTEM==&quot;usb&quot;, ATTR{idVendor}==&quot;1bbb&quot;, MODE=&quot;0666&quot;, GROUP=&quot;plugdev&quot;
+
+Restart udev
+
+sudo service udev restart
+
+Enable USB Debug in your phone (In Android 4.2.x and up Developer Options is hidden, to make it visible, do the following)
+    Tap seven times in Build Number: Settings &gt; About Phone &gt; Build Number
+    You will get a message saying you have enabled Developer Options or something like that, go back to Settings and you will see Developer Options in there.
+
+Connect phone with USB cable
+
+Open Terminal and type
+
+adb devices
+</pre>
+<p>I have Alcatel OneTouch Pop C7 (7041D)</p>
+<p>List of devices attached<br>
+6H9PY5ZPJV9HO7R4    device</p>
+<h1 class="mume-header" id="fa-linux-fa-apple-fa-windows-os-admin-section"><i class="fa fa-linux" aria-hidden="true"></i> <i class="fa fa-apple" aria-hidden="true"></i> <i class="fa fa-windows" aria-hidden="true"></i> OS-Admin section</h1>
+
+<h3 class="mume-header" id="fa-firefox"><i class="fa fa-firefox" aria-hidden="true"></i></h3>
+
+<p>disable web autoplay in firefox<br>
+set to true this options in about:config</p>
+<pre class="language-html">  media.autoplay.enabled
+  media.block-autoplay-until-in-foreground
+</pre>
+<h1 class="mume-header" id="fa-terminal-notes-section"><i class="fa fa-terminal" aria-hidden="true"></i> Notes Section</h1>
+
+<h4 class="mume-header" id="monitor-off">monitor off</h4>
+
+<p>El objetivo en cuestión para configurar ese tema es logind.conf y está en</p>
+<pre class="language-bash">     /etc/systemd
+</pre>
+<p>No se si es igual en todas las distros o cambia entre unas y otras.</p>
+<pre class="language-bash">    <span class="token function">sudo</span> <span class="token function">nano</span> /etc/systemd/logind.conf
+</pre>
+<p>En este archivo aparecen unas opciones mas que interesantes, no estoy seguro<br>
+al 100% pero creo que se puede aplicar la configuración adecuada para<br>
+cualquier caso editando este archivo, a mi me aparece lo siguiente:</p>
+<pre class="language-ini"><span class="token selector">    [Login]</span>
+<span class="token constant">    #NAutoVTs</span><span class="token attr-value"><span class="token punctuation">=</span>6</span>
+<span class="token constant">    #ReserveVT</span><span class="token attr-value"><span class="token punctuation">=</span>6</span>
+<span class="token constant">    #KillUserProcesses</span><span class="token attr-value"><span class="token punctuation">=</span>no</span>
+<span class="token constant">    #KillOnlyUsers</span><span class="token attr-value"><span class="token punctuation">=</span></span>
+<span class="token constant">    #KillExcludeUsers</span><span class="token attr-value"><span class="token punctuation">=</span>root</span>
+<span class="token constant">    #InhibitDelayMaxSec</span><span class="token attr-value"><span class="token punctuation">=</span>5</span>
+<span class="token constant">    #HandlePowerKey</span><span class="token attr-value"><span class="token punctuation">=</span>poweroff</span>
+<span class="token constant">    #HandleSuspendKey</span><span class="token attr-value"><span class="token punctuation">=</span>suspend</span>
+<span class="token constant">    #HandleHibernateKey</span><span class="token attr-value"><span class="token punctuation">=</span>hibernate</span>
+<span class="token constant">    #HandleLidSwitch</span><span class="token attr-value"><span class="token punctuation">=</span>suspend</span>
+<span class="token constant">    #HandleLidSwitchDocked</span><span class="token attr-value"><span class="token punctuation">=</span>ignore</span>
+<span class="token constant">    #PowerKeyIgnoreInhibited</span><span class="token attr-value"><span class="token punctuation">=</span>no</span>
+<span class="token constant">    #SuspendKeyIgnoreInhibited</span><span class="token attr-value"><span class="token punctuation">=</span>no</span>
+<span class="token constant">    #HibernateKeyIgnoreInhibited</span><span class="token attr-value"><span class="token punctuation">=</span>no</span>
+<span class="token constant">    #LidSwitchIgnoreInhibited</span><span class="token attr-value"><span class="token punctuation">=</span>yes</span>
+<span class="token constant">    #HoldoffTimeoutSec</span><span class="token attr-value"><span class="token punctuation">=</span>30s</span>
+<span class="token constant">    #IdleAction</span><span class="token attr-value"><span class="token punctuation">=</span>ignore</span>
+<span class="token constant">    #IdleActionSec</span><span class="token attr-value"><span class="token punctuation">=</span>30min</span>
+<span class="token constant">    #RuntimeDirectorySize</span><span class="token attr-value"><span class="token punctuation">=</span>10%</span>
+<span class="token constant">    #RemoveIPC</span><span class="token attr-value"><span class="token punctuation">=</span>yes</span>
+</pre>
+<p>Descomentando las linea que queramos usar y cambiándole el atributo adecuado<br>
+que nos interese se consigue la configuración deseada.</p>
+<p>En mi caso y a modo de ejemplo, para deshabilitar el interruptor usado en el<br>
+cierre de la pantalla de un portátil que provoca la suspensión del sistema y o<br>
+la hibernación del servidor, incluso provocaba el cierre de la sesión ssh de<br>
+acceso remoto.</p>
+<pre class="language-ini"><span class="token constant">    HandleSuspendKey</span><span class="token attr-value"><span class="token punctuation">=</span>ignore</span>
+<span class="token constant">    HandleHibernateKey</span><span class="token attr-value"><span class="token punctuation">=</span>ignore</span>
+<span class="token constant">    HandleLidSwitch</span><span class="token attr-value"><span class="token punctuation">=</span>ignore</span>
+</pre>
+<p>Guardamos los cambios, reiniciamos el sistema operativo y comprobamos el<br>
+resultado.</p>
+<h5 class="mume-header" id="using-expect-and-bash">Using Expect and Bash</h5>
+
+<p>Example 1</p>
+<pre class="language-bash">/usr/bin/expect<span class="token operator">&lt;&lt;</span><span class="token string">EOF
+spawn sudo xcodebuild -license              
+expect {
+    "*License.rtf" {
+        send "\r";
+    }
+    timeout {
+        send_user "\nExpect failed first expect\n";
+        exit 1;
+    }
+}
+expect {
+    "*By typing 'agree' you are agreeing" {
+        send "agree\r";
+        send_error "\nUser agreed to EULA\n";
+     }
+     "*Press 'space' for more, or 'q' to quit*" {
+         send "q";
+         exp_continue;
+     }
+     timeout {
+         send_error "\nExpect failed second expect\n";
+         exit 1;
+     }
+}
+EOF</span>
+</pre>
+<p>Example 2<br>
+If you want to automate only a part of your script you can call expect inside <a href="http://test.sh">test.sh</a> like so :</p>
+<pre class="language-bash">   <span class="token comment" spellcheck="true">#!/bin/sh</span>
+
+   <span class="token keyword">echo</span> -n Enter User Id:
+   <span class="token function">read</span> userid
+   <span class="token keyword">echo</span> -n <span class="token string">"Enter Password for remote user:"</span>
+   <span class="token function">read</span> -s password
+   hostname<span class="token operator">=</span><span class="token variable"><span class="token variable">`</span><span class="token function">hostname</span><span class="token variable">`</span></span>
+
+   <span class="token function">expect</span> -c <span class="token string">'
+   enter code here
+   spawn ssh <span class="token variable">${userid}</span>@'</span><span class="token string">"<span class="token variable">$hostname</span>"</span><span class="token string">'
+   expect "Password: "
+   send '</span><span class="token string">"<span class="token variable">$password</span>\r"</span><span class="token string">'
+   expect "$ "
+   send "pbrun su - tibco\r"
+   expect "$ "
+   send "exit\r"
+   expect "$ "
+   send "pbrun bash\r"
+   expect "$ "
+   send "ps -ef |grep apache\r"
+   expect "$ "
+   send "exit\r"
+    '</span>
+</pre>
+<p>To access variables set from outside the expect -c you have to use single and double quotes like so: '&quot;$var&quot;'</p>
+<h5 class="mume-header" id="set-output-modes">set output modes</h5>
+
+<p>xrandr -&gt; view avaliable modes</p>
+<pre class="language-bash">Screen 0: minimum 320 x 200, current 1366 x 1024, maximum 8192 x 8192
+eDP-1 connected 1366x768+0+0 <span class="token punctuation">(</span>normal left inverted right x axis y axis<span class="token punctuation">)</span> 309mm x 173mm
+   1366x768      60.06*+
+   1360x768      59.80    59.96  
+   1024x768      60.04    60.00  
+VGA-1 connected primary 1280x1024+0+0 <span class="token punctuation">(</span>normal left inverted right x axis y axis<span class="token punctuation">)</span> 419mm x 262mm
+  1440x900      59.89 +  74.98  
+  1280x1024     75.02*   70.00    60.02  
+  1280x800      59.81  
+  1152x864      75.00  
+  1024x768      75.03    70.07    60.00  
+</pre>
+<p>then:<br>
+xrandr --output VGA-1 --left-of eDP-1<br>
+xrandr --output VGA-1 --mode 1440x900</p>
+<h2 class="mume-header" id="extract-extension-and-basename">extract Extension and basename</h2>
+
+<p>extract the Extension</p>
+<pre class="language-bash">$<span class="token punctuation">{</span>basename<span class="token comment" spellcheck="true">##*.}</span>
+</pre>
+<p>and for extract the basename</p>
+<pre class="language-bash"><span class="token variable">${basename%.*}</span>
+</pre>
+<h2 class="mume-header" id="how-to-decode-aac-m4a-audio-files-into-wav">How to decode AAC (.m4a) audio files into WAV?</h2>
+
+<p>codecs conversion formats</p>
+<pre class="language-bash"><span class="token keyword">for</span> f <span class="token keyword">in</span> *.m4a<span class="token punctuation">;</span> <span class="token keyword">do</span> avconv -i <span class="token string">"<span class="token variable">$f</span>"</span> <span class="token string">"<span class="token variable">${f/%m4a/wav}</span>"</span><span class="token punctuation">;</span> <span class="token keyword">done</span>
+</pre>
+<h2 class="mume-header" id="search-code-with-find">search code with find</h2>
+
+<h5 class="mume-header" id="find-a-pattern-inside-of-several-files-and-extract-that-file-to-another-dir-with-his-dir-structure">Find a pattern inside of several files and extract that file to another dir with his dir structure</h5>
+
+<pre class="language-bash"><span class="token function">find</span> ./ -type f -print0 <span class="token operator">|</span> <span class="token function">xargs</span> -0 <span class="token function">grep</span> --color RegistroPatronal<span class="token operator">=</span>\"E6480571109\" <span class="token operator">|</span> <span class="token function">grep</span> -v src <span class="token operator">|</span> <span class="token function">awk</span> -F: <span class="token string">'{print <span class="token variable">$1</span>}'</span> <span class="token operator">|</span> <span class="token function">uniq</span> <span class="token operator">|</span> <span class="token function">grep</span> --color 2016 <span class="token operator">|</span> <span class="token function">xargs</span> <span class="token function">cp</span> -v -r --parents --target-directory<span class="token operator">=</span>/disk/mercenary/token/
+</pre>
+<p>firts find files with pattern<br>
+second clean output and print firts column that have the path of the file<br>
+third select only needed files in this case filter by year<br>
+last copy the file to another path<br>
+done</p>
+<h5 class="mume-header" id="find-inside-in-a-pdf">Find inside in a pdf</h5>
+
+<pre class="language-bash"><span class="token function">find</span> /path -name <span class="token string">'*.pdf'</span> -exec sh -c <span class="token string">'pdftotext "{}" - | grep --with-filename --label="{}" --color "your pattern"'</span> \<span class="token punctuation">;</span>
+</pre>
+<p>and copy to path</p>
+<pre class="language-bash"><span class="token function">find</span> ./ -name <span class="token string">'*.pdf'</span> -exec sh -c <span class="token string">'pdftotext "{}" - | grep --with-filename --label="{}" --color "yout pattern"'</span> \<span class="token punctuation">;</span> <span class="token operator">|</span> <span class="token function">awk</span> -F: <span class="token string">'{print <span class="token variable">$1</span>}'</span> <span class="token operator">|</span> <span class="token function">xargs</span> <span class="token function">cp</span> -vr --parents --target-directory<span class="token operator">=</span>/your/path/
+</pre>
+<p>The &quot;-&quot; is necessary to have pdftotext output to stdout, not to files. The --with-filename and --label= options will put the file name in the output<br>
+of grep. The optional --color flag is nice and tells grep to output using colors on the terminal.<br>
+(In Ubuntu, pdftotext is provided by the package xpdf-utils or poppler-utils.)<br>
+This method, using pdftotext and grep, has an advantage over pdfgrep if you want to use features of GNU grep that pdfgrep doesn't support.<br>
+Note: pdfgrep-1.3.x supports -C option for printing line of context.</p>
+<h4 class="mume-header" id="get-the-major-size-files-on-top">Get the major size files on top</h4>
+
+<pre class="language-bash"><span class="token function">du</span> -h --summarize --total * <span class="token operator">|</span> <span class="token function">sort</span> -rh
+</pre>
+<h2 class="mume-header" id="ls-hdd-devices-by-uuid-and-mount-it">ls hdd devices by uuid and mount it</h2>
+
+<p>make a dir source ex: <em>/media/externalx</em></p>
+<pre class="language-bash">ambagasdowa@uruk:~/Github$ <span class="token function">sudo</span> lsblk --output NAME,FSTYPE,LABEL,UUID,MODE
+NAME   FSTYPE LABEL       UUID                                 MODE
+sda                                                            brw-rw----
+<span class="token operator">|</span>-sda1 swap               2d2f3618-a26b-4719-8e70-8d4ef3a88d0f brw-rw----
+<span class="token operator">|</span>-sda2 ext4               127a8f38-e25e-4dae-ba89-b195af71df70 brw-rw----
+<span class="token operator">|</span>-sda3                                                         brw-rw----
+<span class="token variable"><span class="token variable">`</span>-sda5 ext4               d5abb0c9-3205-4bf4-bf6e-629e95c3af1f brw-rw----
+sdb                                                            brw-rw----
+<span class="token operator">|</span>-sdb1 swap               fc532612-ead2-4b82-8ac3-72bc1b9ca39f brw-rw----
+<span class="token operator">|</span>-sdb2                                                         brw-rw----
+<span class="token operator">|</span>-sdb5 ext4               837dd734-eeba-48a9-a001-e6711c2032a1 brw-rw----
+<span class="token variable">`</span></span>-sdb6 ext4               e3ca1ebb-56e5-486c-970d-38be0ef5034d brw-rw----
+sdc                                                            brw-rw----
+`-sdc1 vfat   MYLINUXLIVE D85A-828F                            brw-rw----
+sr0                                                            brw-rw----
+
+</pre>
+<p>in fstab add</p>
+<pre class="language-config">#mount external hdd
+UUID=837dd734-eeba-48a9-a001-e6711c2032a1 /media/externalx auto defaults,noauto 0 1
+UUID=e3ca1ebb-56e5-486c-970d-38be0ef5034d /media/externaly auto defaults,noauto 0 1
+</pre>
+<h2 class="mume-header" id="locale">locale</h2>
+
+<p>perl: warning: Setting locale failed.</p>
+<p>rewrite with</p>
+<blockquote>
+<p>sudo locale-gen en_US en_US.UTF-8</p>
+</blockquote>
+<p>or reconfigure the package</p>
+<blockquote>
+<p>sudo dpkg-reconfigure locales</p>
+</blockquote>
+<p>some kind of fix in enviorement</p>
+<pre class="language-bash"><span class="token function">sudo</span> -i
+locale
+<span class="token function">export</span> LANGUAGE<span class="token operator">=</span>en_US.UTF-8<span class="token punctuation">;</span> <span class="token function">export</span> LANG<span class="token operator">=</span>en_US.UTF-8<span class="token punctuation">;</span> <span class="token function">export</span> LC_ALL<span class="token operator">=</span>en_US.UTF-8<span class="token punctuation">;</span> locale-gen en_US.UTF-8
+dpkg-reconfigure locales
+<span class="token function">reboot</span>
+</pre>
+<h1 class="mume-header" id="sql">SQL</h1>
+
+<ul>
+<li>Sql notes</li>
+</ul>
+<h4 class="mume-header" id="mariadb-connect-engine">MariaDB Connect Engine</h4>
+
+<h2 class="mume-header" id="some-connect-engine-notes">Some Connect Engine Notes</h2>
+
+<p>Example: Connect MariaDB on Linux to Microsoft SQL Server</p>
+<p>This example uses the tabname option to work around a difference between MariaDB and SQL Server.<br>
+We want to retrieve some AdventureWorks data stored in the Person.Address table. However,<br>
+MariaDB does not have the idea of a table schema, and so we will change the name of the table to &quot;PersonAddress&quot; in MariaDB.<br>
+We specify the actual table name with the tabname, so the SQL Server ODBC driver can pass on the table name that SQL Server recognises.</p>
+<pre class="language-bash">$ /opt/mariadb/bin/mysql --socket<span class="token operator">=</span>/opt/mariadb-data/mariadb.sock
+MariaDB <span class="token punctuation">[</span><span class="token punctuation">(</span>none<span class="token punctuation">)</span><span class="token punctuation">]</span><span class="token operator">></span> CREATE DATABASE MSSQL<span class="token punctuation">;</span>
+MariaDB <span class="token punctuation">[</span><span class="token punctuation">(</span>none<span class="token punctuation">)</span><span class="token punctuation">]</span><span class="token operator">></span> USE MSSQL<span class="token punctuation">;</span>
+MariaDB <span class="token punctuation">[</span>MSSQL<span class="token punctuation">]</span><span class="token operator">></span> INSTALL SONAME <span class="token string">'ha_connect'</span><span class="token punctuation">;</span>
+MariaDB <span class="token punctuation">[</span>MSSQL<span class="token punctuation">]</span><span class="token operator">></span> CREATE TABLE PersonAddress engine<span class="token operator">=</span>connect
+                                            table_type<span class="token operator">=</span>ODBC
+                                            tabname<span class="token operator">=</span><span class="token string">'Person.Address'</span>
+                                            Connection<span class="token operator">=</span><span class="token string">'DSN=SQLSERVER_ADVENTUREWORKS;'</span><span class="token punctuation">;</span>
+ERROR 1105 <span class="token punctuation">(</span>HY000<span class="token punctuation">)</span>: Unsupported SQL <span class="token function">type</span> -11
+MariaDB <span class="token punctuation">[</span>MSSQL<span class="token punctuation">]</span><span class="token operator">></span> \<span class="token operator">!</span> <span class="token function">grep</span> -- -11 /usr/local/easysoft/unixODBC/include/sqlext.h
+<span class="token comment" spellcheck="true">#define SQL_GUID				(-11)</span>
+MariaDB <span class="token punctuation">[</span>MSSQL<span class="token punctuation">]</span><span class="token operator">></span> CREATE TABLE PersonAddress <span class="token punctuation">(</span>  AddressID int,  
+                                                AddressLine1 varchar<span class="token punctuation">(</span>60<span class="token punctuation">)</span>,  
+                                                AddressLine2 varchar<span class="token punctuation">(</span>60<span class="token punctuation">)</span>,
+                                                City varchar<span class="token punctuation">(</span>30<span class="token punctuation">)</span>,
+                                                StateProvinceID int,
+                                                PostalCode varchar<span class="token punctuation">(</span>15<span class="token punctuation">)</span>,
+                                                rowguid varchar<span class="token punctuation">(</span>64<span class="token punctuation">)</span>,
+                                                ModifiedDate datetime <span class="token punctuation">)</span>
+                                 engine<span class="token operator">=</span>connect
+                                 table_type<span class="token operator">=</span>ODBC
+                                 tabname<span class="token operator">=</span><span class="token string">'Person.Address'</span>
+                                 Connection<span class="token operator">=</span><span class="token string">'DSN=SQLSERVER_SAMPLE;'</span><span class="token punctuation">;</span>
+MariaDB <span class="token punctuation">[</span>MSSQL<span class="token punctuation">]</span><span class="token operator">></span> SELECT City FROM PersonAddress WHERE AddressID <span class="token operator">=</span> 32521<span class="token punctuation">;</span>
++-----------+
+<span class="token operator">|</span> City      <span class="token operator">|</span>
++-----------+
+<span class="token operator">|</span> Sammamish <span class="token operator">|</span>
++-----------+
+</pre>
+<p>Because there is no direct equivalent for the SQL Server data type uniqueidentifier.<br>
+We have to map this type in the rowguid column to a MariaDB VARCHAR type.<br>
+Even though this is the only problematic column, we need to include the others in the CREATE TABLE statement.<br>
+Otherwise, the table would only contain the rowguid column.</p>
+<h4 class="mume-header" id="the-seven-sins-against-tsql-performance">The Seven Sins against TSQL Performance</h4>
+
+<p>There are seven common antipatterns in TSQL coding that make code perform badly, and three good habits which will generally ensure that your code runs fast. If you learn nothing else from this list of great advice from Grant, just keep in mind that you should 'write for the optimizer'.</p>
+<p>Using the wrong data types<br>
+Using Functions in Comparisons within the ON or WHERE Clause<br>
+Employing Multi-Statement User Defined Functions (UDFs)<br>
+The “Run Faster” Switch: Allowing “Dirty Reads’<br>
+Applying Query Hints indiscriminately<br>
+Allowing “Row By Agonizing Row” processing (cursos etc ...)<br>
+Indulging in Nested Views<br>
+It’s not enough that your code is readable: it must perform well too.</p>
+<h2 class="mume-header" id="links">Links</h2>
+
+<p><a href="https://josephmaryam.files.wordpress.com">https://josephmaryam.files.wordpress.com</a></p>
+<p><a href="http://iteadjmj.com/inicio.html">http://iteadjmj.com/inicio.html</a></p>
+<pre class="language-sql"><span class="token keyword">with</span> m <span class="token keyword">as</span>
+<span class="token punctuation">(</span>
+    <span class="token keyword">select</span>
+    <span class="token comment" spellcheck="true">--         "doc".BatNbr,"doc".RefNbr,"doc".User2,"doc".User6</span>
+    <span class="token comment" spellcheck="true">--         "doc".CpnyID</span>
+            <span class="token string">"tran"</span><span class="token punctuation">.</span>Qty
+    <span class="token comment" spellcheck="true">--        ,"tran".UnitPrice</span>
+            <span class="token punctuation">,</span><span class="token string">"tran"</span><span class="token punctuation">.</span>CuryTranAmt
+            <span class="token punctuation">,</span><span class="token string">"tran"</span><span class="token punctuation">.</span>CuryTxblAmt00
+            <span class="token punctuation">,</span><span class="token string">"tran"</span><span class="token punctuation">.</span>CuryUnitPrice
+            <span class="token punctuation">,</span>cast<span class="token punctuation">(</span><span class="token string">"tran"</span><span class="token punctuation">.</span>CuryTranAmt <span class="token operator">/</span> <span class="token punctuation">(</span><span class="token keyword">case</span> <span class="token keyword">when</span> <span class="token string">"tran"</span><span class="token punctuation">.</span>Qty <span class="token operator">=</span> <span class="token number">0</span> <span class="token keyword">then</span> <span class="token number">1</span> <span class="token keyword">else</span> <span class="token string">"tran"</span><span class="token punctuation">.</span>Qty <span class="token keyword">end</span> <span class="token punctuation">)</span> <span class="token keyword">as</span> <span class="token keyword">decimal</span><span class="token punctuation">(</span><span class="token number">12</span><span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token keyword">as</span> <span class="token string">'dec[UnitPrice,12,2]'</span>
+            <span class="token punctuation">,</span><span class="token string">"tran"</span><span class="token punctuation">.</span>CuryTranAmt <span class="token operator">/</span> <span class="token punctuation">(</span><span class="token keyword">case</span> <span class="token keyword">when</span> <span class="token string">"tran"</span><span class="token punctuation">.</span>Qty <span class="token operator">=</span> <span class="token number">0</span> <span class="token keyword">then</span> <span class="token number">1</span> <span class="token keyword">else</span> <span class="token string">"tran"</span><span class="token punctuation">.</span>Qty <span class="token keyword">end</span> <span class="token punctuation">)</span> <span class="token keyword">as</span> <span class="token string">'rawUnitPrice'</span>
+            <span class="token punctuation">,</span>cast<span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token keyword">case</span> <span class="token keyword">when</span> <span class="token string">"tran"</span><span class="token punctuation">.</span>Qty <span class="token operator">=</span> <span class="token number">0</span> <span class="token keyword">then</span> <span class="token number">1</span> <span class="token keyword">else</span> <span class="token string">"tran"</span><span class="token punctuation">.</span>Qty <span class="token keyword">end</span> <span class="token punctuation">)</span> <span class="token operator">*</span> <span class="token punctuation">(</span><span class="token string">"tran"</span><span class="token punctuation">.</span>CuryTranAmt <span class="token operator">/</span> <span class="token punctuation">(</span><span class="token keyword">case</span> <span class="token keyword">when</span> <span class="token string">"tran"</span><span class="token punctuation">.</span>Qty <span class="token operator">=</span> <span class="token number">0</span> <span class="token keyword">then</span> <span class="token number">1</span> <span class="token keyword">else</span> <span class="token string">"tran"</span><span class="token punctuation">.</span>Qty <span class="token keyword">end</span> <span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token keyword">as</span> <span class="token keyword">decimal</span><span class="token punctuation">(</span><span class="token number">12</span><span class="token punctuation">,</span><span class="token number">6</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token keyword">as</span> <span class="token string">'dec[Qty*UnitPrice,12,2]'</span>
+            <span class="token punctuation">,</span><span class="token punctuation">(</span><span class="token keyword">case</span> <span class="token keyword">when</span> <span class="token string">"tran"</span><span class="token punctuation">.</span>Qty <span class="token operator">=</span> <span class="token number">0</span> <span class="token keyword">then</span> <span class="token number">1</span> <span class="token keyword">else</span> <span class="token string">"tran"</span><span class="token punctuation">.</span>Qty <span class="token keyword">end</span> <span class="token punctuation">)</span> <span class="token operator">*</span> cast<span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token string">"tran"</span><span class="token punctuation">.</span>CuryTranAmt <span class="token operator">/</span> <span class="token punctuation">(</span><span class="token keyword">case</span> <span class="token keyword">when</span> <span class="token string">"tran"</span><span class="token punctuation">.</span>Qty <span class="token operator">=</span> <span class="token number">0</span> <span class="token keyword">then</span> <span class="token number">1</span> <span class="token keyword">else</span> <span class="token string">"tran"</span><span class="token punctuation">.</span>Qty <span class="token keyword">end</span> <span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token keyword">as</span> <span class="token keyword">decimal</span><span class="token punctuation">(</span><span class="token number">12</span><span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token keyword">as</span> <span class="token string">'Qty*dec[UnitPrice,12,2]'</span>
+            <span class="token punctuation">,</span>cast<span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token keyword">case</span> <span class="token keyword">when</span> <span class="token string">"tran"</span><span class="token punctuation">.</span>Qty <span class="token operator">=</span> <span class="token number">0</span> <span class="token keyword">then</span> <span class="token number">1</span> <span class="token keyword">else</span> <span class="token string">"tran"</span><span class="token punctuation">.</span>Qty <span class="token keyword">end</span> <span class="token punctuation">)</span> <span class="token operator">*</span> cast<span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token string">"tran"</span><span class="token punctuation">.</span>CuryTranAmt <span class="token operator">/</span> <span class="token punctuation">(</span><span class="token keyword">case</span> <span class="token keyword">when</span> <span class="token string">"tran"</span><span class="token punctuation">.</span>Qty <span class="token operator">=</span> <span class="token number">0</span> <span class="token keyword">then</span> <span class="token number">1</span> <span class="token keyword">else</span> <span class="token string">"tran"</span><span class="token punctuation">.</span>Qty <span class="token keyword">end</span> <span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token keyword">as</span> <span class="token keyword">decimal</span><span class="token punctuation">(</span><span class="token number">12</span><span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token keyword">as</span> <span class="token keyword">decimal</span><span class="token punctuation">(</span><span class="token number">12</span><span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token keyword">as</span> <span class="token string">'dec[Qty*dec[UnitPrice,12,2]]'</span>
+            <span class="token punctuation">,</span>cast<span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token keyword">case</span> <span class="token keyword">when</span> <span class="token string">"tran"</span><span class="token punctuation">.</span>Qty <span class="token operator">=</span> <span class="token number">0</span> <span class="token keyword">then</span> <span class="token number">1</span> <span class="token keyword">else</span> <span class="token string">"tran"</span><span class="token punctuation">.</span>Qty <span class="token keyword">end</span> <span class="token punctuation">)</span> <span class="token keyword">as</span> <span class="token keyword">decimal</span><span class="token punctuation">(</span><span class="token number">12</span><span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">*</span> cast<span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token string">"tran"</span><span class="token punctuation">.</span>CuryTranAmt <span class="token operator">/</span> <span class="token punctuation">(</span><span class="token keyword">case</span> <span class="token keyword">when</span> <span class="token string">"tran"</span><span class="token punctuation">.</span>Qty <span class="token operator">=</span> <span class="token number">0</span> <span class="token keyword">then</span> <span class="token number">1</span> <span class="token keyword">else</span> <span class="token string">"tran"</span><span class="token punctuation">.</span>Qty <span class="token keyword">end</span> <span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token keyword">as</span> <span class="token keyword">decimal</span><span class="token punctuation">(</span><span class="token number">12</span><span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token keyword">as</span> <span class="token string">'[ dec[Qty,12,2].dec[UnitPrice,12,2] ]'</span>
+    <span class="token keyword">from</span>
+            sltestapp<span class="token punctuation">.</span>dbo<span class="token punctuation">.</span>ARdoc <span class="token keyword">as</span> <span class="token string">"doc"</span>
+        <span class="token keyword">inner</span> <span class="token keyword">join</span>
+            sltestapp<span class="token punctuation">.</span>dbo<span class="token punctuation">.</span>ARTran <span class="token keyword">as</span> <span class="token string">"tran"</span>
+        <span class="token keyword">on</span>   
+            <span class="token string">"doc"</span><span class="token punctuation">.</span>BatNbr <span class="token operator">=</span> <span class="token string">"tran"</span><span class="token punctuation">.</span>BatNbr <span class="token operator">and</span> <span class="token string">"doc"</span><span class="token punctuation">.</span>RefNbr <span class="token operator">=</span> <span class="token string">"tran"</span><span class="token punctuation">.</span>RefNbr <span class="token operator">and</span> <span class="token string">"doc"</span><span class="token punctuation">.</span>CpnyID <span class="token operator">=</span> <span class="token string">"tran"</span><span class="token punctuation">.</span>CpnyID <span class="token comment" spellcheck="true">--and "xwar".LineNbr = "tran".LineNbr</span>
+    <span class="token keyword">where</span>
+            <span class="token string">"doc"</span><span class="token punctuation">.</span>User2 <span class="token operator">=</span> <span class="token string">'LIS'</span>
+        <span class="token operator">and</span>
+            <span class="token string">"doc"</span><span class="token punctuation">.</span>PerPost <span class="token operator">></span> <span class="token string">'201700'</span>
+        <span class="token operator">and</span>
+<span class="token comment" spellcheck="true">--            "doc".BatNbr = '065276' and "doc".RefNbr = '050960' and "doc".CpnyID = 'TEICUA'</span>
+        <span class="token string">"doc"</span><span class="token punctuation">.</span>BatNbr <span class="token operator">=</span> <span class="token string">'065372'</span> <span class="token operator">and</span> <span class="token string">"doc"</span><span class="token punctuation">.</span>RefNbr <span class="token operator">=</span> <span class="token string">'051039'</span> <span class="token operator">and</span> <span class="token string">"doc"</span><span class="token punctuation">.</span>CpnyID <span class="token operator">=</span> <span class="token string">'TEICUA'</span>
+<span class="token punctuation">)</span>
+<span class="token keyword">select</span>
+     <span class="token function">sum</span><span class="token punctuation">(</span>CuryTxblAmt00<span class="token punctuation">)</span> <span class="token keyword">as</span> <span class="token string">'sum'</span>
+    <span class="token punctuation">,</span><span class="token punctuation">(</span><span class="token function">sum</span><span class="token punctuation">(</span>CuryTxblAmt00<span class="token punctuation">)</span> <span class="token operator">*</span> <span class="token operator">-</span><span class="token number">0.04</span><span class="token punctuation">)</span> <span class="token keyword">as</span> <span class="token string">'ret'</span>
+    <span class="token punctuation">,</span><span class="token punctuation">(</span><span class="token function">sum</span><span class="token punctuation">(</span>CuryTxblAmt00<span class="token punctuation">)</span> <span class="token operator">*</span> <span class="token number">0.16</span><span class="token punctuation">)</span> <span class="token keyword">as</span> <span class="token string">'iva'</span>
+    <span class="token punctuation">,</span><span class="token function">round</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token function">sum</span><span class="token punctuation">(</span>CuryTxblAmt00<span class="token punctuation">)</span> <span class="token operator">*</span> <span class="token operator">-</span><span class="token number">0.04</span><span class="token punctuation">)</span><span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">,</span><span class="token number">1</span><span class="token punctuation">)</span> <span class="token keyword">as</span> <span class="token string">'retAsTruncating'</span>
+    <span class="token punctuation">,</span><span class="token function">round</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token function">sum</span><span class="token punctuation">(</span>CuryTxblAmt00<span class="token punctuation">)</span> <span class="token operator">*</span> <span class="token number">0.16</span><span class="token punctuation">)</span><span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">,</span><span class="token number">1</span><span class="token punctuation">)</span> <span class="token keyword">as</span> <span class="token string">'ivaAsTruncating'</span>
+    <span class="token punctuation">,</span><span class="token function">sum</span><span class="token punctuation">(</span>CuryTxblAmt00<span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token punctuation">(</span> <span class="token function">sum</span><span class="token punctuation">(</span>CuryTxblAmt00<span class="token punctuation">)</span> <span class="token operator">*</span> <span class="token operator">-</span><span class="token number">0.04</span><span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token punctuation">(</span><span class="token function">sum</span><span class="token punctuation">(</span>CuryTxblAmt00<span class="token punctuation">)</span> <span class="token operator">*</span> <span class="token number">0.16</span><span class="token punctuation">)</span> <span class="token keyword">as</span> <span class="token string">'totalAsRaw'</span>
+    <span class="token punctuation">,</span>cast<span class="token punctuation">(</span><span class="token function">sum</span><span class="token punctuation">(</span>CuryTxblAmt00<span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token punctuation">(</span> <span class="token function">sum</span><span class="token punctuation">(</span>CuryTxblAmt00<span class="token punctuation">)</span> <span class="token operator">*</span> <span class="token operator">-</span><span class="token number">0.04</span><span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token punctuation">(</span><span class="token function">sum</span><span class="token punctuation">(</span>CuryTxblAmt00<span class="token punctuation">)</span> <span class="token operator">*</span> <span class="token number">0.16</span><span class="token punctuation">)</span> <span class="token keyword">as</span> <span class="token keyword">decimal</span><span class="token punctuation">(</span><span class="token number">12</span><span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token keyword">as</span> <span class="token string">'totalAsCastDecimal'</span>
+    <span class="token punctuation">,</span><span class="token function">round</span><span class="token punctuation">(</span> <span class="token punctuation">(</span><span class="token function">sum</span><span class="token punctuation">(</span>CuryTxblAmt00<span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token punctuation">(</span> <span class="token function">sum</span><span class="token punctuation">(</span>CuryTxblAmt00<span class="token punctuation">)</span> <span class="token operator">*</span> <span class="token operator">-</span><span class="token number">0.04</span><span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token punctuation">(</span><span class="token function">sum</span><span class="token punctuation">(</span>CuryTxblAmt00<span class="token punctuation">)</span> <span class="token operator">*</span> <span class="token number">0.16</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">,</span><span class="token number">1</span><span class="token punctuation">)</span> <span class="token keyword">as</span> <span class="token string">'totalAsTruncating'</span>
+    <span class="token punctuation">,</span><span class="token function">sum</span><span class="token punctuation">(</span>CuryTxblAmt00<span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token punctuation">(</span><span class="token function">round</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token function">sum</span><span class="token punctuation">(</span>CuryTxblAmt00<span class="token punctuation">)</span> <span class="token operator">*</span> <span class="token operator">-</span><span class="token number">0.04</span><span class="token punctuation">)</span><span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">,</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token function">round</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token function">sum</span><span class="token punctuation">(</span>CuryTxblAmt00<span class="token punctuation">)</span> <span class="token operator">*</span> <span class="token number">0.16</span><span class="token punctuation">)</span><span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">,</span><span class="token number">1</span><span class="token punctuation">)</span> <span class="token keyword">as</span> <span class="token string">'sumAsTruncate'</span>
+<span class="token keyword">from</span> m
+
+<span class="token comment" spellcheck="true">-- ejemplo para actualizar tablename</span>
+<span class="token keyword">update</span>
+    tablename
+    <span class="token keyword">set</span>
+         subtotal <span class="token operator">=</span> <span class="token function">sum</span><span class="token punctuation">(</span>CuryTxblAmt00<span class="token punctuation">)</span>
+        <span class="token punctuation">,</span>ret <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token function">sum</span><span class="token punctuation">(</span>CuryTxblAmt00<span class="token punctuation">)</span> <span class="token operator">*</span> <span class="token operator">-</span><span class="token number">0.04</span><span class="token punctuation">)</span>
+        <span class="token punctuation">,</span>iva <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token function">sum</span><span class="token punctuation">(</span>CuryTxblAmt00<span class="token punctuation">)</span> <span class="token operator">*</span> <span class="token number">0.16</span><span class="token punctuation">)</span>
+<span class="token keyword">from</span> m
+</pre>
+
+      </div>
+      <div class="md-sidebar-toc"><ul>
+<li><a href="#unix-annotations">Unix Annotations</a></li>
+<li><a href="#table-of-contents">Table of Contents</a></li>
+<li><a href="#fa-commenting-notes"><i class="fa fa-commenting" aria-hidden="true"></i> Notes</a></li>
+<li><a href="#fa-edit-editors-section"><i class="fa fa-edit" aria-hidden="true"></i> Editors Section</a>
+<ul>
+<li><a href="#improvements-of-vim">Improvements of Vim</a></li>
+</ul>
+</li>
+<li><a href="#fa-music-audio-section"><i class="fa fa-music" aria-hidden="true"></i> Audio Section</a>
+<ul>
+<li><a href="#audio-recording-and-encoding-in-linux">Audio Recording and Encoding in Linux</a>
+<ul>
+<li><a href="#examples-of-recording-and-piping-the-output-to-a-compressed-format">Examples of recording and piping the output to a compressed format:</a></li>
+<li><a href="#using-ffmpeg-to-record-and-encode">Using ffmpeg to record and encode:</a></li>
+<li><a href="#some-recordencode-examples-with-the-speex-format">Some record/encode examples with the Speex format:</a></li>
+<li><a href="#sound-activated-recording-vox-recording-sound-operated-recording">Sound Activated Recording, VOX recording, Sound Operated Recording:</a></li>
+<li><a href="#script-methods">Script methods:</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#fa-server-server-section"><i class="fa fa-server" aria-hidden="true"></i> Server Section</a><br>
+* <a href="#virtual-servers-in-apache">Virtual Servers in Apache</a><br>
+* <a href="#introduction">Introduction</a><br>
+* <a href="#setting-the-rules">Setting the rules</a><br>
+* <a href="#step-one-create-the-directory-structure">Step One — Create the Directory Structure</a><br>
+* <a href="#step-two-grant-permissions">Step Two — Grant Permissions</a><br>
+* <a href="#step-three-create-demo-pages-for-each-virtual-host">Step Three — Create Demo Pages for Each Virtual Host</a><br>
+* <a href="#step-four-create-new-virtual-host-files">Step Four — Create New Virtual Host Files</a><br>
+* <a href="#create-the-first-virtual-host-file">Create the First Virtual Host File</a><br>
+* <a href="#user-www-data">User www-data</a><br>
+* <a href="#fa-code-improvements-fmp"><i class="fa fa-code" aria-hidden="true"></i> Improvements FMP</a><br>
+* <a href="#installing-php-70">Installing PHP 7.0</a><br>
+* <a href="#installing-php-56">Installing PHP 5.6</a><br>
+* <a href="#enabling-error-display-in-php-via-htaccess-only">Enabling error display in php via htaccess only</a><br>
+* <a href="#setting-up-multiple-apache2-instances-on-ubuntu-1604">Setting up multiple apache2 instances on Ubuntu 16.04</a><br>
+* <a href="#setting-database-server-mariadb">Setting Database Server [mariadb]</a><br>
+* <a href="#how-to-create-a-new-user-in-maria">How to Create a New User in Maria</a><br>
+* <a href="#configure-connection-from-lamp-to-mssql">Configure connection from LAMP to MSSQL</a><br>
+* <a href="#backup-your-databases">Backup your databases</a></li>
+<li><a href="#fa-video-camera-screencast"><i class="fa fa-video-camera" aria-hidden="true"></i> Screencast</a></li>
+<li><a href="#fa-github-git-docs"><i class="fa fa-github" aria-hidden="true"></i> Git docs</a><br>
+* <a href="#update-a-repo-to-github">update a repo to github</a><br>
+* <a href="#update-a-repo-to-local">Update a repo to local</a><br>
+* <a href="#you-cant-merge-with-local-modifications-git-protects-you-from-losing-potentially-important-changes">You can't merge with local modifications. Git protects you from losing potentially important changes.</a></li>
+<li><a href="#fa-file-pdf-pdf-section"><i class="fa fa-file-pdf" aria-hidden="true"></i> Pdf section</a></li>
+<li><a href="#fa-cloud-cloud-section"><i class="fa fa-cloud" aria-hidden="true"></i> Cloud Section</a></li>
+<li><a href="#fa-code-code-section"><i class="fa fa-code" aria-hidden="true"></i> Code Section</a><br>
+* <a href="#installing-richfilemanager-app">Installing RichFilemanager app</a><br>
+* <a href="#add-google-repo">Add Google repo</a><br>
+* <a href="#composer-installation">Composer installation</a><br>
+* <a href="#introduction-1">Introduction</a>
+<ul>
+<li><a href="#prerequisites">Prerequisites</a></li>
+<li><a href="#step-1-installing-the-dependencies">Step 1 — Installing the Dependencies</a></li>
+<li><a href="#step-2-downloading-and-installing-composer">Step 2 — Downloading and Installing Composer</a><br>
+* <a href="#pear-installation">Pear installation</a>
+<ul>
+<li><a href="#add-webdav-client-support">add webdav client support</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#fa-android-android"><i class="fa fa-android" aria-hidden="true"></i> Android</a><br>
+* <a href="#udev">udev</a></li>
+<li><a href="#fa-linux-fa-apple-fa-windows-os-admin-section"><i class="fa fa-linux" aria-hidden="true"></i> <i class="fa fa-apple" aria-hidden="true"></i> <i class="fa fa-windows" aria-hidden="true"></i> OS-Admin section</a><br>
+* <a href="#fa-firefox"><i class="fa fa-firefox" aria-hidden="true"></i></a></li>
+<li><a href="#fa-terminal-notes-section"><i class="fa fa-terminal" aria-hidden="true"></i> Notes Section</a><br>
+* <a href="#monitor-off">monitor off</a><br>
+* <a href="#using-expect-and-bash">Using Expect and Bash</a><br>
+* <a href="#set-output-modes">set output modes</a>
+<ul>
+<li><a href="#extract-extension-and-basename">extract Extension and basename</a></li>
+<li><a href="#how-to-decode-aac-m4a-audio-files-into-wav">How to decode AAC (.m4a) audio files into WAV?</a></li>
+<li><a href="#search-code-with-find">search code with find</a><br>
+* <a href="#find-a-pattern-inside-of-several-files-and-extract-that-file-to-another-dir-with-his-dir-structure">Find a pattern inside of several files and extract that file to another dir with his dir structure</a><br>
+* <a href="#find-inside-in-a-pdf">Find inside in a pdf</a><br>
+* <a href="#get-the-major-size-files-on-top">Get the major size files on top</a></li>
+<li><a href="#ls-hdd-devices-by-uuid-and-mount-it">ls hdd devices by uuid and mount it</a></li>
+<li><a href="#locale">locale</a></li>
+</ul>
+</li>
+<li><a href="#sql">SQL</a><br>
+* <a href="#mariadb-connect-engine">MariaDB Connect Engine</a>
+<ul>
+<li><a href="#some-connect-engine-notes">Some Connect Engine Notes</a><br>
+* <a href="#the-seven-sins-against-tsql-performance">The Seven Sins against TSQL Performance</a></li>
+<li><a href="#links">Links</a></li>
+</ul>
+</li>
+</ul>
+</div>
+      <a id="sidebar-toc-btn">≡</a>
+    </body>
+    
+    
+    
+    
+    
+    <script>
+(function bindTaskListEvent() {
+  var taskListItemCheckboxes = document.body.getElementsByClassName('task-list-item-checkbox')
+  for (var i = 0; i < taskListItemCheckboxes.length; i++) {
+    var checkbox = taskListItemCheckboxes[i]
+    var li = checkbox.parentElement
+    if (li.tagName !== 'LI') li = li.parentElement
+    if (li.tagName === 'LI') {
+      li.classList.add('task-list-item')
+    }
+  }
+}())    
+</script>
+    
+<script>
+
+var sidebarTOCBtn = document.getElementById('sidebar-toc-btn')
+sidebarTOCBtn.addEventListener('click', function(event) {
+  event.stopPropagation()
+  if (document.body.hasAttribute('html-show-sidebar-toc')) {
+    document.body.removeAttribute('html-show-sidebar-toc')
+  } else {
+    document.body.setAttribute('html-show-sidebar-toc', true)
+  }
+})
+</script>
+      
+  </html>
