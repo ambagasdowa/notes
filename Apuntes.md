@@ -1915,50 +1915,51 @@ Simple indexOf search
 
 ```javascript
 
-var $rows = $('#table tr');
-$('#search').keyup(function() {
-    var val = $.trim($(this).val()).replace(/ +/g, ' ').toLowerCase();
+      var $rows = $('#table tr');
+      $('#search').keyup(function() {
+          var val = $.trim($(this).val()).replace(/ +/g, ' ').toLowerCase();
 
-    $rows.show().filter(function() {
-        var text = $(this).text().replace(/\s+/g, ' ').toLowerCase();
-        return !~text.indexOf(val);
-    }).hide();
-});
+          $rows.show().filter(function() {
+              var text = $(this).text().replace(/\s+/g, ' ').toLowerCase();
+              return !~text.indexOf(val);
+          }).hide();
+      });
 ```
 Regular expression search
-More advanced functionality using regular expressions will allow you to search words in any order in the row. It will work the same if you type apple green or green apple:
+More advanced functionality using regular expressions will allow you to search words
+in any order in the row. It will work the same if you type apple green or green apple:
 
 ```javascript
 
-var $rows = $('#table tr');
-$('#search').keyup(function() {
+      var $rows = $('#table tr');
+      $('#search').keyup(function() {
 
-    var val = '^(?=.*\\b' + $.trim($(this).val()).split(/\s+/).join('\\b)(?=.*\\b') + ').*$',
-        reg = RegExp(val, 'i'),
-        text;
+          var val = '^(?=.*\\b' + $.trim($(this).val()).split(/\s+/).join('\\b)(?=.*\\b') + ').*$',
+              reg = RegExp(val, 'i'),
+              text;
 
-    $rows.show().filter(function() {
-        text = $(this).text().replace(/\s+/g, ' ');
-        return !reg.test(text);
-    }).hide();
-});
+          $rows.show().filter(function() {
+              text = $(this).text().replace(/\s+/g, ' ');
+              return !reg.test(text);
+          }).hide();
+      });
 ```
 
 ```javascript
-$('#kwd_search').keyup(function() {
-    $("#tableFilter tbody tr").hide();
-    var val = '^(?=.*\\b' + $.trim($(this).val()).split(/\s+/).join('\\b)(?=.*\\b') + ').*$',
-        reg = RegExp(val, 'i'),
-        text;
-    $rows.show().filter(function() {
-        text = $(this).text().replace(/\s+/g, ' ');
-        return !reg.test(text);
-    }).hide();
-    $("#tableFilter tbody").append($rows);
-    // var theDiv = document.getElementById("tableFilter");
-    // var content = document.createTextNode($rows);
-    // theDiv.appendChild(content);
-});
+      $('#kwd_search').keyup(function() {
+          $("#tableFilter tbody tr").hide();
+          var val = '^(?=.*\\b' + $.trim($(this).val()).split(/\s+/).join('\\b)(?=.*\\b') + ').*$',
+              reg = RegExp(val, 'i'),
+              text;
+          $rows.show().filter(function() {
+              text = $(this).text().replace(/\s+/g, ' ');
+              return !reg.test(text);
+          }).hide();
+          $("#tableFilter tbody").append($rows);
+          // var theDiv = document.getElementById("tableFilter");
+          // var content = document.createTextNode($rows);
+          // theDiv.appendChild(content);
+      });
 ```
 
 # :fa-android: Android
