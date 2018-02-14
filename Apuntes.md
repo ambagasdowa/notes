@@ -633,6 +633,21 @@ vim --version | grep --color python
 
   will do it. Enter the ^L using ctrl-V ctrl-L
 
+Command
+
+:%s/<Ctrl-V><Ctrl-M>/\r/g
+Where <Ctrl-V><Ctrl-M> means type Ctrl+V then Ctrl+M.
+Explanation
+:%s
+substitute, % = all lines
+<Ctrl-V><Ctrl-M>
+^M characters (the Ctrl-V is a Vim way of writing the Ctrl ^ character and Ctrl-M writes the M after the regular expression, resulting to ^M special character)
+/\r/
+with new line (\r)
+g
+And do it globally (not just the first occurrence on the line).
+
+
 # :fa-music: Audio Section
 
 ## Audio Recording and Encoding in Linux
@@ -1624,6 +1639,53 @@ using git reset --hard. or git checkout -t -f remote/branch
 using git checkout filename
 
 
+### Merging a pull request
+```bash
+ambagasdowa@uruk:/var/www/pool/public_html/V41K3RMX$ git status
+On branch master
+Your branch is up-to-date with 'origin/master'.
+nothing to commit, working tree clean
+
+$git checkout -b cyb3r14V1rtu4L-master master
+Switched to a new branch 'cyb3r14V1rtu4L-master'
+$git pull https://github.com/cyb3r14V1rtu4L/V41K3RMX.git master
+From https://github.com/cyb3r14V1rtu4L/V41K3RMX
+ * branch            master     -> FETCH_HEAD
+Updating 415159f..45939c2
+ .gitignore | 25 +++++++++++++++++++++++++
+$git checkout master
+Switched to branch 'master'
+Your branch is up-to-date with 'origin/master'.
+$git merge --no-ff cyb3r14V1rtu4L-master
+Merge made by the 'recursive' strategy.
+ .gitignore | 25 +++++++++++++++++++++++++
+ 1 file changed, 25 insertions(+)
+$git push origin master
+Username for 'https://github.com': ambagasdowa
+To https://github.com/ambagasdowa/V41K3RMX.git
+   415159f..7f7b195  master -> master
+```
+### Merging an upstream repository into your fork
+(Github version)
+If you don't have push (write) access to an upstream repository, then you can pull commits from that repository into your own fork.
+    Open Terminal.
+    Change the current working directory to your local project.
+    Check out the branch you wish to merge to. Usually, you will merge into master.
+    ```bash
+    git checkout master
+    ```
+    Pull the desired branch from the upstream repository. This method will retain the commit history without modification.
+    ```bash
+    git pull https://github.com/ORIGINAL_OWNER/ORIGINAL_REPOSITORY.git BRANCH_NAME
+    ```
+    If there are conflicts, resolve them. For more information, see "Addressing merge conflicts".
+    Commit the merge.
+    Review the changes and ensure they are satisfactory.
+    Push the merge to your GitHub repository.
+    ```bash
+    git push origin master
+    ```
+
 # :fa-file-pdf: Pdf section
 
 * Merge PDF files with PHP
@@ -1819,6 +1881,16 @@ next section, you'll generate the `composer.json` file, which includes the PHP
 libraries that your project depends on.
 
 
+##### After Composer update
+Some packages has suggestions to install it do
+
+```bash
+composer suggests | xargs -I '{}' composer require '{}'
+# OR maybe this runs better
+composer suggests | xargs -i composer require {}  
+```
+
+
 #### Pear installation
 
 * make a dir under named pear in home or {/usr/share/}pear
@@ -1837,6 +1909,57 @@ install as root this downloads the needed libs in /usr/share/php
 pear install HTTP_WebDAV_Client-1.0.2
 ```
 ---
+
+## :fa-codepen: Javascript Section
+Simple indexOf search
+
+```javascript
+
+var $rows = $('#table tr');
+$('#search').keyup(function() {
+    var val = $.trim($(this).val()).replace(/ +/g, ' ').toLowerCase();
+
+    $rows.show().filter(function() {
+        var text = $(this).text().replace(/\s+/g, ' ').toLowerCase();
+        return !~text.indexOf(val);
+    }).hide();
+});
+```
+Regular expression search
+More advanced functionality using regular expressions will allow you to search words in any order in the row. It will work the same if you type apple green or green apple:
+
+```javascript
+
+var $rows = $('#table tr');
+$('#search').keyup(function() {
+
+    var val = '^(?=.*\\b' + $.trim($(this).val()).split(/\s+/).join('\\b)(?=.*\\b') + ').*$',
+        reg = RegExp(val, 'i'),
+        text;
+
+    $rows.show().filter(function() {
+        text = $(this).text().replace(/\s+/g, ' ');
+        return !reg.test(text);
+    }).hide();
+});
+```
+
+```javascript
+$('#kwd_search').keyup(function() {
+    $("#tableFilter tbody tr").hide();
+    var val = '^(?=.*\\b' + $.trim($(this).val()).split(/\s+/).join('\\b)(?=.*\\b') + ').*$',
+        reg = RegExp(val, 'i'),
+        text;
+    $rows.show().filter(function() {
+        text = $(this).text().replace(/\s+/g, ' ');
+        return !reg.test(text);
+    }).hide();
+    $("#tableFilter tbody").append($rows);
+    // var theDiv = document.getElementById("tableFilter");
+    // var content = document.createTextNode($rows);
+    // theDiv.appendChild(content);
+});
+```
 
 # :fa-android: Android
 
