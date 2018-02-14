@@ -1943,20 +1943,7 @@ in any order in the row. It will work the same if you type apple green or green 
               return !reg.test(text);
           }).hide();
       });
-
-// another approach
-
-      $('#kwd_search').keyup(function() {
-          $('#tableFilter tbody tr').hide();
-          var val = '^(?=.*\\b' + $.trim($(this).val()).split(/\s+/).join('\\b)(?=.*\\b') + ').*$',
-              reg = RegExp(val, 'i'),
-              text;
-          $rows.show().filter(function() {
-              text = $(this).text().replace(/\s+/g, ' ');
-              return !reg.test(text);
-          }).hide();
-          $('#tableFilter tbody').append($rows);
-      });
+      
 ```
 
 # :fa-android: Android
