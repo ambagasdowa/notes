@@ -1943,9 +1943,8 @@ in any order in the row. It will work the same if you type apple green or green 
               return !reg.test(text);
           }).hide();
       });
-```
 
-```javascript
+// another approach
 
       $('#kwd_search').keyup(function() {
           $("#tableFilter tbody tr").hide();
