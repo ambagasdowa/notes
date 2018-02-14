@@ -1946,6 +1946,7 @@ in any order in the row. It will work the same if you type apple green or green 
 ```
 
 ```javascript
+
       $('#kwd_search').keyup(function() {
           $("#tableFilter tbody tr").hide();
           var val = '^(?=.*\\b' + $.trim($(this).val()).split(/\s+/).join('\\b)(?=.*\\b') + ').*$',
