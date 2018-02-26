@@ -1201,6 +1201,538 @@ There is no software limit on the number of domain names Apache can handle, so f
   sudo -u www-data bash-command
 ```
 
+### Improvement in Nginx Server
+
+##### How To Set Up Nginx Server Blocks (Virtual Hosts) on Debian
+
+
+When using the Nginx web server, server blocks (similar to the virtual hosts in Apache) can be used to encapsulate configuration details and host more than one domain off of a single server.
+
+In this guide, we'll discuss how to configure server blocks in Nginx on an Ubuntu 16.04 server.
+
+> Prerequisites
+We're going to be using a non-root user with sudo privileges throughout this tutorial. If you do not have a user like this configured, you can create one by following our Ubuntu 16.04 initial server setup guide.
+
+You will also need to have Nginx installed on your server. The following guides cover this procedure:
+
+How To Install Nginx on Ubuntu 16.04: Use this guide to set up Nginx on its own.
+How To Install Linux, Nginx, MySQL, PHP (LEMP stack) in Ubuntu 16.04: Use this guide if you will be using Nginx in conjunction with MySQL and PHP.
+When you have fulfilled these requirements, you can continue on with this guide.
+
+Example Configuration
+For demonstration purposes, we're going to set up two domains with our Nginx server. The domain names we'll use in this guide are example.com and test.com.
+
+You can find a guide on how to set up domain names with DigitalOcean here. If you do not have two spare domain names to play with, use dummy names for now and we'll show you later how to configure your local computer to test your configuration.
+
+Step One: Set Up New Document Root Directories
+By default, Nginx on Ubuntu 16.04 has one server block enabled by default. It is configured to serve documents out of a directory at /var/www/html.
+
+While this works well for a single site, we need additional directories if we're going to serve multiple sites. We can consider the /var/www/html directory the default directory that will be served if the client request doesn't match any of our other sites.
+
+We will create a directory structure within /var/www for each of our sites. The actual web content will be placed in an html directory within these site-specific directories. This gives us some additional flexibility to create other directories associated with our sites as siblings to the html directory if necessary.
+
+We need to create these directories for each of our sites. The -p flag tells mkdir to create any necessary parent directories along the way:
+```bash
+sudo mkdir -p /var/www/example.com/html
+sudo mkdir -p /var/www/test.com/html
+```
+Now that we have our directories, we will reassign ownership of the web directories to our normal user account. This will let us write to them without sudo.
+
+> Note
+Depending on your needs, you might need to adjust the permissions or ownership of the folders again to allow certain access to the www-data user. For instance, dynamic sites will often need this. The specific permissions and ownership requirements entirely depend on what your configuration. Follow the recommendations for the specific technology you're using.
+We can use the $USER environmental variable to assign ownership to the account that we are currently signed in on (make sure you're not logged in as root). This will allow us to easily create or edit the content in this directory:
+```bash
+sudo chown -R $USER:$USER /var/www/example.com/html
+sudo chown -R $USER:$USER /var/www/test.com/html
+```
+
+The permissions of our web roots should be correct already if you have not modified your umask value, but we can make sure by typing:
+```bash
+sudo chmod -R 755 /var/www
+```
+
+Our directory structure is now configured and we can move on.
+
+ Step Two: Create Sample Pages for Each Site
+Now that we have our directory structure set up, let's create a default page for each of our sites so that we will have something to display.
+
+Create an index.html file in your first domain:
+```bash
+nano /var/www/example.com/html/index.html
+```
+
+Inside the file, we'll create a really basic file that indicates what site we are currently accessing. It will look like this:
+```bash
+/var/www/example.com/html/index.html
+```
+```html
+<html>
+    <head>
+        <title>Welcome to Example.com!</title>
+    </head>
+    <body>
+        <h1>Success!  The example.com server block is working!</h1>
+    </body>
+</html>
+```
+Save and close the file when you are finished.
+
+Since the file for our second site is basically going to be the same, we can copy it over to our second document root like this:
+
+```bash
+cp /var/www/example.com/html/index.html /var/www/test.com/html/
+```
+Now, we can open the new file in our editor:
+
+```bash
+nano /var/www/test.com/html/index.html
+```
+
+Modify it so that it refers to our second domain:
+
+```bash
+/var/www/test.com/html/index.html
+```
+```html
+<html>
+    <head>
+        <title>Welcome to Test.com!</title>
+    </head>
+    <body>
+        <h1>Success!  The test.com server block is working!</h1>
+    </body>
+</html>
+```
+Save and close this file when you are finished. We now have some pages to display to visitors of our two domains.
+
+Step Three: Create Server Block Files for Each Domain
+Now that we have the content we wish to serve, we need to actually create the server blocks that will tell Nginx how to do this.
+
+By default, Nginx contains one server block called default which we can use as a template for our own configurations. We will begin by designing our first domain's server block, which we will then copy over for our second domain and make the necessary modifications.
+
+Create the First Server Block File
+As mentioned above, we will create our first server block config file by copying over the default file:
+
+```bash
+sudo cp /etc/nginx/sites-available/default /etc/nginx/sites-available/example.com
+```
+Now, open the new file you created in your text editor with sudo privileges:
+
+```bash
+sudo nano /etc/nginx/sites-available/example.com
+```
+Ignoring the commented lines, the file will look similar to this:
+
+```bash
+/etc/nginx/sites-available/example.com
+```
+
+```nginx
+server {
+        listen 80 default_server;
+        listen [::]:80 default_server;
+
+        root /var/www/html;
+        index index.html index.htm index.nginx-debian.html;
+
+        server_name _;
+
+        location / {
+                try_files $uri $uri/ =404;
+        }
+}
+```
+
+First, we need to look at the listen directives. Only one of our server blocks on the server can have the default_server option enabled. This specifies which block should serve a request if the server_name requested does not match any of the available server blocks. This shouldn't happen very frequently in real world scenarios since visitors will be accessing your site through your domain name.
+
+You can choose to designate one of your sites as the "default" by including the default_server option in the listen directive, or you can leave the default server block enabled, which will serve the content of the /var/www/html directory if the requested host cannot be found.
+
+In this guide, we'll leave the default server block in place to server non-matching requests, so we'll remove the default_server from this and the next server block. You can choose to add the option to whichever of your server blocks makes sense to you.
+
+```nginx
+# /etc/nginx/sites-available/example.com
+server {
+        listen 80;
+        listen [::]:80;
+
+        . . .
+}
+```
+
+> Note
+You can check that the default_server option is only enabled in a single active file by typing:
+
+```bash
+grep -R default_server /etc/nginx/sites-enabled/
+```
+
+If matches are found uncommented in more than on file (shown in the leftmost column), Nginx will complain about an invalid configuration.
+
+The next thing we're going to have to adjust is the document root, specified by the root directive. Point it to the site's document root that you created:
+
+```nginx
+# /etc/nginx/sites-available/example.com
+server {
+        listen 80;
+        listen [::]:80;
+
+        root /var/www/example.com/html;
+
+}
+```
+
+Next, we need to modify the server_name to match requests for our first domain. We can additionally add any aliases that we want to match. We will add a www.example.com alias to demonstrate.
+
+When you are finished, your file will look something like this:
+
+```nginx
+/etc/nginx/sites-available/example.com
+server {
+        listen 80;
+        listen [::]:80;
+
+        root /var/www/example.com/html;
+        index index.html index.htm index.nginx-debian.html;
+
+        server_name example.com www.example.com;
+
+        location / {
+                try_files $uri $uri/ =404;
+        }
+}
+```
+That is all we need for a basic configuration. Save and close the file to exit.
+
+Create the Second Server Block File
+Now that we have our initial server block configuration, we can use that as a basis for our second file. Copy it over to create a new file:
+
+```bash
+sudo cp /etc/nginx/sites-available/example.com /etc/nginx/sites-available/test.com
+```
+
+Open the new file with sudo privileges in your editor:
+
+      sudo nano /etc/nginx/sites-available/test.com
+
+Again, make sure that you do not use the default_server option for the listen directive in this file if you've already used it elsewhere. Adjust the root directive to point to your second domain's document root and adjust the server_name to match your second site's domain name (make sure to include any aliases).
+
+When you are finished, your file will likely look something like this:
+
+```nginx
+# /etc/nginx/sites-available/test.com
+server {
+        listen 80;
+        listen [::]:80;
+
+        root /var/www/test.com/html;
+        index index.html index.htm index.nginx-debian.html;
+
+        server_name test.com www.test.com;
+
+        location / {
+                try_files $uri $uri/ =404;
+        }
+}
+```
+
+When you are finished, save and close the file.
+
+Step Four: Enable your Server Blocks and Restart Nginx
+Now that we have our server block files, we need to enable them. We can do this by creating symbolic links from these files to the sites-enabled directory, which Nginx reads from during startup.
+
+We can create these links by typing:
+
+```bash
+sudo ln -s /etc/nginx/sites-available/example.com /etc/nginx/sites-enabled/
+sudo ln -s /etc/nginx/sites-available/test.com /etc/nginx/sites-enabled/
+```
+
+These files are now in the enabled directory. We now have three server blocks enabled, which are configured to respond based on their listen directive and the server_name (you can read more about how Nginx processes these directives here):
+
+example.com: Will respond to requests for example.com and www.example.com
+test.com: Will respond to requests for test.com and www.test.com
+default: Will respond to any requests on port 80 that do not match the other two blocks.
+In order to avoid a possible hash bucket memory problem that can arise from adding additional server names, we will go ahead and adjust a single value within our /etc/nginx/nginx.conf file. Open the file now:
+
+sudo nano /etc/nginx/nginx.conf
+Within the file, find the server_names_hash_bucket_size directive. Remove the # symbol to uncomment the line:
+
+/etc/nginx/nginx.conf
+http {
+    . . .
+
+    server_names_hash_bucket_size 64;
+
+    . . .
+}
+Save and close the file when you are finished.
+
+Next, test to make sure that there are no syntax errors in any of your Nginx files:
+
+sudo nginx -t
+If no problems were found, restart Nginx to enable your changes:
+
+sudo systemctl restart nginx
+Nginx should now be serving both of your domain names.
+
+Step Five: Modify Your Local Hosts File for Testing(Optional)
+If you have not been using domain names that you own and instead have been using dummy values, you can modify your local computer's configuration to let you to temporarily test your Nginx server block configuration.
+
+This will not allow other visitors to view your site correctly, but it will give you the ability to reach each site independently and test your configuration. This basically works by intercepting requests that would usually go to DNS to resolve domain names. Instead, we can set the IP addresses we want our local computer to go to when we request the domain names.
+
+Note
+Make sure you are operating on your local computer during these steps and not your VPS server. You will need to have root access, be a member of the administrative group, or otherwise be able to edit system files to do this.
+If you are on a Mac or Linux computer at home, you can edit the file needed by typing:
+
+sudo nano /etc/hosts
+If you are on Windows, you can find instructions for altering your hosts file here.
+
+You need to know your server's public IP address and the domains you want to route to the server. Assuming that my server's public IP address is 203.0.113.5, the lines I would add to my file would look something like this:
+
+/etc/hosts
+127.0.0.1   localhost
+. . .
+
+203.0.113.5 example.com www.example.com
+203.0.113.5 test.com www.test.com
+This will intercept any requests for example.com and test.com and send them to your server, which is what we want if we don't actually own the domains that we are using.
+
+Save and close the file when you are finished.
+
+Step Six: Test your Results
+Now that you are all set up, you should test that your server blocks are functioning correctly. You can do that by visiting the domains in your web browser:
+
+http://example.com
+You should see a page that looks like this:
+
+Nginx first server block
+
+If you visit your second domain name, you should see a slightly different site:
+
+http://test.com
+Nginx second server block
+
+If both of these sites work, you have successfully configured two independent server blocks with Nginx.
+
+At this point, if you adjusted your hosts file on your local computer in order to test, you'll probably want to remove the lines you added.
+
+If you need domain name access to your server for a public-facing site, you will probably want to purchase a domain name for each of your sites. You can learn how to set them up to point to your server here.
+
+Conclusion
+You should now have the ability to create server blocks for each domain you wish to host from the same server. There aren't any real limits on the number of server blocks you can create, so long as your hardware can handle the traffic.
+
+source  : https://code.tutsplus.com/es/tutorials/apache-vs-nginx-pros-cons-for-wordpress--cms-28540
+####  Configurando PHP FPM Con Apache
+
+Los usuarios Ubuntu y Debian pueden instalar los paquetes requeridos con aptitude vía:
+
+sudo apt-get -y install libapache2-mod-fastcgi php7.0-fpm php7.0
+Ahora habilita el módulo en apache:
+
+a2enmod actions fastcgi alias
+Después, en el archivo de configuración /etc/apache2/conf-available/php7.0-fpm.conf, agrega lo siguiente:
+
+<IfModule mod_fastcgi.c>
+    AddHandler php7-fcgi .php
+    Action php7-fcgi /php7-fcgi
+    Alias /php7-fcgi /usr/lib/cgi-bin/php7-fcgi
+    FastCgiExternalServer /usr/lib/cgi-bin/php7-fcgi -socket /var/run/php/php7.0-fpm.sock -pass-header Authorization
+</IfModule>
+También, en tu VirtualHost para WordPress (ruta por defecto /etc/apache2/sites-available/000-default.conf), agrega lo siguiente:
+
+<Directory /usr/lib/cgi-bin>
+    Require all granted
+</Directory>
+<IfModule mod_fastcgi.c>
+    SetHandler php7-fcgi .php
+    Action php7-fcgi /php7-fcgi virtual
+    Alias /php7-fcgi /usr/lib/cgi-bin/php7-fcgi
+    FastCgiExternalServer /usr/lib/cgi-bin/php7-fcgi -socket /var/run/php/php7.0-fpm.sock -pass-header Authorization
+</IfModule>
+Ahora reinicia apache y estás listo para seguir
+
+
+systemctl restart apache2.service
+Haz un archivo <?php phpinfo(); ?> y mira en tu navegador. PHP ahora estará sirviendo como FPM.
+
+Ahora revisa tu blog WordPress. ¿Notas alguna diferencia?
+
+Configurando PHP FPM Con Nginx
+Los usuarios Ubuntu y Debian pueden instalar el paquete con lo siguiente:
+
+apt-get -y install php7.0-fpm
+Ahora, dentro de tu archivo de configuración (default /etc/nginx/sites-available/default) en el bloque del servidor, necesitas agregar la configuración FastCGI como sigue:
+
+server {
+...
+ location / {
+    # use try files to try and serve the file
+    try_files $uri $uri/ =404;
+ }
+
+ # PHP FPM Configuration
+ location ~ \.php$ {
+    include snippets/fastcgi-php.conf;
+
+    # Connect via socket
+    fastcgi_pass unix:/run/php/php7.0-fpm.sock;
+ }
+
+ # deny apache .htaccess requests
+ location ~ /\.ht {
+  deny all;
+ }
+ ...
+ }
+Aquí usamos el snippet de Nginx para establecer los parámetros cgi y pasar a fastcgi el socket de conexión.
+
+Después, asegúrate de que estableces el cgi.fix_pathinfo=0 en el php ini, ya que el ajuste por defecto está rompiendo la configuración. Edita /etc/php/7.0/fpm/php.ini y establece:
+
+[...]
+; cgi.fix_pathinfo provides *real* PATH_INFO/PATH_TRANSLATED support for CGI.  PHP's
+; previous behaviour was to set PATH_TRANSLATED to SCRIPT_FILENAME, and to not grok
+; what PATH_INFO is.  For more information on PATH_INFO, see the cgi specs.  Setting
+; this to 1 will cause PHP CGI to fix its paths to conform to the spec.  A setting
+; of zero causes PHP to behave as before.  Default is 1.  You should fix your scripts
+; to use SCRIPT_FILENAME rather than PATH_TRANSLATED.
+; http://php.net/cgi.fix-pathinfo
+cgi.fix_pathinfo=0
+[...]
+Ahora puedes guardar el archivo, y recargar PHP FPM. Haz esto vía:
+
+1
+service php7.0-fpm reload
+Finalmente, podemos revisar el <?php phpinfo(); ?> en un navegador para confirmar que el servidor está usando ahora PHP FPM con Nginx.
+
+Haciendo mod_rewrite en Nginx
+Nginx no usa un archivo .htaccess, y para re-escritura URL tiene una aproximación mucho más simple.
+
+Para hacer que tu blog WordPress funcione con Nginx, simplemente agrega lo siguiente a la parte try_files de tu configuración Nginx:
+
+location / {
+    index index.php index.html index.htm;
+    try_files $uri $uri/ /index.php?q=$uri&$args;
+}
+Si estás usando un directorio para tu blog WordPress, por favor establece lo siguiente:
+
+location /wordpress/ {
+    try_files $uri $uri/ /index.php?q=$uri&$args;
+}
+Reinicia Nginx y tendrás funcionando re-escritura URL.
+
+$ service nginx restart
+Configuraciones Óptimas
+Tienes muchas opciones para optimizar WordPress vía cacheando en el servidor vía memcache, varnish y también en el nivel de app WordPress con complementos que te permitirán acceder fácilmente a esto.
+
+Sin embargo, lo que te da Nginx es una gran solución para servir contenido web estático con su robusta y rápida caché de contenido estático.
+
+Caché de Contenido Estático
+Nginx es muy rápido cuando se usa como un caché de contenido estático, y es aquí en donde su uso realmente sobresale en términos de WordPress y publicaciones con muchas imágenes. Puedes servir tu CSS, JS e imágenes todo vía un servidor Nginx ejecutándose solo para estas necesidades.
+
+Siempre es mejor hacer esto en un dominio sin cookies para que el contenido sea realmente cacheado por el navegador (ya que la cookie no es cacheable), así que usar un sub-dominio tal como images.myblog.com o static.myblog.com sería ideal.
+
+Un bloque de ubicación para estos sub-dominios estáticos de configuración debería lucir así:
+
+location ~* ^.+\.(?:css|cur|js|jpe?g|gif|htc|ico|png|html|xml|otf|ttf|eot|woff|svg)$ {
+    access_log off;
+    expires 30d;
+    tcp_nodelay off;
+    ## Set the OS file cache.
+    open_file_cache max=3000 inactive=120s;
+    open_file_cache_valid 45s;
+    open_file_cache_min_uses 2;
+    open_file_cache_errors off;
+}
+Usando open_file_cache, habilitamos el cacheo para nuestros archivos de medios estáticos. Especificamos el máximo de archivos a cachear y por cuánto tiempo con open_file_cache max=3000 inactive=120s;
+
+si quieres configurar el cacheo en todo el proyecto, solo agrega las siguientes cuatro líneas en tus configuraciones nginx.conf:
+
+open_file_cache          max=10000 inactive=5m;
+open_file_cache_valid    2m;
+open_file_cache_min_uses 1;
+open_file_cache_errors   on;
+Importante: El open_file_cache_errors cacheará los errores 404 actuales, así que es mejor apagar esto si estás usando un balanceador de carga en conjunto con esto.
+
+Pilas de Conexión PHP-FPM
+Es posible usar diferentes pilas para cada WordPress diferente, y puedes después colocar recursos muy precisamente para cada sitio---incluso usando diferentes usuarios y grupos para cada pila si se necesita. La configuración es muy flexible.
+
+Puedes establecer varias configuraciones, por ejemplo:
+
+/etc/php-fpm.d/family-site.conf
+/etc/php-fpm.d/travel-blog.conf
+/etc/php-fpm.d/cooking-recipes.conf
+En cada uno de los siguientes, podemos establecer una plétora de configuraciones como:
+
+[site]
+listen = 127.0.0.1:9000
+user = user
+group = websites
+request_slowlog_timeout = 5s
+slowlog = /var/log/php-fpm/slowlog-site.log
+listen.allowed_clients = 127.0.0.1
+pm = dynamic
+pm.max_children = 5
+pm.start_servers = 3
+pm.min_spare_servers = 2
+pm.max_spare_servers = 4
+pm.max_requests = 200
+listen.backlog = -1
+pm.status_path = /status
+request_terminate_timeout = 120s
+rlimit_files = 131072
+rlimit_core = unlimited
+catch_workers_output = yes
+env[HOSTNAME] = $HOSTNAME
+env[TMP] = /tmp
+env[TMPDIR] = /tmp
+env[TEMP] = /tmp
+Con esto, puedes especificar las opciones de configuración PHP-FPM tales como pm.max_children, y también puedes especificar variables ambientales y establecer los ajustes de nombre de usuario y grupo aquí.
+
+Balanceador de Carga Nginx
+Si vas a tener mucho tráfico entonces probablemente querrás establecer un balanceador de carga para usar con tu configuración php-fpm.
+
+Convencionalmente, querremos iniciar varios servidores de río arriba back-end, de los cuáles todos están ejecutando espejos de tu blog, y después tener otro servidor ejecutando nginx en frente de este el cuál está actuando como un balanceador de carga y dirigirá la carga entre los flujos.
+
+Esto significa que puedes usar muchos servidores para alimentar tu blog de una vez, y la configuración para hacerlo es relativamente sencilla.
+
+Un ejemplo de configuración luciría como esto. Primero comenzamos con un módulo río arriba:
+
+upstream backend  {
+  server backend1.example.com;
+  server backend2.example.com;
+  server backend3.example.com;
+}
+Aquí, cada backend1.example.com tiene su propia configuración Nginx, un espejo de cómo el sitio estaba antes de que tuviera un balanceador de carga. Nginx elegirá cuál servidor usar para cada petición.
+
+Si uno de nuestros back ends tiene un disco duro más rápido, como SSD por ejemplo, o si está geográficamente más cercano a tu base principal de usuarios, puedes establecer ponderación así:
+
+upstream backend  {
+  server backend1.example.com weight=1;
+  server backend2.example.com weight=2;
+  server backend3.example.com weight=4;
+}
+De manera adicional, si crees que un servidor podría venirse abajo o estás preocupado por tiempos fuera, también hay opciones de configuración para esto:
+
+upstream backend  {
+  server backend1.example.com max_fails=3  fail_timeout=15s;
+  server backend2.example.com weight=2;
+  server backend3.example.com weight=4;
+Ahora, con esta configuración, después de tres fallos o un tiempo de espera de 15 segundos, el servidor y ano será usado por el balanceador de carga. Si deseas marcar manualmente un servidor como inactivo, agrega la palabra clave down, ej. server backend3.example.com down;.
+
+Después necesitamos pasar eso al servidor vía proxy usando el flujo backend que acabamos de definir:
+
+server {
+  location / {
+    proxy_pass  http://backend;
+  }
+}
+Ahora reinicia tu servidor con service nginx restart, ¡y estás ejecutando una versión de carga balanceada de tu sitio!
+
+
+##### nginx & cakephp
+
+ sudo apt-get install php7.2-intl php7.2-mbstring php7.2-simplexml php7.2-zip
+
 
 ### :fa-code: Improvements FMP
 
@@ -1256,6 +1788,7 @@ There are 2 choices for the alternative php (providing /usr/bin/php).
 
 Press <enter> to keep the current choice[*], or type selection number:
 ```
+
 
 install the needed module
 > libapache2-mod-php5.6
@@ -1348,6 +1881,35 @@ run the mysql_secure_installation script to secure the database where you can:
     reload privileges
 ```bash
 $ sudo mysql_secure_installation
+```
+
+##### Some improvements
+
+###### Open file limits
+
+The open file limits is not a performance relevant setting, but running a benchmark with a lot of concurrent users can hit the open file limit quite easy.
+On most Linux systems the open file limit is at 1024, which may not be enough. Set your open file limit higher by editing
+
+> $EDITOR /etc/security/limits.conf
+
+and adding a line like
+```bash
+#ftp             hard    nproc           0
+#@student        -       maxlogins       4
+*                -       nofile          16384
+# End of file
+```
+Your ""ulimit -a"" output should look like this afterwards:
+```bash
+ulimit -a
+core file size          (blocks, -c) 0
+data seg size           (kbytes, -d) unlimited
+scheduling priority             (-e) 0
+file size               (blocks, -f) unlimited
+pending signals                 (-i) 15975
+max locked memory       (kbytes, -l) 64
+max memory size         (kbytes, -m) 1744200
+open files                      (-n) 16384
 ```
 
 ##### How to Create a New User in Maria
@@ -1612,6 +2174,37 @@ git pull
 ```
 
 
+##### Create a repo from command line
+
+Create a new repository on GitHub. To avoid errors, do not initialize the new repository with README, license, or gitignore files. You can add these files after your project has been pushed to GitHub.
+Open Terminal.
+
+Change the current working directory to your local project.
+
+Initialize the local directory as a Git repository.
+
+git init
+Add the files in your new local repository. This stages them for the first commit.
+
+git add .
+# Adds the files in the local repository and stages them for commit. To unstage a file, use 'git reset HEAD YOUR-FILE'.
+Commit the files that you've staged in your local repository.
+
+git commit -m "First commit"
+# Commits the tracked changes and prepares them to be pushed to a remote repository. To remove this commit and modify the file, use 'git reset --soft HEAD~1' and commit and add the file again.
+Copy remote repository URL fieldAt the top of your GitHub repository's Quick Setup page, click  to copy the remote repository URL.
+
+In Terminal, add the URL for the remote repository where your local repository will be pushed.
+
+git remote add origin remote repository URL
+# Sets the new remote
+git remote -v
+# Verifies the new remote URL
+Push the changes in your local repository to GitHub.
+
+git push origin master
+# Pushes the changes in your local repository up to the remote repository you specified as the origin
+
 ##### You can't merge with local modifications. Git protects you from losing potentially important changes.
 
 You have three options.
@@ -1637,7 +2230,6 @@ using git reset --hard. or git checkout -t -f remote/branch
 3. a) Discard local changes for a specific file
 
 using git checkout filename
-
 
 ### Merging a pull request
 ```bash
@@ -1686,6 +2278,38 @@ If you don't have push (write) access to an upstream repository, then you can pu
     git push origin master
     ```
 
+### Updating a fork using rebase
+
+In your local clone of your forked repository, you can add the original GitHub repository as a "remote". ("Remotes" are like nicknames for the URLs of repositories - origin is one, for example.) Then you can fetch all the branches from that upstream repository, and rebase your work to continue working on the upstream version. In terms of commands that might look like:
+
+# Add the remote, call it "upstream":
+
+git remote add upstream https://github.com/whoever/whatever.git
+
+# Fetch all the branches of that remote into remote-tracking branches,
+# such as upstream/master:
+
+git fetch upstream
+
+# Make sure that you're on your master branch:
+
+git checkout master
+
+# Rewrite your master branch so that any commits of yours that
+# aren't already in upstream/master are replayed on top of that
+# other branch:
+
+git rebase upstream/master
+
+#If you don't want to rewrite the history of your master branch, (for example because other people may have cloned it) then you should replace the last command with git merge upstream/master. However, for making further pull requests that are as clean as possible, it's probably better to rebase.
+
+#If you've rebased your branch onto upstream/master you may need to force the push in order to push it to your own forked repository on GitHub. You'd do that with:
+
+git push -f origin master
+You only need to use the -f the first time after you've rebased.
+
+
+
 # :fa-file-pdf: Pdf section
 
 * Merge PDF files with PHP
@@ -1693,7 +2317,8 @@ If you don't have push (write) access to an upstream repository, then you can pu
 I've done this before. I had a pdf that I generated with fpdf, and I needed to add on a variable amount of PDFs to it.
 
 So I already had an fpdf object and page set up (http://www.fpdf.org/) And I used fpdi to import the files (http://www.setasign.de/products/pdf-php-solutions/fpdi/) FDPI is added by extending the PDF class:
-```php
+
+``` php
 class PDF extends FPDI {
    $pdffile = "Filename.pdf";
    $pagecount = $pdf->setSourceFile($pdffile);  
@@ -1703,12 +2328,14 @@ class PDF extends FPDI {
        $pdf->useTemplate($tplidx, 10, 10, 200);
 }
 ```
+
 This basically makes each pdf into an image to put into your other pdf. It worked amazingly well for what I needed it for.
 Not quite sure why both the accepted answer and even the FDPI homepage seem to give botched or incomplete examples. Here's mine which works and is easy to implement. As expected it requires fpdf and fpdi libraries:
 
    FPDF: http://www.fpdf.org/en/download.php
    FPDI: https://www.setasign.com/products/fpdi/downloads
-```php
+
+``` php
 require('fpdf.php');
 require('fpdi.php');
 
@@ -1884,6 +2511,7 @@ libraries that your project depends on.
 ##### After Composer update
 Some packages has suggestions to install it do
 
+
 ```bash
 composer suggests | xargs -I '{}' composer require '{}'
 # OR maybe this runs better
@@ -2020,6 +2648,85 @@ sudo apt-get install -y build-essential
 curl https://install.meteor.com/ | sh
 ```
 
+### debian method
+
+MeteorJS or simply Meteor is an open-source framework based on JavaScript. It is written using Node.js and allows you to build apps for any device (web, iOS, Android, or desktop) using the same code. In this tutorial, we will show you how to deploy a simple Meteor application on a Linux VPS running Ubuntu 16.04 as an operating system.
+
+Connect to your Linux server via SSH and install the MeteorJS framework using the command below:
+
+```bash
+sudo curl https://install.meteor.com/ | sh
+```
+This will install the latest official Meteor release on your Ubuntu VPS.
+It will take a couple of minutes for the installation process to finish, and once it is completed you can verify that the installation is successful by checking the Meteor version:
+
+meteor --version
+This should provide you with output very similar to this one:
+
+$ meteor --version
+Meteor 1.4.3.2
+If you are running the meteor command for the first time, it will take a couple of seconds for Meteor to be set up in your user’s home directory.
+Now you are ready to create your first MeteorJS application. Navigate to your home directory:
+
+```bash
+cd ~
+# and run the following command:
+meteor create firstApp
+# The application will be set up immediately. To run the application, use the following commands:
+cd firstApp
+meteor
+# Make sure that there are no errors in the output. It should be similar to the one below:
+
+$ meteor
+
+[[[[[ ~/firstApp ]]]]]
+
+=> Started proxy.
+=> Started MongoDB.
+=> Started your app.
+
+=> App running at: http://localhost:3000/
+# Now the application is running on port 3000 and it is accessible from the local machine only. To make it accessible using a domain name you can set up Nginx as a reverse proxy on your Meteor VPS.
+```
+First, install Nginx and set up a server block.
+Add the following lines to the Nginx server block for your Meteor application:
+
+```nginx
+upstream meteor {
+    server 127.0.0.1:3000;
+}
+```
+```nginx
+server {
+    listen      80;
+    server_name your_domain;
+
+    access_log  /var/log/nginx/meteor.access.log;
+    error_log   /var/log/nginx/meteor.error.log;
+
+    proxy_buffers 16 64k;
+    proxy_buffer_size 128k;
+
+location / {
+        proxy_pass  http://meteor;
+        proxy_next_upstream error timeout invalid_header http_500 http_502 http_503 http_504;
+        proxy_redirect off;
+
+        proxy_set_header    Host            $host;
+        proxy_set_header    X-Real-IP       $remote_addr;
+        proxy_set_header    X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header    X-Forwarded-Proto https;
+    }
+}
+```
+Replace your_domain with your actual domain name. Save and close the file, then check if there are errors:
+
+sudo nginx -t
+If there are no errors, restart nginx:
+```bash
+sudo systemctl restart nginx.service
+```
+Restart your Meteor application and open your web browser. You should be able to access the Meteor application you just deployed using your domain name. If you see the welcome screen like the one below it means your Meteor application is successfully deployed.
 
 #### Update Your npm Version
 
