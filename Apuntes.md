@@ -2663,15 +2663,15 @@ in any order in the row. It will work the same if you type apple green or green 
 
 ```javascript
 
-      var $rows = $('#table tr');
-      $('#search').keyup(function() {
+      var $rows = $("#table tr");
+      $("#search").keyup(function() {
 
-          var val = '^(?=.*\\b' + $.trim($(this).val()).split(/\s+/).join('\\b)(?=.*\\b') + ').*$';
-          var reg = RegExp(val, 'i');
+          var val = "^(?=.*\\b' + $.trim($(this).val()).split(/\s+/).join('\\b)(?=.*\\b') + ').*$";
+          var reg = RegExp(val, "i");
           var text;
 
           $rows.show().filter(function() {
-              text = $(this).text().replace(/\s+/g, ' ');
+              text = $(this).text().replace(/\s+/g, " ");
               return !reg.test(text);
           }).hide();
       });
