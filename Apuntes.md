@@ -2614,25 +2614,24 @@ libraries that your project depends on.
 ##### After Composer update
 Some packages has suggestions to install it do
 
+this runs
 
 ```bash
-# composer suggests | xargs -I '{}' composer require '{}'
-  ```
-OR maybe this runs better
+ composer suggests | xargs -i composer require {}
 
-```
-composer suggests | xargs -i composer require {}  
 ```
 
 #### Pear installation
 
 * make a dir under named pear in home or {/usr/share/}pear
 * download the file go-pear.php
-```bash
-$ wget http://pear.php.net/go-pear.phar
-# and run
-$ php go-pear.phar
-```
+
+
+  $ wget http://pear.php.net/go-pear.phar
+  # and run
+  $ php go-pear.phar
+
+
 as root for a global installation
 
 ### add webdav client support
