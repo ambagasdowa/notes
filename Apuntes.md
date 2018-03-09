@@ -2635,7 +2635,7 @@ this runs
 
 
   $ wget http://pear.php.net/go-pear.phar
-  # and run
+  and run
   $ php go-pear.phar
 
 
