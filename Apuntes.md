@@ -1,4 +1,4 @@
-#  Unix Annotations
+  #  Unix Annotations
   Annotations
 
 # Table of Contents
@@ -2142,6 +2142,18 @@ default config as in:
 
 # :fa-github: Git docs
 
+##### track packages in Atom editor
+To track installed packages as well, you will need to run:
+
+```sh
+apm list --installed --bare > ~/.atom/package.list
+```
+And add that file to Git also. To restore, use:
+
+```sh
+apm install --packages-file ~/.atom/package.list
+```
+
 ##### update a repo to github
 cd to path
 ```bash
@@ -2308,6 +2320,92 @@ git rebase upstream/master
 git push -f origin master
 You only need to use the -f the first time after you've rebased.
 
+### Git tagging
+Listing Your Tags
+$ git tag
+
+Creating Tags
+$ git tag -a v1.4 -m "my version 1.4"
+
+Sharing Tags
+$ git push origin --tags
+
+### Clone a branch from remote repository
+
+The 'normal' way to get this code with git would be:
+
+    replicate the repository to your local machine
+
+    git clone https://github.com/dnouri/nolearn.git
+
+    (You can find this URL on the repository's page https://github.com/dnouri/nolearn, in the 'clone URL' field.)
+
+    enter the local repository
+
+    cd nolearn
+
+    check out the wanted revision
+
+    git checkout 1659e4811e498dc1f442d8e6486d0831f85255b4
+
+    change into the respective directory inside the repository
+
+    cd nolearn
+
+##### How to clone a single branch in git?
+
+Where specifies:
+
+git clone <url> --branch <branch> --single-branch [<folder>]
+
+
+### Git Submodules
+
+
+### Add a repository as submodule
+```bash
+cd plugins
+git submodule add https://github.com/ambagasdowa/Paper.git
+```
+### Update as submodule
+
+cd plugins and run
+
+```bash
+git submodule init
+# and
+git submodule update
+```
+
+OR using `--recurse-submodules`
+
+```bash
+  git clone --recurse-submodules https://github.com/youraccount/yourRepo.git
+```
+OR Running master checkouts
+Third-party components are handled as git submodules which have to be initialized first. So aside from the regular git checkout invoking
+
+```git
+  git submodule update --init
+```
+
+or a similar command is needed, for details see Git documentation.
+
+
+### remove a submodule
+```bash
+rm -Rf Paper/
+
+git rm -r Paper/
+```
+
+##### One way to move forward would be to start from a fresh clone of the parent repo (without any reference to your submodule), and repeat the steps:
+
+git submodule add -b master /path/to/myrepo.git ;
+git submodule update --remote --init. –
+
+
+
 
 
 # :fa-file-pdf: Pdf section
@@ -2318,15 +2416,19 @@ I've done this before. I had a pdf that I generated with fpdf, and I needed to a
 
 So I already had an fpdf object and page set up (http://www.fpdf.org/) And I used fpdi to import the files (http://www.setasign.de/products/pdf-php-solutions/fpdi/) FDPI is added by extending the PDF class:
 
-``` php
-class PDF extends FPDI {
-   $pdffile = "Filename.pdf";
-   $pagecount = $pdf->setSourceFile($pdffile);  
-   for($i=0; $i<$pagecount; $i++){
-       $pdf->AddPage();  
-       $tplidx = $pdf->importPage($i+1, '/MediaBox');
-       $pdf->useTemplate($tplidx, 10, 10, 200);
-}
+
+```php
+
+  class PDF extends FPDI {
+     $pdffile = "Filename.pdf";
+     $pagecount = $pdf->setSourceFile($pdffile);  
+     for($i=0; $i<$pagecount; $i++){
+         $pdf->AddPage();  
+         $tplidx = $pdf->importPage($i+1, "/MediaBox");
+         $pdf->useTemplate($tplidx, 10, 10, 200);
+     }
+  }
+
 ```
 
 This basically makes each pdf into an image to put into your other pdf. It worked amazingly well for what I needed it for.
@@ -2336,6 +2438,7 @@ Not quite sure why both the accepted answer and even the FDPI homepage seem to g
    FPDI: https://www.setasign.com/products/fpdi/downloads
 
 ``` php
+
 require('fpdf.php');
 require('fpdi.php');
 
@@ -2513,11 +2616,13 @@ Some packages has suggestions to install it do
 
 
 ```bash
-composer suggests | xargs -I '{}' composer require '{}'
-# OR maybe this runs better
+# composer suggests | xargs -I '{}' composer require '{}'
+  ```
+OR maybe this runs better
+
+```
 composer suggests | xargs -i composer require {}  
 ```
-
 
 #### Pear installation
 
@@ -2962,7 +3067,6 @@ sdb                                                            brw-rw----
 sdc                                                            brw-rw----
 `-sdc1 vfat   MYLINUXLIVE D85A-828F                            brw-rw----
 sr0                                                            brw-rw----
-
 ```
 in fstab add
 
@@ -2996,7 +3100,7 @@ reboot
 
 ### OpenLuis
 
-``` vbs
+```vb
 
 Imports System.Data.OleDb         ' Required'
 Imports System.Data.SqlClient
@@ -3175,3 +3279,14 @@ It’s not enough that your code is readable: it must perform well too.
  https://josephmaryam.files.wordpress.com
 
  http://iteadjmj.com/inicio.html
+
+
+ ## TODO
+
+ NOTICE: Not enabling PHP 5.6 FPM by default.
+NOTICE: To enable PHP 5.6 FPM in Apache2 do:
+NOTICE: a2enmod proxy_fcgi setenvif
+NOTICE: a2enconf php5.6-fpm
+NOTICE: You are seeing this message because you have apache2 package installed.
+Created symlink /etc/systemd/system/multi-user.target.wants/php5.6-fpm.service → /lib/systemd/system/php5.6-fpm.service.
+Processing triggers for systemd (232-25+deb9u1) ...
