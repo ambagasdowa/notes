@@ -7,6 +7,9 @@
   * [Features](/chapter1/feature.md)
 * [Chapter 2](/chapter2/README.md)
   * [Known issues](/chapter2/issues.md)
+* [Chapter Some Notes about Javascript](/src/javascript.md)
+* [Chapter Maintaint Editor](/docs/atom.md)
+  
 
 ---
 
@@ -2140,7 +2143,8 @@ default config as in:
 
 ```
 
-# :fa-github: Git docs
+
+# Atom Editor
 
 ##### track packages in Atom editor
 To track installed packages as well, you will need to run:
@@ -2153,6 +2157,9 @@ And add that file to Git also. To restore, use:
 ```sh
 apm install --packages-file ~/.atom/package.list
 ```
+
+
+# :fa-github: Git docs
 
 ##### update a repo to github
 cd to path
