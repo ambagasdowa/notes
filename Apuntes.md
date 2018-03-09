@@ -7,9 +7,9 @@
   * [Features](/chapter1/feature.md)
 * [Chapter 2](/chapter2/README.md)
   * [Known issues](/chapter2/issues.md)
-* [Chapter Some Notes about Javascript](/src/javascript.md)
-* [Chapter Maintaint Editor](/docs/atom.md)
-  
+* [Chapter Some Notes about Javascript](/notes/src/javascript.md)
+* [Chapter Maintaint Editor](/notes/docs/atom.md)
+
 
 ---
 
