@@ -16,12 +16,18 @@
 
 // -- =============================== Add ========================================== --
 
+function validaOperator(){
+// 	var response;
+	alert(document.getElementById('txtOperador1').value);
+	
+// 	pridesp01_pre_i_despasignarpedidos.GetData(numberOp,GetData_CallBack);
+};
+
 
 
 function GetData(numberOp) {
 
 	var response;
-
 	pridesp01_pre_i_despasignarpedidos.GetData(numberOp,GetData_CallBack);
 
 }
@@ -1534,23 +1540,11 @@ function GetData_CallBack(response) {
 
 
 
-                                            <!-- <asp:TextBox onkeypress="return IsInt(event);" ID="btnGetData" TabIndex="120" runat="server"
-
-                                                CssClass="ID" MaxLength="9" onchange="GetData();" Height="20px">
-
-                                            </asp:TextBox>&nbsp; -->
-
-
-
-                                            <!-- <input id="btnGetData" onclick="GetData();" type="button" value="To Get Employee Data From DB" style="width: 203px" /> -->
-
-
-
                                             <asp:TextBox
 
                                                     ID="txtOperador1Nombre" TabIndex="-1" runat="server" CssClass="desc" ReadOnly="True"
 
-                                                    Width="200px" Height="20px" BackColor="Transparent" name="OpNamae">
+                                                    Width="200px" Height="20px" BackColor="Transparent">
 
                                             </asp:TextBox>&nbsp;
 
@@ -1562,7 +1556,9 @@ function GetData_CallBack(response) {
 
                                                         alt="Buscar Operador 1" src="../Imagenes/BTbusc2.gif" align="absMiddle">
 
-
+                                            
+                                           <img id="btnValidOp" style="cursor: hand" title="ValidaOp" onclick="GetData(document.getElementById('txtOperador1').value);" />
+                                            
 
                                               <asp:RequiredFieldValidator ID="rfvOperador1" runat="server" Display="Dynamic" ControlToValidate="txtOperador1"
 
@@ -3165,9 +3161,6 @@ function GetData_CallBack(response) {
             var raspon = document.getElementById("lblOutputOp").innerHTML;
 
 
-
-            // function raspond (raspon) {
-
                 var response = raspon;
 
                 var pieces = response.split(",");
@@ -3268,8 +3261,7 @@ function GetData_CallBack(response) {
 
               	}
 
-              // } //End Function
-
+                
             }
 
         </script>

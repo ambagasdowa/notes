@@ -1,6 +1,8 @@
   #  Unix Annotations
   Annotations
 
+Supporting TOC only for website
+
 # Table of Contents
 * [Chapter 1](/chapter1/README.md)
   * [Introduction of Markdown Preview Enhanced](/chapter1/intro.md)
@@ -2158,6 +2160,27 @@ And add that file to Git also. To restore, use:
 apm install --packages-file ~/.atom/package.list
 ```
 
+# Fonts install
+
+#### Manual Instalation
+
+There are various locations in GNU/Linux in which fonts can be kept. These locations are defined in /etc/fonts/fonts.conf; standard ones include /usr/share/fonts, /usr/local/share/fonts, and ~/.fonts.
+
+The easiest way to install a truetype font is to press alt-F2 and enter the following code (this will open nautilus in the right directory):
+
+gksu nautilus /usr/share/fonts/truetype
+
+Then create a new directory, name the directory whatever you like (choose a name that you remember) and copy the fonts into that directory
+
+If you need to backup your personal fonts, you should use the ~/.fonts/ folder. To create the folder and install the font "Example.otf":
+
+sudo mkdir -p "~/.fonts/truetype/choose_a_font_folder_name_here"
+sudo cp Example.otf "~/.fonts/truetype/choose_a_font_folder_name_here"
+
+Not always needed, but finally you can additionally rebuilding the font information files by pressing alt-F2, mark 'run in terminal' so you can see the progress and entering the following code:
+```bash
+sudo fc-cache -f -v
+```
 
 # :fa-github: Git docs
 
@@ -2371,6 +2394,35 @@ Where specifies:
 git clone <url> --branch <branch> --single-branch [<folder>]
 
 
+##### How do I resolve git saying “Commit your changes or stash them before you can merge”?
+
+You can't merge with local modifications. Git protects you from losing potentially important changes.
+
+You have three options.
+1. Commit the change using
+
+    git commit -m "My message"
+
+2. Stash it.
+
+Stashing acts as a stack, where you can push changes, and you pop them in reverse order.
+
+To stash type:
+
+git stash
+
+Do the merge, and then pull the stash:
+
+git stash pop
+
+3. Discard the local changes
+
+using git reset --hard. or git checkout -t -f remote/branch
+3. a) Discard local changes for a specific file
+
+using git checkout filename
+
+
 ### Git Submodules
 
 
@@ -2423,6 +2475,27 @@ git submodule update --remote --init. –
 
 
 # :fa-file-pdf: Pdf section
+
+
+set the defualt viewer
+```bash
+mimeopen -d myfile.pdf
+ambagasdowa@uruk:~$ mimeopen -d myfile.pdf
+Please choose a default application for files of type application/pdf
+
+	1) Krita  (krita_pdf)
+	2) LibreOffice Draw  (libreoffice-draw)
+	3) Inkscape  (inkscape)
+	4) vprerex  (vprerex)
+	5) PDF-Shuffler  (pdfshuffler)
+	6) PDF Chain  (pdfchain)
+	7) GNU Image Manipulation Program  (gimp)
+	8) Other...
+
+use application #8
+use command: /usr/bin/okular
+```
+
 
 * Merge PDF files with PHP
 
@@ -2857,6 +2930,50 @@ $ sudo npm install npm --global
 
 # :fa-linux: :fa-apple: :fa-windows: OS-Admin section
 
+#### Preview Handler
+ > No puede abrir los datos adjuntos de los archivos vinculados en Outlook: "Outlook bloqueó el acceso a los siguientes datos adjuntos potencialmente inseguros"
+
+
+ ### Causa
+ ---
+ Este problema se produce porque, de forma predeterminada, Outlook 2010 y Outlook 2013 no permiten que se abran los datos adjuntos del archivo vinculado. Además, la actualización de seguridad de julio de 2010 realizó un cambio en Outlook 2002, Outlook 2003 y Outlook 2007 para que estos incluyan este comportamiento.
+
+ Se puede usar una entrada de Registro para impedir que Outlook bloquee los datos adjuntos de archivos vinculados de modo que éstos se puedan abrir directamente. Sin embargo, no se recomienda usar esta entrada del Registro ya que de esta forma se reducirá la seguridad de Outlook y se podría permitir el acceso a los datos adjuntos malintencionados.
+
+ Para configurar la entrada de Registro AllowAttachByRef, agregue un valor DWORD denominado AllowAttachByRef que tenga el valor de 1.
+
+ Para agregar esta entrada de Registro, siga estos pasos:
+
+ Haga clic en Inicio y en Ejecutar, en el cuadro Abrir escriba regedit y luego haga clic en Aceptar.
+ Busque una de las siguientes subclaves del Registro y haga clic en ella:
+
+```init
+         Outlook 2013 (versión 15,0)
+         HKEY_CURRENT_USER\Software\Microsoft\Office\15.0\Outlook\Security O bien:HKEY_CURRENT_USER\Software\Policies\Microsoft\Office\15.0\Outlook\Security
+         Outlook 2010 (versión 14.0)
+         HKEY_CURRENT_USER\Software\Microsoft\Office\14.0\Outlook\Security
+         O bien:HKEY_CURRENT_USER\Software\Policies\Microsoft\Office\14.0\Outlook\Security
+         Outlook 2007 (versión 12.0)
+         HKEY_CURRENT_USER\Software\Microsoft\Office\12.0\Outlook\Security
+         O bien:HKEY_CURRENT_USER\Software\Policies\Microsoft\Office\12.0\Outlook\Security
+         Outlook 2003 (versión 11.0)
+         HKEY_CURRENT_USER\Software\Microsoft\Office\11.0\Outlook\Security
+         O bien: HKEY_CURRENT_USER\Software\Policies\Microsoft\Office\11.0\Outlook\Security
+         Outlook 2002 (versión 10.0)
+         HKEY_CURRENT_USER\Software\Microsoft\Office\10.0\Outlook\Security
+         O bien:
+
+         HKEY_CURRENT_USER\Software\Policies\Microsoft\Office\10.0\Outlook\Security
+```
+
+ En el menú Edición, seleccione Nuevo y haga clic en Valor DWORD.
+ Escriba AllowAttachByRef como nombre del valor DWORD y luego presione ENTRAR.
+ Haga clic con el botón derecho en AllowAttachByRef y luego haga clic en Modificar.
+ En el cuadro Información del valor, escriba 1 y haga clic en Aceptar.
+ Salga del Editor del Registro y reinicie el equipo.
+
+
+
 ### :fa-firefox:
 disable web autoplay in firefox
 set to true this options in about:config
@@ -2864,6 +2981,8 @@ set to true this options in about:config
   media.autoplay.enabled
   media.block-autoplay-until-in-foreground
 ```
+
+
 
 # :fa-terminal: Notes Section
 
