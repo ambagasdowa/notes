@@ -843,6 +843,9 @@ $NAME.png
 #echo "Done."
 ```
 
+```bash
+for f in *.ogg; do sox "$f" "${f%.ogg}.mp3"; done
+```
 ---
 
 ### Script methods:
