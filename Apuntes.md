@@ -1806,6 +1806,19 @@ or
 
 as default
 
+change between versions
+
+
+```bash
+#change to 7.2
+sudo a2dismod php7.2 ; sudo a2enmod php5.6 ; sudo systemctl restart apache2 ; sudo update-alternatives --set php /usr/bin/php7.2
+
+#change to 5.6
+sudo a2dismod php5.6 ; sudo a2enmod php7.2 ; sudo systemctl restart apache2 ; sudo update-alternatives --set php /usr/bin/php5.6
+```
+
+check on nginx method
+
 ### Enabling error display in php via htaccess only
 
 ```init
@@ -1892,6 +1905,52 @@ $ sudo mysql_secure_installation
 ```
 
 ##### Some improvements
+
+
+The "unix_socket" has been called by mysql authentication process (maybe related to a partial migration of database to mariadb, now removed). To get all stuff back working go su:
+
+sudo su
+
+then follow:
+
+/etc/init.d/mysql stop
+mysqld_safe --skip-grant-tables &
+mysql -uroot
+
+This will completely stop mysql, bypass user authentication (no password needed) and connect to mysql with user "root".
+
+Now, in mysql console, go using mysql administrative db:
+
+use mysql;
+
+To reset root password to mynewpassword (change it at your wish), just to be sure of it:
+
+update user set password=PASSWORD("mynewpassword") where User='root';
+
+And this one will overwrite authentication method, remove the unix_socket request (and everything else), restoring a normal and working password method:
+
+update user set plugin="mysql_native_password";
+
+Exit mysql console:
+
+quit;
+
+Stop and start everything related to mysql:
+
+/etc/init.d/mysql stop
+kill -9 $(pgrep mysql)
+/etc/init.d/mysql start
+
+Don't forget to exit the su mode.
+
+Now mySQL server is up and running. You can login it with root:
+
+mysql -u root -p
+
+or whatever you wish. Password usage is operative.
+
+That's it.
+
 
 ###### Open file limits
 
@@ -2821,6 +2880,13 @@ I have Alcatel OneTouch Pop C7 (7041D)
 
 List of devices attached  
 6H9PY5ZPJV9HO7R4    device
+
+##### on/off display
+Works to turn on screen (when display is off) Works to turn off screen (when display is on/awake)
+
+adb shell input keyevent KEYCODE_POWER
+
+https://stackoverflow.com/questions/7585105/turn-on-screen-on-device
 
 ### :fa-signal: NODE JS Engine
 
