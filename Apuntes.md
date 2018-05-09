@@ -1809,6 +1809,7 @@ as default
 change between versions
 
 
+
 ```bash
 #change to 7.2
 sudo a2dismod php7.2 ; sudo a2enmod php5.6 ; sudo systemctl restart apache2 ; sudo update-alternatives --set php /usr/bin/php7.2
@@ -1816,6 +1817,98 @@ sudo a2dismod php7.2 ; sudo a2enmod php5.6 ; sudo systemctl restart apache2 ; su
 #change to 5.6
 sudo a2dismod php5.6 ; sudo a2enmod php7.2 ; sudo systemctl restart apache2 ; sudo update-alternatives --set php /usr/bin/php5.6
 ```
+
+OR use multiple php version :
+
+
+
+First of all, ensure all the PHP related configraution are disabled by run the following commands:
+
+#### ls -la /etc/apache2/conf-enabled | grep php
+#### ls -la /etc/apache2/mods-enabled | grep php
+
+Set up a different version of PHP-FPM for a specific site:
+Add the following line in your existing VirtualHost file.
+Include "conf-available/php7.2-fpm.conf"
+For example,
+
+#### vim /etc/apache2/sites-enabled/symfony.local.conf
+
+```conf
+<VirtualHost *:80>
+    ServerName symfony.local
+
+    Include "conf-available/php7.2-fpm.conf"
+
+    ServerAdmin webmaster@localhost
+    DocumentRoot /var/www/symfony.local/curr/public
+
+    <Directory /var/www/symfony.local/curr/web>
+        AllowOverride All
+    </Directory>
+</VirtualHost>
+```
+
+ if we want a defautl php 7.2 then
+
+ sudo a2disconf php5.6-fpm.conf
+ sudo a2enconf php7.2-fpm.conf
+
+and add the proper include in virtual host file
+ Include "conf-available/php7.2-fpm.conf"
+
+ for a 5.6 version as default just do the invert steps
+
+ for mod_rewrite
+
+ in apache.config
+
+
+```conf
+ <Directory />
+    Options FollowSymLinks
+    AllowOverride All
+</Directory>
+<Directory /var/www>
+    Options Indexes FollowSymLinks MultiViews
+    AllowOverride All
+    Order Allow,Deny
+    Allow from all
+</Directory>
+```
+
+or in virtual host file
+
+Inside that file, you will find a `<VirtualHost *:80>` block starting on the first line. Inside of that block, add the following new block so your configuration file looks like the following. Make sure that all blocks are properly indented.
+/etc/apache2/sites-available/000-default.conf
+
+  ```conf
+  <VirtualHost *:80>
+      <Directory /var/www/html>
+          Options Indexes FollowSymLinks MultiViews
+          AllowOverride All
+          Require all granted
+      </Directory>
+
+      . . .
+  </VirtualHost>
+  ```
+
+
+searhc for a libs
+ldd `which mplayer` | grep --color libbs2b.so.0
+
+
+
+check for This
+
+NOTICE: Not enabling PHP 5.6 FPM by default.
+NOTICE: To enable PHP 5.6 FPM in Apache2 do:
+NOTICE: a2enmod proxy_fcgi setenvif
+NOTICE: a2enconf php5.6-fpm
+NOTICE: You are seeing this message because you have apache2 package installed.
+
+
 
 check on nginx method
 
@@ -2056,6 +2149,83 @@ memory_limit = 128M
           .../
           .htaccess
 
+app.php Configuration examples
+
+
+
+for database connections
+
+```php
+'Datasources' => [
+  // NOTE the local mariadb server
+    'default' => [
+        'className' => 'Cake\Database\Connection',
+        'driver' => 'Cake\Database\Driver\Mysql',
+        'persistent' => false,
+        'host' => 'localhost',
+        /*
+         * CakePHP will use the default DB port based on the driver selected
+         * MySQL on MAMP uses port 8889, MAMP users will want to uncomment
+         * the following line and set the port accordingly
+         */
+        //'port' => 'non_standard_port_number',
+        'username' => 'blackops',
+        'password' => '@blackops#',
+        'database' => 'blackops',
+        /*
+         * You do not need to set this flag to use full utf-8 encoding (internal default since CakePHP 3.6).
+         */
+        //'encoding' => 'utf8mb4',
+        'timezone' => 'UTC',
+        'flags' => [],
+        'cacheMetadata' => true,
+        'log' => false,
+
+        /**
+         * Set identifier quoting to true if you are using reserved words or
+         * special characters in your table or column names. Enabling this
+         * setting will result in queries built using the Query Builder having
+         * identifiers quoted when creating SQL. It should be noted that this
+         * decreases performance because each query needs to be traversed and
+         * manipulated before being executed.
+         */
+        'quoteIdentifiers' => false,
+
+        /**
+         * During development, if using MySQL < 5.6, uncommenting the
+         * following line could boost the speed at which schema metadata is
+         * fetched from the database. It can also be set directly with the
+         * mysql configuration directive 'innodb_stats_on_metadata = 0'
+         * which is the recommended value in production environments
+         */
+        //'init' => ['SET GLOBAL innodb_stats_on_metadata = 0'],
+
+        'url' => env('DATABASE_URL', null),
+    ],
+
+    // NOTE Connecting to a mssql server in the work
+
+    'MssqlWork' => [
+                'className' => 'Cake\Database\Connection',
+                'driver' => 'Cake\Database\Driver\Sqlserver',
+                'persistent' => false,
+                'host' => '192.168.20.235',
+                'port' => '1433',
+                'username' => 'zam',
+                'password' => 'lis',
+                // 'database' => 'sistemas',
+                'encoding' => 65001,
+                'timezone' => 'UTC',
+                'cacheMetadata' => true,
+                'log' => false,
+                'quoteIdentifiers' => false,
+                'url' => env('DATABASE_URL', null)
+      ],
+]
+```
+
+
+
 #### Backup your databases
 
 ```bash
@@ -2077,6 +2247,19 @@ mysqldump -u root -p --databases policies portal_company portal_secure portal_us
 
 mysql -u ambagasdowa -p < integradev.sql
 ```
+
+## Dump and restore a single table from .sql
+
+#### Dump
+
+mysqldump db_name table_name > table_name.sql
+
+#### Dumping from a remote database
+
+mysqldump -u <db_username> -h <db_host> -p db_name table_name > table_name.sql
+
+For further reference:
+http://www.abbeyworkshop.com/howto/lamp/MySQL_Export_Backup/index.html
 
 > TITLE => connect cakephp/LinuxBox To MSSQL
 
@@ -2243,6 +2426,41 @@ Not always needed, but finally you can additionally rebuilding the font informat
 ```bash
 sudo fc-cache -f -v
 ```
+
+search a font
+```bash
+fc-list | grep -i "media"
+```
+Also give a try to fc-scan, fc-match
+
+
+### ppa-keys issue
+
+The command should throw a similar warning:
+Code:
+
+```bash
+#Reading package lists... Done
+#W: GPG error: http://deb.opera.com stable Release: The following signatures couldn't be verified because the public key is not available: NO_PUBKEY F9A2F76A9D1A0061
+#W: You may want to run apt-get update to correct these problems
+```
+
+type:
+Code:
+
+```bash
+sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 9D1A0061
+```
+
+where 9D1A0061 are the last 8 digits from the public key mentioned in the warning.
+and:
+Code:
+
+sudo apt-get update
+
+
+
+
 
 # :fa-github: Git docs
 
@@ -2483,6 +2701,75 @@ using git reset --hard. or git checkout -t -f remote/branch
 3. a) Discard local changes for a specific file
 
 using git checkout filename
+
+
+### Another merging way
+
+
+down vote
+
+Here's a probable use-case, from the top:
+
+You're going to pull some changes, but oops, you're not up to date:
+
+git fetch origin
+git pull origin master
+
+From ssh://gitosis@example.com:22/projectname
+ * branch            master     -> FETCH_HEAD
+Updating a030c3a..ee25213
+error: Entry 'filename.c' not uptodate. Cannot merge.
+
+So you get up-to-date and try again, but have a conflict:
+
+git add filename.c
+git commit -m "made some wild and crazy changes"
+git pull origin master
+
+From ssh://gitosis@example.com:22/projectname
+ * branch            master     -> FETCH_HEAD
+Auto-merging filename.c
+CONFLICT (content): Merge conflict in filename.c
+Automatic merge failed; fix conflicts and then commit the result.
+
+So you decide to take a look at the changes:
+
+git mergetool
+
+Oh me, oh my, upstream changed some things, but just to use my changes...no...their changes...
+
+git checkout --ours filename.c
+git checkout --theirs filename.c
+git add filename.c
+git commit -m "using theirs"
+
+And then we try a final time
+
+git pull origin master
+
+From ssh://gitosis@example.com:22/projectname
+ * branch            master     -> FETCH_HEAD
+Already up-to-date.
+
+
+Coments:
+
+---
+```
+ Careful! The meaning of --ours and --theirs is reversed. --ours == the remote.
+ --theirs == local. See git merge --help
+
+ In my case, I confirm that --theirs = remote repository, --ours = my own local
+ repository. It is the opposite of @mmell comments
+
+ @mmell Only on a rebase, apparently
+
+ Guys, "ours" and "theirs" is relative to whether or not you are merging or rebasing.
+  If you're merging, then "ours" means the branch you're merging into, and "theirs" is
+  the branch you're merging in. When you're rebasing, then "ours" means the commits
+  you're rebasing onto, while "theirs" refers to the commits that you want to rebase
+ ```
+ ---
 
 
 ### Git Submodules
@@ -3042,6 +3329,91 @@ $ sudo npm install npm --global
  Salga del Editor del Registro y reinicie el equipo.
 
 
+### remove packages anoing
+BTW the article you linked deals with exit status 2 when trying to remove a package. In this situation, deleting the package record from /var/lib/dpkg/status would certainly help. But even then instead of editing the file manually, I'd try to locate and remove the record with sed.
+
+The following should give the same output as dpkg -s package_name:
+Code:
+```bash
+sed -n '/^Package: *package_name$/,/^$/p' /var/lib/dpkg/status
+```
+
+If it does, you can delete the record with
+Code:
+
+```bash
+sudo sed -i '/^Package: *package_name$/,/^$/d' /var/lib/dpkg/status
+```
+
+
+#### Install python
+
+
+
+You can install Python-3.6 on Debian 8 as follows:
+
+wget https://www.python.org/ftp/python/3.6.3/Python-3.6.3.tgz
+tar xvf Python-3.6.3.tgz
+cd Python-3.6.3
+./configure --enable-optimizations
+make -j8
+sudo make altinstall
+python3.6
+
+It is recommended to use make altinstall according to the official website.
+
+If you want pip to be included, you need to add --with-ensurepip=install to your configure call. For more details see ./configure --help.
+
+    Warning: make install can overwrite or masquerade the python binary. make altinstall is therefore recommended instead of make install since it only installs exec_prefix/bin/pythonversion.
+
+Common build problems
+
+Some packages need to be installed to avoid some known problems
+
+sudo apt-get install -y make build-essential libssl-dev zlib1g-dev   
+sudo apt-get install -y libbz2-dev libreadline-dev libsqlite3-dev wget curl llvm
+sudo apt-get install -y libncurses5-dev  libncursesw5-dev xz-utils tk-dev
+
+Update
+
+You can download the latest python-x.y.z.tar.gz from here.
+
+To set a default python version and easily switch between them , you need to update your update-alternatives with the multiple python version.
+
+Let's say you have installed the python3.7 on debian stretch , use the command whereis python to locate the binary (path*/bin/python). e,g:
+
+/usr/local/bin/python3.7
+/usr/bin/python2.7
+/usr/bin/python3.5
+
+Add the python versions:
+
+update-alternatives --install /usr/bin/python python /usr/local/bin/python3.7 50
+update-alternatives --install /usr/bin/python python /usr/bin/python2.7 40
+update-alternatives --install /usr/bin/python python /usr/bin/python3.5 30
+
+The python3.7 with the 50 priority is now your default python , the python -V will print:
+
+Python 3.7.0b2
+
+To switch between them, use:
+
+update-alternatives --config python
+
+Sample output:
+
+There are 3 choices for the alternative python (providing /usr/bin/python).
+
+  Selection    Path                      Priority   Status
+------------------------------------------------------------
+* 0            /usr/local/bin/python3.7   50        auto mode
+  1            /usr/bin/python2.7         40        manual mode
+  2            /usr/bin/python3.5         30        manual mode
+  3            /usr/local/bin/python3.7   50        manual mode
+
+Press <enter> to keep the current choice[*], or type selection number:*
+
+
 
 ### :fa-firefox:
 disable web autoplay in firefox
@@ -3167,6 +3539,16 @@ If you want to automate only a part of your script you can call expect inside te
 ```
 
 To access variables set from outside the expect -c you have to use single and double quotes like so: '"$var"'
+
+note for integrabax storage server
+
+in integradev go to /var/www/nextcloud/gstcloud/
+
+then run as sudo
+
+```bash
+sudo mount.nfs -vv integrabox:/media/storage/shared/ data/
+```
 
 
 ##### set output modes
