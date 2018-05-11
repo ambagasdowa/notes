@@ -1530,6 +1530,104 @@ Conclusion
 You should now have the ability to create server blocks for each domain you wish to host from the same server. There aren't any real limits on the number of server blocks you can create, so long as your hardware can handle the traffic.
 
 source  : https://code.tutsplus.com/es/tutorials/apache-vs-nginx-pros-cons-for-wordpress--cms-28540
+
+#### Some point over cakephp configuration
+
+example
+```lua
+server {
+      listen      80;
+      server_name remote.inodd.com;
+      ## redirect http to https ##
+      rewrite        ^ https://$server_name$request_uri? permanent;
+}
+
+server {
+#       listen   80;
+    listen       443 ssl;
+    server_name  remote.inodd.com;
+    ssl_certificate /home/vhost/www/domain/ssl/self-ssl.crt;
+    ssl_certificate_key /home/vhost/www/domain/ssl/self-ssl.key;
+    access_log /home/vhost/www/domain/logs/access_log;
+    error_log /home/vhost/www/domain/logs/error_log;
+
+        location / {
+                root   /home/vhost/www/domain/public_html/development/webroot;
+                index  index.php index.html index.htm;
+
+                if (-f $request_filename) {
+                        break;
+                }
+
+                if (-d $request_filename) {
+                        break;
+                }
+                rewrite ^(.+)$ /index.php?q=$1 last;
+        }
+
+        location ~ .*\.php[345]?$ {
+                include fastcgi_params;
+                fastcgi_pass    unix:/var/run/php-fpm/php-fpm.sock;
+                fastcgi_index   index.php;
+                fastcgi_param SCRIPT_FILENAME
+                /home/vhost/www/domain/public_html/development/webroot$fastcgi_script_name;
+        }
+}
+```
+
+from official webdav
+
+
+nginx
+
+nginx does not make use of .htaccess files like Apache, so it is necessary to create those rewritten URLs in the site-available configuration. This is usually found in /etc/nginx/sites-available/your_virtual_host_conf_file. Depending on your setup, you will have to modify this, but at the very least, you will need PHP running as a FastCGI instance. The following configuration redirects the request to webroot/index.php:
+
+```lua
+location / {
+    try_files $uri $uri/ /index.php?$args;
+}
+
+A sample of the server directive is as follows:
+
+server {
+    listen   80;
+    listen   [::]:80;
+    server_name www.example.com;
+    return 301 http://example.com$request_uri;
+}
+
+server {
+    listen   80;
+    listen   [::]:80;
+    server_name example.com;
+
+    root   /var/www/example.com/public/webroot;
+    index  index.php;
+
+    access_log /var/www/example.com/log/access.log;
+    error_log /var/www/example.com/log/error.log;
+
+    location / {
+        try_files $uri $uri/ /index.php?$args;
+    }
+
+    location ~ \.php$ {
+        try_files $uri =404;
+        include fastcgi_params;
+        fastcgi_pass 127.0.0.1:9000;
+        fastcgi_index index.php;
+        fastcgi_intercept_errors on;
+        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+    }
+}
+```
+
+>Recent configurations of PHP-FPM are set to listen to the unix php-fpm socket
+instead of TCP port 9000 on address 127.0.0.1. If you get 502 bad gateway errors
+from the above configuration, try update fastcgi_pass to use the unix socket path
+ (eg: fastcgi_pass unix:/var/run/php/php7.1-fpm.sock;) instead of the TCP port.
+
+
 ####  Configurando PHP FPM Con Apache
 
 Los usuarios Ubuntu y Debian pueden instalar los paquetes requeridos con aptitude vía:
@@ -3626,7 +3724,12 @@ Note: pdfgrep-1.3.x supports -C option for printing line of context.
 #### Get the major size files on top
 
 ```bash
-du -h --summarize --total * | sort -rh
+    du -h --summarize --total * | sort -rh
+
+# OR for hidden files 
+
+    du -h --total --max-depth=1 | sort -rh | less
+
 ```
 
 
