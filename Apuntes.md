@@ -13,7 +13,7 @@ Supporting TOC only for website
 * [Chapter Maintaint Editor](./editor.php)
 
 
----
+------
 
 # :fa-commenting: Notes
 
@@ -623,6 +623,20 @@ I removed it and used "Raimondi/delimitMate" instead.
 ```bash
 # check if vim has python
 vim --version | grep --color python
+```
+
+#### Save doc as root with vim
+
+Update ~/.vimrc file
+
+Open/Edit ~/.vimrc file and append the following code:
+
+```viml
+command W :execute ':silent w !sudo tee % > /dev/null' | :edit!
+"OR"
+" Allow saving of files as sudo when I forgot to start vim using sudo.
+cmap w!! w !sudo tee > /dev/null %
+
 ```
 
 
@@ -2538,9 +2552,10 @@ The command should throw a similar warning:
 Code:
 
 ```bash
-#Reading package lists... Done
-#W: GPG error: http://deb.opera.com stable Release: The following signatures couldn't be verified because the public key is not available: NO_PUBKEY F9A2F76A9D1A0061
-#W: You may want to run apt-get update to correct these problems
+Reading package lists... Done
+#W: GPG error: http://deb.opera.com stable Release: The following signatures couldn't be verified because the public
+key is not available: NO_PUBKEY F9A2F76A9D1A0061
+W: You may want to run apt-get update to correct these problems
 ```
 
 type:
@@ -3007,6 +3022,23 @@ binlog_format='MIXED'
 ...
 ```
 
+
+# Libre office
+
+install backports-stretch for a newer versions
+
+install libreoffice-gtk2
+install
+```bash
+wget -qO- https://raw.githubusercontent.com/PapirusDevelopmentTeam/papirus-libreoffice-theme/master/install-papirus-root.sh | sh
+```
+more info
+https://github.com/PapirusDevelopmentTeam/papirus-libreoffice-theme
+
+for a cool theme or
+install libreoffice-style-breeze
+
+
 # :fa-code: Code Section
 
 #### Installing RichFilemanager app
@@ -3102,6 +3134,9 @@ the top . Then, run the following command by replacing `sha_384_string` with
 the string you copied.
 ```php
   php -r "if (hash_file('SHA384', '/tmp/composer-setup.php') === 'sha_384_string') { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('/tmp/composer-setup.php'); } echo PHP_EOL;"
+
+  php -r "if (hash_file('SHA384', 'composer-setup.php') === '544e09ee996cdf60ece3804abc52599c22b1f40f4323403c44d44fdfdd586475ca9813a858088ffbc1f233e9b180f061') { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;"
+
 ```    
 This command checks the hash of the file you downloaded with the correct hash
 from Composer's website. If it matches, it'll print **Installer verified**. If
@@ -3382,6 +3417,73 @@ To update your version of npm, simply run the following command:
 $ sudo npm install npm --global
 ```
 
+# :fa-bluetooth Bluethooth Section
+
+Pair a blue keyboard
+
+https://askubuntu.com/questions/701978/how-can-a-bluetooth-keyboard-that-requires-a-code-entry-be-paired-in-the-termina
+
+You can try running bluetoothctl from the command line, make sure your device is on / ready to be discovered:
+
+$ bluetoothctl
+[NEW] Controller AA:BB:CC:DD:EE:FF device-name [default]
+
+Any other bluetooth devices will be listed here. You'll then be inside a [bluetooth] prompt.
+
+First, turn bluetooth power on (if your device is off):
+}+-.,m{}}+ñ^{{{{}+ṕ{|°||}}}}
+[bluetooth]# power on
+Changing power on succeeded
+
+Then, make sure your agent is registered:
+
+```bash
+[bluetooth]# agent on
+```
+Agent registered
+
+```sh
+[bluetooth]# default-agent
+```
+
+Default agent request successful
+
+Now you can scan for devices from the console:
+
+```bash
+[bluetooth]# scan on
+Discovery started
+[CHG] Controller AA:BB:CC:DD:EE:FF Discovering: yes
+[NEW] Device FF:EE:DD:CC:BB:AA Someones Keyboard
+```
+
+You can manually pair from here as well:
+
+```bash
+[bluetooth]# pair FF:EE:DD:CC:BB:AA
+Attempting to pair with FF:EE:DD:CC:BB:AA
+[CHG] Device C8:E0:EB:04:52:55 Connected: yes
+```
+
+At this point, you should be prompted to enter a pin code for pairing:
+
+```bash
+Request PIN code
+[agent] Enter PIN code: 12345
+```
+
+Enter a number (eg. 12345), and you will be prompted to input the same number from the device:
+
+```bash
+[Someones Keyboard]# 12345
+```
+You should then be notified that your keyboard has paired:
+```bash
+[CHG] Device FF:EE:DD:CC:BB:AA Paired: yes
+```
+Hopefully this works for you, was trying to solve this for a while before I found any reference to bluetoothctl
+
+
 # :fa-linux: :fa-apple: :fa-windows: OS-Admin section
 
 #### Preview Handler
@@ -3442,6 +3544,36 @@ Code:
 ```bash
 sudo sed -i '/^Package: *package_name$/,/^$/d' /var/lib/dpkg/status
 ```
+
+#### Install telegram-cli
+
+Instead of disabling SSL, another option is to use Arch's patch:
+
+$ git clone --recursive https://github.com/vysheng/tg.git
+$ cd tg
+$ wget -O openssl.patch 'https://aur.archlinux.org/cgit/aur.git/plain/telegram-cli-git.patch?h=telegram-cli-git'
+$ patch -p1 < openssl.patch
+$ ./configure && make
+
+
+#### Mod Firefox Quantum
+Chosen Solution
+
+userChrome.css and userContent.css with CSS code. I currently use this on Developer Edition and Nightly.  You need to create both .css files in a chrome folder inside your profile folder. Go to about:support --> Profile Folder --> Open Folder --> Create new folder named chrome, inside, create userContent.css and userChrome.css
+
+Put the code into their respective files and restart Firefox.
+
+userContent.css: https://pastebin.com/5F8uDRem
+userChrome.css: https://pastebin.com/QPSn3c4V
+
+
+about:support
+
+#### Mod Chromium/Chrome
+
+about:flags
+
+
 
 
 #### Install python
@@ -3576,6 +3708,18 @@ acceso remoto.
 
 Guardamos los cambios, reiniciamos el sistema operativo y comprobamos el
 resultado.
+
+
+#### wifi on tp470
+
+cd /lib/firmware
+
+Code: Select all
+
+sudo wget https://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git/plain/iwlwifi-8265-22.ucode
+
+
+
 
 ##### Using Expect and Bash
 Example 1
@@ -3726,7 +3870,7 @@ Note: pdfgrep-1.3.x supports -C option for printing line of context.
 ```bash
     du -h --summarize --total * | sort -rh
 
-# OR for hidden files 
+# OR for hidden files
 
     du -h --total --max-depth=1 | sort -rh | less
 

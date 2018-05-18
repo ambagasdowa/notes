@@ -33,12 +33,12 @@ echo "$passwd" | sudo -S service network-manager stop
 
 
 # NOTE start wit a better screen monitor
-xrandr --output VGA-1 --gamma .8:.8:.8
+xrandr --output HDMI-2 --gamma .8:.8:.8
 xrandr --output eDP-1 --gamma .9:.9:.9
-xrandr --output VGA-1 --left-of eDP-1
-xrandr --output VGA-1 --mode 1440x900
+xrandr --output HDMI-2 --left-of eDP-1
+xrandr --output HDMI-2 --mode 1440x900
 
 #mounting the resources
 mount /media/devops
-mount /media/externalx
-mount /media/externaly
+#mount /media/externalx
+#mount /media/externaly
