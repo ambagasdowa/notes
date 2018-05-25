@@ -3657,6 +3657,20 @@ set to true this options in about:config
 
 # :fa-terminal: Notes Section
 
+
+#### change the keyboard layout
+
+in X
+
+```bash
+setxkbmap us
+```
+on console
+
+```bash
+loadkeys us
+```
+
 #### monitor off
 El objetivo en cuestión para configurar ese tema es logind.conf y está en
 ```bash  
@@ -4052,6 +4066,7 @@ This example uses the tabname option to work around a difference between MariaDB
  We want to retrieve some AdventureWorks data stored in the Person.Address table. However,
  MariaDB does not have the idea of a table schema, and so we will change the name of the table to "PersonAddress" in MariaDB.
  We specify the actual table name with the tabname, so the SQL Server ODBC driver can pass on the table name that SQL Server recognises.
+
 ```bash
 $ /opt/mariadb/bin/mysql --socket=/opt/mariadb-data/mariadb.sock
 MariaDB [(none)]> CREATE DATABASE MSSQL;
@@ -4084,10 +4099,55 @@ MariaDB [MSSQL]> SELECT City FROM PersonAddress WHERE AddressID = 32521;
 +-----------+
 ```
 
+
 Because there is no direct equivalent for the SQL Server data type uniqueidentifier.
 We have to map this type in the rowguid column to a MariaDB VARCHAR type.
 Even though this is the only problematic column, we need to include the others in the CREATE TABLE statement.
 Otherwise, the table would only contain the rowguid column.
+
+#### unix_socket error mariadb
+
+
+The "unix_socket" has been called by mysql authentication process (maybe related to a partial migration of database to mariadb, now removed). To get all stuff back working go su:
+
+sudo su
+
+then follow:
+```bash
+/etc/init.d/mysql stop
+mysqld_safe --skip-grant-tables &
+mysql -uroot
+```
+This will completely stop mysql, bypass user authentication (no password needed) and connect to mysql with user "root".
+Now, in mysql console, go using mysql administrative db:
+```bash
+use mysql;
+```
+To reset root password to mynewpassword (change it at your wish), just to be sure of it:
+```sql
+update user set password=PASSWORD("mynewpassword") where User='root';
+```
+And this one will overwrite authentication method, remove the unix_socket request (and everything else), restoring a normal and working password method:
+```sql
+update user set plugin="mysql_native_password";
+```
+Exit mysql console:
+```bash
+quit;
+```
+Stop and start everything related to mysql:
+```bash
+/etc/init.d/mysql stop
+kill -9 $(pgrep mysql)
+/etc/init.d/mysql start
+```
+Don\'t forget to exit the su mode.
+Now mySQL server is up and running. You can login it with root:
+```bash
+mysql -u root -p
+```
+or whatever you wish. Password usage is operative.
+That\'s it.
 
 
 #### The Seven Sins against TSQL Performance

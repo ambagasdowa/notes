@@ -40,5 +40,6 @@ xrandr --output HDMI-2 --mode 1440x900
 
 #mounting the resources
 mount /media/devops
+echo "$passwd" | sudo sshfs ambagasdowa@192.168.20.215:/home/ambagasdowa/ /media/cloud/ -o allow_other -o Ciphers=arcfour -o Compression=no
 #mount /media/externalx
 #mount /media/externaly
