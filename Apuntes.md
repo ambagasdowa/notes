@@ -3657,6 +3657,25 @@ set to true this options in about:config
 
 # :fa-terminal: Notes Section
 
+####  ADD USER
+sudo useradd -m -c "The Allmigthy" ambagasdowa -s /bin/bash
+
+####  Convert XPS to PDF on Linux and Mac
+
+Add the xps2pdf.sh contents to your bashrc file. If you don't know what that means, then run the following:
+
+curl -fsSL https://gist.githubusercontent.com/balupton/7f15f6627d90426f12b24a12a4ac5975/raw/xps2pdf.sh | bash
+
+Use like so:
+
+# Convert a particular xps file
+xps2pdf thefile.xps
+
+# Convert all xps files in the current working directory
+xps2pdf \*.xps
+
+It will create the pdf files with the same creation time as the original xps files.
+
 
 #### change the keyboard layout
 
