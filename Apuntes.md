@@ -929,6 +929,32 @@ rm output.wav
 ```
 ------------------------------------------------------------------------
 
+#### Pulse Audio Equalizer
+
+Load equalizer sink and dbus-protocol module
+
+$ pactl load-module module-equalizer-sink
+$ pactl load-module module-dbus-protocol
+
+GUI front-end
+
+run:
+
+$ qpaeq
+
+Note: If qpaeq has no effect, install pavucontrol and change "ALSA Playback on" to "FFT based equalizer on ..." while the media player is running.
+Load equalizer and dbus module on every boot
+
+Edit the /etc/pulse/default.pa or ~/.config/pulse/default.pa file with your favorite editor and append the following lines:
+
+### Load the integrated PulseAudio equalizer and D-Bus module
+load-module module-equalizer-sink
+load-module module-dbus-protocol
+
+Note: The equalizer sink needs to be loaded after the master sink is already available.
+
+
+
 # :fa-server: Server Section
 
 ### Virtual Servers in Apache
@@ -2958,6 +2984,20 @@ use application #8
 use command: /usr/bin/okular
 ```
 
+##### Edit pdf
+
+when edit a pdf with gimp
+
+import as 300 pt/in
+
+if we have multiple pages
+
+export as mng file and
+
+then
+convert file.mng file.pdf
+enjoy
+
 
 * Merge PDF files with PHP
 
@@ -3431,7 +3471,7 @@ $ bluetoothctl
 Any other bluetooth devices will be listed here. You'll then be inside a [bluetooth] prompt.
 
 First, turn bluetooth power on (if your device is off):
-}+-.,m{}}+ñ^{{{{}+ṕ{|°||}}}}
+
 [bluetooth]# power on
 Changing power on succeeded
 
@@ -3752,7 +3792,8 @@ Code: Select all
 sudo wget https://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git/plain/iwlwifi-8265-22.ucode
 
 
-
+#### speedometer
+speedometer -l  -r eth0  -t eth0 -m $(( 1024 * 1024 * 3 / 2 ))
 
 ##### Using Expect and Bash
 Example 1
