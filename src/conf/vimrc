@@ -21,22 +21,22 @@ Plugin 'majutsushi/tagbar'
 Plugin 'ervandew/supertab'
 Plugin 'BufOnly.vim'
 Plugin 'wesQ3/vim-windowswap'
-Plugin 'SirVer/ultisnips'
+" Plugin 'SirVer/ultisnips'
 Plugin 'junegunn/fzf.vim'
 Plugin 'junegunn/fzf'
 Plugin 'godlygeek/tabular'
 Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'benmills/vimux'
 Plugin 'jeetsukumaran/vim-buffergator'
-"Plugin 'gilsondev/searchtasks.vim'
+" Plugin 'gilsondev/searchtasks.vim'
 Plugin 'Shougo/neocomplete.vim'
 Plugin 'tpope/vim-dispatch'
 
 " Generic Programming Support
-Plugin 'jakedouglas/exuberant-ctags'
+Plugin 'rentalcustard/exuberant-ctags'
 Plugin 'honza/vim-snippets'
 " Plugin 'Townk/vim-autoclose'
-
+Plugin 'Raimondi/delimitMate'
 Plugin 'tomtom/tcomment_vim'
 Plugin 'tobyS/vmustache'
 Plugin 'janko-m/vim-test'
@@ -74,7 +74,7 @@ Plugin 'mattreduce/vim-mix'
 Plugin 'BjRo/vim-extest'
 Plugin 'frost/vim-eh-docs'
 Plugin 'slashmili/alchemist.vim'
-Plugin 'tpope/vim-endwise'
+"Plugin 'tpope/vim-endwise'
 Plugin 'jadercorrea/elixir_generator.vim'
 
 " Elm Support
@@ -82,6 +82,7 @@ Plugin 'lambdatoast/elm.vim'
 
 " Theme / Interface
 Plugin 'AnsiEsc.vim'
+Plugin 'ryanoasis/vim-devicons'
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 Plugin 'sjl/badwolf'
@@ -100,7 +101,6 @@ Plugin 'effkay/argonaut.vim'
 Plugin 'ajh17/Spacegray.vim'
 Plugin 'atelierbram/Base2Tone-vim'
 Plugin 'colepeters/spacemacs-theme.vim'
-Plugin 'ryanoasis/vim-devicons'
 
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -115,7 +115,7 @@ set nowrap
 set backspace=indent,eol,start
 
 " Show linenumbers
-set number
+"set number
 
 " Set Proper Tabs
 set tabstop=4
@@ -134,7 +134,23 @@ set cursorline
 
 " Theme and Styling
 syntax on
-set t_Co=256
+"set t_Co=256
+
+:if &term == "xterm"
+    set number
+    set t_Co=256
+    colorscheme molokai
+:elseif &term == "vt100"
+    "colorscheme eclipse
+        colorscheme darkblue
+    :else
+        set number
+        "colorscheme eclipse
+        colorscheme darkblue
+:endif
+:set backup
+
+
 
 " if (has("termguicolors"))
 "   set termguicolors
@@ -198,11 +214,11 @@ augroup END
 
 " Vim-UtilSnips Configuration
 " Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
-let g:UltiSnipsUsePythonVersion = 3
-let g:UltiSnipsExpandTrigger="<tab>"
-let g:UltiSnipsJumpForwardTrigger="<c-b>"
-let g:UltiSnipsJumpBackwardTrigger="<c-z>"
-let g:UltiSnipsEditSplit="vertical" " If you want :UltiSnipsEdit to split your window.
+""let g:UltiSnipsUsePythonVersion = 3
+""let g:UltiSnipsExpandTrigger="<tab>"
+""let g:UltiSnipsJumpForwardTrigger="<c-b>"
+""let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+""let g:UltiSnipsEditSplit="vertical" " If you want :UltiSnipsEdit to split your window.
 
 " Vim-Test Configuration
 let test#strategy = "vimux"
@@ -226,14 +242,6 @@ if !exists('g:neocomplete#keyword_patterns')
 endif
 let g:neocomplete#keyword_patterns['default'] = '\h\w*'
 
-function! s:my_cr_function()
-  return (pumvisible() ? "\<C-y>" : "" ) . "\<CR>"
-  " For no inserting <CR> key.
-  "return pumvisible() ? "\<C-y>" : "\<CR>"
-endfunction
-
-" Close popup by <Space>.
-"inoremap <expr><Space> pumvisible() ? "\<C-y>" : "\<Space>"
 
 " AutoComplPop like behavior.
 "let g:neocomplete#enable_auto_select = 1
@@ -327,12 +335,27 @@ inoremap <expr> <c-k> ("\<C-p>")
 inoremap <expr><C-g>     neocomplete#undo_completion()
 inoremap <expr><C-l>     neocomplete#complete_common_string()
 
+
+
+" Recommended key-mappings.
+" " <CR>: close popup and save indent.
+ inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
+ function! s:my_cr_function()
+   return (pumvisible() ? "\<C-y>" : "" ) . "\<CR>"
+  " For no inserting <CR> key.
+  " return pumvisible() ? '"\<C-y>" : '"\<CR>"'
+ endfunction
+
+
 " Recommended key-mappings.
 " <CR>: close popup and save indent.
-inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
+"inoremap <expr><silent> <CR> <C-r>=<SID>my_cr_function()<CR>
+
+" Close popup by <Space>.
+inoremap <expr> <Space> pumvisible() ? "\<C-y>" : "\<Space>"
 
 " <TAB>: completion.
-inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+inoremap <expr> <TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 
 " <C-h>, <BS>: close popup and delete backword char.
 inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
@@ -382,3 +405,16 @@ inoremap <expr> <c-x><c-k> fzf#vim#complete#word({'left': '15%'})
 " Vim-Alchemist Mappings
 autocmd FileType elixir nnoremap <buffer> <leader>h :call alchemist#exdoc()<CR>
 autocmd FileType elixir nnoremap <buffer> <leader>d :call alchemist#exdef()<CR>
+
+"--- The following commands make the navigation keys work like standard
+"editors
+imap <silent> <down> <c-o>gj
+imap <silent> <up> <c-o>gk
+nmap <silent> <down> gj
+nmap <silent> <up> gk
+""--- Ends navigation commands
+
+"Save as root "
+
+"command W :execute ':silent w !sudo tee % > /dev/null' | :edit!
+cmap w!! w !sudo tee > /dev/null %
