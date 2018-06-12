@@ -1571,6 +1571,124 @@ You should now have the ability to create server blocks for each domain you wish
 
 source  : https://code.tutsplus.com/es/tutorials/apache-vs-nginx-pros-cons-for-wordpress--cms-28540
 
+
+
+## How to setup subdomain or host multiple domains using nginx in linux server
+
+ By Ashish Rawat    posted on 03 Jan 2017    how to's, nginx, linux tricks
+
+Did you know, you can host multiple domains and subdomains using single ip address in linux via nginx server blocks (or virtual hosts in apache)?
+
+Well if you don't know how to do that reading this tutorial will setup you two domains and one subdomain both pointing to the same ip address and host on the
+same server.
+Here's the general assumption for this setup:
+
+  • IP Address: 220.168.32.101
+  • Domain names: example.com, blog.example.com, fakenews.com
+
+Before starting the tutorial, first thing you've to do is to point all your domains and subdomains to the single ip address via your DNS provider (edit A,
+CNAME).
+However if you want to test this locally, then edit the /etc/hosts configuration file and add the following:
+
+220.168.32.101 example.com blog.example.com
+220.168.32.101 fakenews.com
+
+And when you ping these domains locally on the server, you'll get ok (200) response.
+
+Now we'll follow the steps to setup these domain names:
+
+1. Install and start nginx
+
+Use the following command to install nginx on ubuntu
+
+$ sudo apt install nginx
+# now start it
+$ sudo nginx
+
+2. Test the nginx
+
+Check any of the domains or ip address in your browser to make sure nginx works correctly. The browser will output a default nginx page.
+
+3. Setup the test directories for each domains
+
+Up until now, all the domains have set up correctly but there is one huge problem, all pointing to same page. We need to separate these domains to point to
+their own pages. For this, I will setup test directories and html pages.
+
+  • Creating directories for each domains and subdomain
+
+$ cd /var/www
+$ sudo mkdir example.com blog.example.com fakenews.com
+
+  • Creating simple html pages for each
+
+$ sudo touch example.com/index.html
+$ sudo touch blog.example.com/index.html
+$ sudo touch fakenews.com/index.html
+
+  • Lastly put some different content in each index.html files
+
+4. Creating server blocks for each domains and subdomain
+
+Nginx provide default server block in /etc/nginx/sites-available. We will copy that server block for each domains and do modifications for each.
+Also we will create symbolic link of new file
+
+## For example.com domain
+$ sudo cp /etc/nginx/sites-available/default /etc/nginx/sites-available/example.com
+$ sudo ln -s /etc/nginx/sites-available/example.com /etc/nginx/sites-enabled/example.com
+## similarly do for others also.
+
+Now after modification, the new file will look like this for example.com domain
+
+server {
+        listen 80 default_server;
+        listen [::]:80 default_server;
+        root /var/www/example.com;
+        index index.html;
+        server_name example.com;
+}
+
+Here default_server means if none of the other domains resolve, the last resort is to resolve this server block.
+
+    NOTE: There is only one default server block in nginx with same port.
+
+Similarly for other two domains the configuration are:
+
+## For blog.example.com subdomain
+server {
+        listen 80;
+        listen [::]:80;
+        root /var/www/blog.example.com;
+        index index.html;
+        server_name blog.example.com;
+}
+
+## For fakenews.com domain
+server {
+        listen 80;
+        listen [::]:80;
+        root /var/www/fakenews.com;
+        index index.html;
+        server_name fakenews.com;
+}
+
+Bonus: Suppose fakenews.com domain listen on different port (say 2368 port) and you want to proxying port in nginx to default 80 port, then you can use
+location block inside server block like this:
+
+server {
+   ## other configuration as above
+    # ...
+  location {
+     proxy_pass http://127.0.0.1:2368;
+     proxy_set_header X-Real-IP $remote_addr;
+     proxy_set_header HOST $http_host;
+  }
+}
+
+
+
+
+
+
 #### Some point over cakephp configuration
 
 example
@@ -2598,10 +2716,42 @@ Code:
 sudo apt-get update
 
 
+# :fa-gitlab: Gitlab
+Command line instructions
+Git global setup
 
+git config --global user.name "へすす  あるべると Baizabal"
+git config --global user.email "ambagasdowa@gmail.com"
+
+Create a new repository
+
+git clone https://gitlab.com/ambagasdowa/landing.git
+cd landing
+touch README.md
+git add README.md
+git commit -m "add README"
+git push -u origin master
+
+Existing folder
+
+cd existing_folder
+git init
+git remote add origin https://gitlab.com/ambagasdowa/landing.git
+git add .
+git commit -m "Initial commit"
+git push -u origin master
+
+Existing Git repository
+
+cd existing_repo
+git remote rename origin old-origin
+git remote add origin https://gitlab.com/ambagasdowa/landing.git
+git push -u origin --all
+git push -u origin --tags
 
 
 # :fa-github: Git docs
+
 
 ##### update a repo to github
 cd to path
@@ -3524,6 +3674,9 @@ You should then be notified that your keyboard has paired:
 Hopefully this works for you, was trying to solve this for a while before I found any reference to bluetoothctl
 
 
+
+
+
 # :fa-linux: :fa-apple: :fa-windows: OS-Admin section
 
 #### Preview Handler
@@ -3614,11 +3767,28 @@ about:support
 about:flags
 
 
+#### Rename Files
 
+
+```bash
+
+ # for x in *.html ; do mv "$x" "${x%.html}.php" ;
+
+```
+
+#### build debian isos with jigdo
+
+```bash
+apt install jigdo-lite
+
+#download template and jigdo files
+#then
+
+for i in $(ls *.jigdo);do jigdo-lite --noask $i ; done
+
+```
 
 #### Install python
-
-
 
 You can install Python-3.6 on Debian 8 as follows:
 
@@ -3729,6 +3899,22 @@ on console
 ```bash
 loadkeys us
 ```
+
+some references X
+```bash
+$xmodmap -pm
+xmodmap:  up to 4 keys per modifier, (keycodes in parentheses):
+
+shift       Shift_L (0x32),  Shift_R (0x3e)
+lock        Caps_Lock (0x42)
+control     Control_L (0x25),  Control_R (0x69)
+mod1        Alt_L (0x40),  Alt_R (0x6c),  Meta_L (0xcd)
+mod2        Num_Lock (0x4d)
+mod3      
+mod4        Super_L (0x85),  Super_R (0x86),  Super_L (0xce),  Hyper_L (0xcf)
+mod5        ISO_Level3_Shift (0x5c),  Mode_switch (0xcb)
+```
+
 
 #### monitor off
 El objetivo en cuestión para configurar ese tema es logind.conf y está en
@@ -3939,6 +4125,24 @@ of grep. The optional --color flag is nice and tells grep to output using colors
 This method, using pdftotext and grep, has an advantage over pdfgrep if you want to use features of GNU grep that pdfgrep doesn't support.
 Note: pdfgrep-1.3.x supports -C option for printing line of context.
 
+
+substring and drop extension examples
+file backupNom-20170531.7z
+```bash
+
+ls -1 *.7z | tr '\n' '\0' | xargs -0 -n 1 basename | cut -d'-' -f 2
+$ 20170531.7z
+
+ls -1 *.7z | tr '\n' '\0' | xargs -0 -n 1 basename | cut -d'-' -f 2 | cut -f 1 -d '.'
+$ 20170631
+
+# extract with pass examples
+
+for i in $(ls -1); do pass=$(echo $i | tr '\n' '\0' | xargs -0 -n 1 basename | cut -d'-' -f 2 | cut -f 1 -d '.') ; 7z x -p$pass -y -aoa -o/home/ambagasdowa/pdfsave/extract/ $i ; done;
+
+
+```
+
 #### Get the major size files on top
 
 ```bash
@@ -3949,6 +4153,31 @@ Note: pdfgrep-1.3.x supports -C option for printing line of context.
     du -h --total --max-depth=1 | sort -rh | less
 
 ```
+
+#### glx issues
+Thank you, friend!
+Your solution helped me in such problem:
+
+glxinfo | grep -i "OpenGL renderer"
+
+# glxinfo
+# glxgears
+# google-earth
+-- all of them gave "Xlib: extension GLX missing on display :0.0" error report...
+
+# lspci
+00:02.0 VGA compatible controller: Intel Corporation 4 Series Chipset Integrated Graphics Controller (rev 03)
+
+After, by yoyr advice,
+# sudo nvidia-settings --uninstall
+# sudo apt-get install --reinstall xserver-xorg-video-intel libgl1-mesa-glx libgl1-mesa-dri xserver-xorg-core
+# sudo dpkg-reconfigure xserver-xorg
+and reboot
+the problem has gone!
+Thank you!
+
+#### Update initrams
+sudo update-initramfs -u
 
 
 ## ls hdd devices by uuid and mount it
