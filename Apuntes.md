@@ -98,13 +98,8 @@ My second name
 Hiragana      katakana
 あるべると    アルベルト
 
-Her name  firts A then Y
-Hiragana      katakana
-あれはんどら  アレハンドラ
-
-やみれと      ヤミレト
-
----
+And  my Wife's Name
+  マリア・ドゥーラ
 
 Remenber this tools on your journey
 
@@ -143,6 +138,7 @@ xsw			              presentations sowftware very easy to use
 ```
 
 ---
+
 
 
 # :fa-edit: Editors Section
@@ -3212,6 +3208,55 @@ binlog_format='MIXED'
 ...
 ```
 
+### Hypervisor
+
+Extracting your `Windows` license key
+
+sudo apt-get install acpica-tools
+
+ ambagasdowa  ~  sudo acpidump -n MSDM
+ MSDM @ 0x0000000000000000
+ 0000: 4D 53 44 4D 55 00 00 00 03 15 4C 45 4E 4F 56 4F  MSDMU.....LENOVO
+ 0010: 54 50 2D 4E 31 51 20 20 80 12 00 00 50 54 45 43  TP-N1Q  ....PTEC
+ 0020: 02 00 00 00 01 00 00 00 00 00 00 00 01 00 00 00  ................
+ 0030: 00 00 00 00 1D 00 00 00 47 4B 33 58 34 2D 4E 36  ........GK3X4-N6
+ 0040: 51 4D 4D 2D 34 50 51 4D 57 2D 37 52 54 57 4B 2D  QMM-4PQMW-7RTWK-
+ 0050: 51 56 36 36 50                                   QV66P
+
+sudo acpidump|grep MSDM -A6|cut -c58- |xargs | tr -d " " | grep -oP '[^.]+$'
+
+
+
+
+There is a great tool available for Linux called chntpw. You can get it easily on Debian/Ubuntu via:
+
+sudo apt install chntpw
+
+To look into the relevant registry file mount the Windows disk and open it like so:
+
+chntpw -e /path/to/windisk/Windows/System32/config/software
+
+Now to get the decoded DigitalProductId enter this command:
+
+dpi \Microsoft\Windows NT\CurrentVersion\DigitalProductId
+
+#### To install Windows Server Migration Tools on a full installation of Windows Server 2008 R2
+Import-Module ServerManager
+Add-WindowsFeature Migration
+
+To export local users and groups from the source server
+
+Add-PSSnapin Microsoft.Windows.ServerManager.Migration
+
+Export-SmigServerSetting -User <Enabled | Disabled | All> -Group -Path <MigrationStorePath> -Verbose
+
+Export-SmigServerSetting -User All -Group -Path c:\usr\ -Verbose
+
+To import local users and groups to the destination server
+
+Import-SmigServerSetting -User <Enabled | Disabled | All> -Group -Path <MigrationStorePath> -Verbose
+
+Import-SmigServerSetting -User All -Group -Path C:\usr -Verbose
 
 # Libre office
 
@@ -3679,9 +3724,69 @@ Hopefully this works for you, was trying to solve this for a while before I foun
 
 # :fa-linux: :fa-apple: :fa-windows: OS-Admin section
 
-#### Preview Handler
- > No puede abrir los datos adjuntos de los archivos vinculados en Outlook: "Outlook bloqueó el acceso a los siguientes datos adjuntos potencialmente inseguros"
+Linux
+-----
+#### Build an empty image
 
+This is a step-by-step guide to create a custom image starting from scratch;
+I'll assume the following:
+
+    The image size should be 100 MiB
+    The image partition table should be MBR
+    The image should contain a single FAT32 primary partition
+
+Creating the blank image
+
+Create the blank image:
+```bash
+dd if=/dev/zero of=image.img iflag=fullblock bs=1M count=100 && sync
+
+ubuntu@ubuntu ~/tmp % dd if=/dev/zero of=image.img iflag=fullblock bs=1M count=100 && sync
+100+0 records in
+100+0 records out
+104857600 bytes (105 MB) copied, 0.0415825 s, 2.5 GB/s
+ubuntu@ubuntu ~/tmp % tree
+.
+└── image.img
+
+0 directories, 1 file
+```
+
+Mounting the blank image
+
+List the already busy loopback devices:
+```bash
+losetup
+
+
+ubuntu@ubuntu ~/tmp % losetup                   
+NAME       SIZELIMIT OFFSET AUTOCLEAR RO BACK-FILE
+/dev/loop0         0      0         0  1 /cdrom/casper/filesystem.squashfs
+```
+
+Mount the image on the first available loopback device:
+```bash
+sudo losetup loop1 image.img
+
+ubuntu@ubuntu ~/tmp % sudo losetup loop1 image.img
+ubuntu@ubuntu ~/tmp % losetup
+NAME       SIZELIMIT OFFSET AUTOCLEAR RO BACK-FILE
+/dev/loop0         0      0         0  1 /cdrom/casper/filesystem.squashfs
+/dev/loop1         0      0         0  0 /home/ubuntu/tmp/image.img
+```
+Partitioning / formatting the blank image
+
+Run gparted passing the loopback device as an argument:
+
+sudo -H gparted /dev/loop1
+
+or fdisk instead
+
+
+#### Preview Handler
+Windows
+----
+ #### No puede abrir los datos adjuntos de los archivos vinculados en Outlook: "Outlook bloqueó el acceso a los siguientes datos adjuntos potencialmente inseguros"
 
  ### Causa
  ---
@@ -3721,6 +3826,31 @@ Hopefully this works for you, was trying to solve this for a while before I foun
  En el cuadro Información del valor, escriba 1 y haga clic en Aceptar.
  Salga del Editor del Registro y reinicie el equipo.
 
+#### Kill task in windows
+
+taskkill.exe /F /IM iexplore.exe /T
+
+
+#### Connect to samba NetWork
+
+Connect Network Drive
+
+To map a network drive from windows command line:
+
+    Click Start, and then click Run .
+    In the Open box, type cmd to open command line window.
+    Type the following, replacing Z: with drive letter you want to assign to the shared resource:
+
+    net use Z: \\computer_name\share_name /PERSISTENT:YES
+
+Disconnect Network Drive
+
+To disconnect a mapped drive:
+
+    Open command line window.
+    Type the following, replacing X: with drive letter of the shared resource:
+
+    net use  Z: /delete    
 
 ### remove packages anoing
 BTW the article you linked deals with exit status 2 when trying to remove a package. In this situation, deleting the package record from /var/lib/dpkg/status would certainly help. But even then instead of editing the file manually, I'd try to locate and remove the record with sed.
@@ -3853,7 +3983,19 @@ There are 3 choices for the alternative python (providing /usr/bin/python).
 
 Press <enter> to keep the current choice[*], or type selection number:*
 
+### ssh
 
+Offending ECDSA key in /home/ambagasdowa/.ssh/known_hosts:2
+  remove with:
+  ssh-keygen -f "/home/ambagasdowa/.ssh/known_hosts" -R 192.168.20.215
+RSA host key for 192.168.20.215 has changed and you have requested strict checking.
+Host key verification failed.
+
+### Xorg
+
+the default path of xorg.conf
+
+ /usr/share/X11/xorg.conf.d
 
 ### :fa-firefox:
 disable web autoplay in firefox
@@ -3862,7 +4004,6 @@ set to true this options in about:config
   media.autoplay.enabled
   media.block-autoplay-until-in-foreground
 ```
-
 
 
 # :fa-terminal: Notes Section
@@ -4154,6 +4295,16 @@ for i in $(ls -1); do pass=$(echo $i | tr '\n' '\0' | xargs -0 -n 1 basename | c
 
 ```
 
+
+#### list files in natural order
+
+ls -1v
+
+#### convert multiple image in one pdf
+files are 1 to 95 img
+
+img2pdf --pagesize letter page_{1..95}.jpg -o Emmerick_fechas_jesus.pdf
+
 #### glx issues
 Thank you, friend!
 Your solution helped me in such problem:
@@ -4179,6 +4330,195 @@ Thank you!
 #### Update initrams
 sudo update-initramfs -u
 
+#### fix grub
+1: Bajarte la ISO de Boot Repair y quemarla en USB
+
+Te la puedes descargar desde este link:
+
+https://sourceforge.net/projects/boot-repair-cd/  
+
+Introduce este comando para descargar e instalar el usb-creator-gtk:
+
+sudo apt-get install usb-creator-gtk
+
+Una vez usb-creator está instalado en nuestro sistema:
+
+    Insertar un dispositivo USB
+    Ejecutar usb-creator.
+    Seleccionar el archivo \*.iso y el dispositivo USB destino.
+
+2: Usar un LiveUSB de Ubuntu e instalar en él BootRepair (es temporal ya que al reiniciar se dejara de usar el liveUSB)
+
+Nota: Si pudieses entrar en tu sistema cargando manualmente grub, podrías usar este métido directamente en tu sistema, no en un LiveUSB.
+
+sudo add-apt-repository ppa:yannubuntu/boot-repair
+sudo apt-get update
+sudo apt-get install -y boot-repair
+boot-repair
+
+
+3: Usar un LiveUSB de Ubuntu y hacerlo a la vieja usanza, a mano
+
+Tras arrancar el LiveUSB, necesitamos localizar las particiones de los distintos discos duros:
+
+sudo fdisk -l
+
+
+Debemos montar la partición en la que tengamos ubuntu , que en la mayoría de los casos esta partición será sda1 o sda2. Vamos a seguir suponiendo que es "sda" y no "sdb". Ejecuta este comando pero cambiando X por el número de tu partición.
+
+sudo mount /dev/sdaX /mnt
+
+Ahora, monta el resto de los dispositivos:
+
+sudo mount --bind /dev /mnt/dev
+sudo mount --bind /dev/pts /mnt/dev/pts
+sudo mount --bind /proc /mnt/proc
+sudo mount --bind /sys /mnt/sys
+
+
+Ejecuta el comando chroot de forma que accedemos como root al sistema de archivos de nuestro antiguo Ubuntu:
+
+sudo chroot /mnt
+
+
+Ahora instalamos Grub en el MBR con:
+
+grub-install --boot-directory=/boot/ --recheck /dev/sda
+
+
+(Aquí ya no hay que poner el número solo el disco que arranca los sistemas operativos, que como decíamos antes en este ejemplo usamos sda)
+
+Reiniciamos y cuando vuelva a arrancar ubuntu (no el del LiveCD), podemos ajustar en el menú del GRUB manualmente editando la configuración si falta algún SO, o hacerlo automáticamente con el siguiente comando:
+
+sudo update-grub2
+
+
+4: En Arch o Antergos
+
+Instalamos el efibootmgr:
+
+pacman -S efibootmgr
+
+Y una vez instalado vamos a por el grub:
+
+sudo grub-install /dev/sda
+
+sudo grub-mkconfig -o /boot/grub/grub.cfg
+
+Reiniciar
+
+#### Mod Grub
+
+Configure GRUB2 Boot Loader Settings In Ubuntu 16.04
+by sk · Published April 11, 2016 · Updated April 11, 2017
+6-7 minutes
+
+As you probably know, GRUB2 is default boot loader for most Linux operating systems. GRUB stands for GRand Unified Bootloader. GRUB boot loader is the first program that runs when the computer starts. It is responsible for loading and transferring control to the operating system Kernel. Then, the Kernel takes charge, and initializes the rest of the operating system.
+
+In this tutorial, we will be discussing about configuring some important GRUB2 Boot Loader’s settings in Ubuntu 16.04 LTS desktop. I tested this guide in Ubuntu 16.04 LTS desktop, however these instructions might work on all Linux operating systems that uses GRUB2 boot loader.
+Configure GRUB2 Boot Loader settings
+
+Warning: The default configuration file for GRUB2 is /boot/grub/grub.cfg. You shouldn’t edit or modify this file, unless you are much familiar with GRUB2. This is the main file to boot into the Linux OS. If you do anything wrong with this file, then you will be surely end up with broken system. So, Don’t touch this file!
+
+All settings related to the GRUB2 will be stored in /etc/default/grub file. Whatever the changes you made in this file will be reflected to the GRUB2.
+
+Make a backup of /etc/default/grub file before making any changes.
+
+sudo cp /etc/default/grub /etc/default/grub.bak
+
+Let us see the main options in the GRUB boot loader.
+
+The typical grub will look like below.
+
+cat /etc/default/grub
+
+Sample output:
+```config
+# If you change this file, run 'update-grub' afterwards to update
+# /boot/grub/grub.cfg.
+# For full documentation of the options in this file, see:
+# info -f grub -n 'Simple configuration'
+
+GRUB_DEFAULT=0
+GRUB_HIDDEN_TIMEOUT=0
+GRUB_HIDDEN_TIMEOUT_QUIET=true
+GRUB_TIMEOUT=10
+GRUB_DISTRIBUTOR=`lsb_release -i -s 2> /dev/null || echo Debian`
+GRUB_CMDLINE_LINUX_DEFAULT="quiet splash"
+GRUB_CMDLINE_LINUX=""
+
+# Uncomment to enable BadRAM filtering, modify to suit your needs
+# This works with Linux (no patch required) and with any kernel that obtains
+# the memory map information from GRUB (GNU Mach, kernel of FreeBSD ...)
+#GRUB_BADRAM="0x01234567,0xfefefefe,0x89abcdef,0xefefefef"
+
+# Uncomment to disable graphical terminal (grub-pc only)
+#GRUB_TERMINAL=console
+
+# The resolution used on graphical terminal
+# note that you can use only modes which your graphic card supports via VBE
+# you can see them in real GRUB with the command `vbeinfo'
+#GRUB_GFXMODE=640x480
+
+# Uncomment if you don't want GRUB to pass "root=UUID=xxx" parameter to Linux
+#GRUB_DISABLE_LINUX_UUID=true
+
+# Uncomment to disable generation of recovery mode menu entries
+#GRUB_DISABLE_RECOVERY="true"
+
+# Uncomment to get a beep at grub start
+#GRUB_INIT_TUNE="480 440 1"
+```
+
+Whenever you made a change in this file, you must run the following command to apply the changes to the GRUB2.
+
+sudo update-grub
+
+Let us do three important tweaks in the GRUB2 boot loader.
+1. Select default OS (GRUB_DEFAULT)
+
+We can select the default OS to boot using this option. If you set the value as “0”, the first operating system in the GRUB boot menu entry will boot. If you set it as “1”, the second OS will boot, and so on.
+
+Also, if you have more than one OS in your system, you can boot the last operating system using the value GRUB_DEFAULT=saved. Whenever you reboot the system, the last operating system will start boot. Please note that you should add a line GRUB_SAVEDEFAULT=true to make this trick work.
+
+You can also specify the name of the operating system’s entry to boot a particular OS. For example, if there is an entry called “Lubuntu 14.04 LTS” in the BOOT menu, you could use GRUB_DEFAULT=”Lubuntu 14.04 LTS” to boot Lubuntu by default. Be mindful that you should specify the value within the quotes.
+2. Set OS timeout (GRUB_TIMEOUT)
+
+By default, the selected entry from the boot menu will start to boot in 10 seconds.
+
+You can increase or decrease this timeout setting. If the value is “0”, the default OS will immediately start to boot. If the value is “5” , the boot menu will appear for 5 seconds, so that you can select which OS you want to load when the system starts.
+
+3. Change GRUB background image
+
+To change the GRUB background image, you need to copy your preferred image to /boot/grub/ location.
+
+sudo cp ostechnix.png /boot/grub/
+
+Replace the image path with your own. You can use JPG/JPEG format images as well. But GRUB supports only 256 color JPG/JPEG image formats only. So, it is better to use PNG format images.
+
+Once you made the necessary changes in the GRUB file, Save and close it.
+
+To apply the changes, you must run the following command:
+
+sudo update-grub
+
+You should see the following output:
+
+Generating grub configuration file ...
+Found background image: ostechnix.png
+Found linux image: /boot/vmlinuz-4.4.0-15-generic
+Found initrd image: /boot/initrd.img-4.4.0-15-generic
+Found linux image: /boot/vmlinuz-4.2.0-34-generic
+Found initrd image: /boot/initrd.img-4.2.0-34-generic
+Found memtest86+ image: /boot/memtest86+.elf
+Found memtest86+ image: /boot/memtest86+.bin
+done
+
+Reboot and check whether the changes are working or not.
+
+Please be mindful that you shouldn’t edit or modify GRUB2 settings in mission critical or production systems. I recommend you to test these settings in any virtual machine first, and then apply to the production systems.
+
+That’s all folks. I will be here soon with another Interesting article. If you find this guide helpful, please share it on your social and professional networks.
 
 ## ls hdd devices by uuid and mount it
 
@@ -4439,6 +4779,36 @@ or whatever you wish. Password usage is operative.
 That\'s it.
 
 
+NetWork scan
+
+sudo nmap -PR -sU --script nbstat.nse -p 137,445 192.168.20.0/24
+
+sudo netdiscover -r 192.168.20.0/24 -i enp0s31f6
+
+nast
+
+
+#### HackThisSite
+
+You have 60 seconds to compromise a Linux machine given the root password (No installing software or ssh) What do you do?
+
+Strangely, it seems for most people compromise means destroy. For me it’s not. Compromise means take over or escalate privilege. If you have the root pw (for a time) it’s meaning keep that privilege for undefined time. You *must go stealth* immediately as much as possible and return later.
+
+In 60 seconds you can do the following according to the circumstances:
+
+    Log in (10 sec)
+    Create another uid 0 user. Very easy, still effective. Create (or select existing known) user and edit it’s uid to 0 in /etc/passwd. You will be root without being called root. (10sec)
+    visudo (if sudo is installed). For example, you can give NOPASSWD sudo right for www-data or httpd user and compromise the machine later over it’s web interface. Simple, but easy to spot. It’s ok for short time frame. (10 sec)
+    Create suid script or simply suid sh or cat (or anything that can write disk or spawn shell). You can hide it anywhere. Very hard to spot without explicit full search (eg. find) or active tripwires. (10 sec)
+    Start remote backdoor in the background. For example: nc -l -p 1234 | /bin/bash & disown (10 sec) Optionally
+    punch a hole in the firewall: iptables -I INPUT -p tcp —dport 1234 -j ACCEPT (+10 sec)
+    remove bash history if you have time (history -c). Many distros won’t include command in history if you start them with space. (5 sec)
+    Clear screen (ctrl+L) and logout (ctrl+d) (2 sec)
+    Lean back and smile innocently ;)
+
+EDIT: one more devilish method came into my mind. Edit PAM rules. Locate the login rules in /etc/pam.d/ (most possibly system-auth or something). Change keyword “required“ to “sufficient” in the line starting with auth and containing pam_unix.so. Now you essentially turned off the password authentication *without* turning off the password prompt. You can just login as any user (eg root) with any password. *Very* hard to detect. No background process, no open ports, no suspicious suid bits (which is checked regularly). The only way to catch it if someone knowingly write a wrong password (not counting full filesystem change audit which is requirement in highly secure environment of course).
+
+
 #### The Seven Sins against TSQL Performance
 
 There are seven common antipatterns in TSQL coding that make code perform badly, and three good habits which will generally ensure that your code runs fast. If you learn nothing else from this list of great advice from Grant, just keep in mind that you should 'write for the optimizer'.
@@ -4458,6 +4828,19 @@ It’s not enough that your code is readable: it must perform well too.
  https://josephmaryam.files.wordpress.com
 
  http://iteadjmj.com/inicio.html
+
+## Payments
+paypal.me/JesusBaizabal
+
+
+GitHub Apps
+Personal access tokens
+Personal access tokens
+
+Tokens you have generated that can be used to access the GitHub API.
+
+Make sure to copy your new personal access token now. You won’t be able to see it again!
+b7f16dc0ceaac172e29ca3f655a6e4ff1d9714d4
 
 
  ## TODO
