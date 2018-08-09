@@ -4843,6 +4843,9 @@ Make sure to copy your new personal access token now. You won’t be able to see
 b7f16dc0ceaac172e29ca3f655a6e4ff1d9714d4
 
 
+example in Gitlab
+https://ambagasdowa:b7f16dc0ceaac172e29ca3f655a6e4ff1d9714d4@github.com/ambagasdowa/myrepo.git
+
  ## TODO
 
  NOTICE: Not enabling PHP 5.6 FPM by default.
